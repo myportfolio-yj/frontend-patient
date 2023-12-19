@@ -1,0 +1,19 @@
+<div class="mobile-navbar">
+    <img src="ruta-al-logo.png" alt="Logo" class="logo">
+    <h1 class="app-title">Nombre de la Aplicación</h1>
+    <div class="hamburger-menu">
+      <!-- Add a click event to toggle the menu -->
+      <div class="menu-icon" (click)="toggleMenu()">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+      </div>
+      <!-- Display the menu when it's toggled -->
+      <div class="menu-list" *ngIf="showMenu">
+        <a routerLink="/profile" (click)="selectOption('profile')">Profile</a>
+        <a routerLink="/config" (click)="selectOption('config')">Config</a>
+        <a routerLink="/logout" (click)="selectOption('logout')">Logout</a>
+      </div>
+    </div>
+  </div>
+  
