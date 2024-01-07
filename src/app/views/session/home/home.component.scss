@@ -1,39 +1,119 @@
-.app-container {
+.container-list {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.scroll-list {
+  display: flex;
+  overflow-x: auto;
+  padding: 20px;
+
+  .item {
     display: flex;
     flex-direction: column;
     align-items: center;
-  
-    .desktop-navbar {
+    margin-right: 10px;
+    text-align: center;
+
+    .list-icon {
+      width: 50px; /* Ajusta el tamaño del ícono según tus necesidades */
+      height: 50px; /* Ajusta el tamaño del ícono según tus necesidades */
+      margin-bottom: 10px;
+      background-color: #01A189;
+      border-radius: 50%; /* Hace que la imagen sea circular */
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
       align-items: center;
-      padding: 15px;
-      background-color: #333;
-      color: white;
-  
-      .logo {
-        width: 50px; /* Adjust as needed */
-        height: auto;
+    }
+
+    .name-icon {
+      margin: 0;
+    }
+  }
+}
+
+.card {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  margin: 20px;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // Agrega la elevación al card
+
+  .img {
+    width: 80px;
+    height: 100px;
+    margin-right: 10px;
+  }
+
+  .info {
+    flex-grow: 1; // El contenido en la parte derecha ocupa todo el espacio disponible
+
+    .info-title {
+      display: flex;
+      align-items: center;
+
+      h2 {
+        color: #000000;
+        margin: 0px 0px 10px 0px;
       }
-  
-      .app-title {
-        margin: 0;
+    }
+
+    .row {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+
+      i {
+        // Estilos para el ícono
       }
-  
-      .menu {
-        display: flex;
-        gap: 15px;
-  
-        a {
-          color: white;
-          text-decoration: none;
-          cursor: pointer;
-  
-          &:hover {
-            text-decoration: underline;
-          }
-        }
+
+      span {
+        margin-left: 10px;
+        // Otros estilos para el texto
+      }
+      h4 {
+        color: #81807F;
+        margin: 0px;
+        margin-left: 10px;
+      }
+      h2 {
+        color: #000000;
+        margin: 0px;
+      }
+      h3 {
+        color: #81807F;
+        margin: 0px;
       }
     }
   }
-  
+}
+
+.content-container {
+  opacity: 0;
+  transform: translateX(-100%);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.show-content {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.content {
+  // Estilos generales del contenido
+  // ...
+
+  .content-head {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 20px;
+  }
+
+  &:not(:first-child) {
+    margin-top: 20px;
+  }
+}

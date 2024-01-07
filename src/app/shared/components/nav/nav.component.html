@@ -1,0 +1,256 @@
+<app-header [image]="image" [hasExternalUrl]="hasExternalUrl">
+    <nav class="nav">
+      <a
+        class="nav-item"
+        *ngFor="let item of navItems; let i = index"
+        [ngClass]="selectedClassNav(item)"
+        (click)="handleHoverItem(i)"
+        (click)="selectItem($event, item)"
+      >
+        <!-- ITEMS -->
+        <div class="select-nav">
+          <ng-container *ngIf="item.subItems == undefined; else SubItems">
+            <div class="identifier-box" [routerLink]="item.path" routerLinkActive="link-active">
+              <div class="icon">
+                <div
+                  class="color-variable"
+                  [ngStyle]="{
+                    fontSize: TypographySize.sml,
+                    fontWeight: '700',
+                    color: item.color == '' ? 'var(--color-brand-mako2)' : item.color
+                  }"
+                >
+                    <mat-icon>{{ item.icon }}</mat-icon>
+                </div>
+              </div>
+              <div
+                class="typography text-variable"
+                [innerHTML]="item.label"
+                [align]="TypographyAlign.left"
+                [ngStyle]="{
+                  fontSize: TypographySize.sml,
+                  fontWeight: '500',
+                  color: item.color !== '' ? item.color : 'var(--color-brand-mako2)'
+                }"
+              ></div>
+            </div>
+          </ng-container>
+          <ng-template #SubItems>
+            <div class="identifier-box" routerLinkActive="sub-router-link-active">
+              <div class="container-nav">
+                <div class="icon">
+                  <div
+                    class="color-variable"
+                    [ngStyle]="{
+                      fontSize: TypographySize.sml,
+                      fontWeight: '700',
+                      color: item.color == '' ? 'var(--color-brand-mako2)' : item.color
+                    }"
+                  >
+                    <mat-icon>{{ item.icon }}</mat-icon>
+                  </div>
+                </div>
+                <div
+                  class="typography text-variable"
+                  [innerHTML]="item.label"
+                  [align]="TypographyAlign.left"
+                  [ngStyle]="{
+                    fontSize: TypographySize.sml,
+                    fontWeight: '500',
+                    color: item.color !== '' ? item.color : 'var(--color-brand-mako2)'
+                  }"
+                ></div>
+              </div>
+   
+              <!-- SUBITEMS -->
+              <div
+                [style.display]="item.subItems && i === hoveredItem - 1 ? 'flex' : 'none'"
+                class="sub-menu"
+                [style.bottom]="subMenuMargin(item.subItems)"
+                [style.backgroundColor]="backgroundColor"
+                (mouseleave)="outHoverItem()"
+              >
+                <!-- *ngIf="item.subItems && i === hoveredItem - 1" -->
+                <div class="sub-item" *ngFor="let subItem of item.subItems">
+                  <div (click)="selectSubItem($event, subItem)" [routerLink]="subItem.path">
+                    <a class="sub-item-anchor">
+                      <ng-container *ngIf="subItem.label !== 'A otros bancos'; else OtherText">
+                        <div
+                          class="typography"
+                          [innerHTML]="myTrustedHTML(subItem.label)"
+                          [align]="TypographyAlign.left"
+                          [ngStyle]="{
+                            size: TypographySize.sml,
+                            color: 'var(--color-brand-shuttle-gray)'
+                          }"
+                        ></div>
+                      </ng-container>
+                      <ng-template #OtherText>
+                        <div style="display: flex">
+                          <div
+                            class="typography-other-text"
+                            style="color: var(--color-brand-shuttle-gray); padding-right: 0.75em"
+                          >
+                            Others
+                          </div>
+                          <!-- <mat-icon svgIcon="left-rays" style="padding-right: 0.5em"> </mat-icon> -->
+                          <div
+                            class="typography-other-text"
+                            style="color: var(--color-brand-jaffa); font-weight: 600; padding-right: 0.25em"
+                          >
+                            Not
+                          </div>
+                          <!-- <mat-icon svgIcon="right-rays"> </mat-icon> -->
+                        </div>
+                      </ng-template>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </div>
+      </a>
+    </nav>
+    <nav class="burger">
+      <div (click)="showMenu()" class="burger-click">
+        <mat-icon>menu</mat-icon>
+      </div>
+    </nav>
+  </app-header>
+   
+  <!-- Lateral menu-->
+   
+  <div *ngIf="showLateralMenu" class="lateral-menu">
+    <div class="lateral-menu-header">
+      <div (click)="showMenu()" class="close-icon">
+        <mat-icon>close</mat-icon>
+      </div>
+    </div>
+   
+    <div class="lateral-menu-content">
+      <app-typography
+        [align]="TypographyAlign.left"
+        fontWeight="600"
+        lineHeight="1.333"
+        [size]="TypographySize.xl"
+        color="var(--color-brand-mako)"
+        >AQUI VA NO QUE DESEES
+      </app-typography>
+      <div class="lateral-content">
+        <div class="lateral-item" *ngFor="let item of navItems; let i = index">
+          <div
+            *ngIf="!item.subItems || item.typeOfSubMenu === SubMenuType.select"
+            (click)="selectItem($event, item)"
+            (click)="handleAngOutHover(item.subItems?.length)"
+          >
+            <div [ngClass]="[navItems.length > i + 1 ? 'lateral-active-item' : '']" class="lateral-identifier-box">
+              <div class="lateral-text-container">
+                <ng-container *ngIf="item.subItems == undefined; else SubItemsMobile">
+                  <div
+                    class="lateral-text-box"
+                    [ngClass]="selectedClassNavMobile(item)"
+                    [routerLink]="item.path"
+                    routerLinkActive="link-mobile-active"
+                  >
+                    <mat-icon>{{item.icon}}</mat-icon>
+                    <div
+                      class="typography-mobile text-variable-mobile"
+                      [innerHTML]="item.label"
+                      [align]="TypographyAlign.left"
+                      [ngStyle]="{
+                        fontSize: TypographySize.sml,
+                        fontWeight: '500',
+                        color: item.color !== '' ? item.color : 'var(--color-brand-mako)'
+                      }"
+                    ></div>
+                  </div>
+                </ng-container>
+                <ng-template #SubItemsMobile>
+                  <div
+                    class="lateral-text-box"
+                    [ngClass]="selectedClassNavMobile(item)"
+                    routerLinkActive="sub-link-mobile-active"
+                  >
+                    <mat-icon>{{item.icon}}</mat-icon>
+                    <div
+                      class="typography-mobile text-variable-mobile"
+                      [innerHTML]="item.label"
+                      [align]="TypographyAlign.left"
+                      [ngStyle]="{
+                        fontSize: TypographySize.sml,
+                        fontWeight: '500',
+                        color: item.color !== '' ? item.color : 'var(--color-brand-mako)'
+                      }"
+                    ></div>
+                  </div>
+                </ng-template>
+   
+                <div *ngIf="item.subItems" routerLinkActive="link-mobile-active" [routerLink]="item.path">
+                  <div
+                    class="lateral-select-icon"
+                    [ngClass]="i + 1 === clickedItem ? 'opened-select-icon' : 'closed-select-icon'"
+                  >
+                    <mat-icon>arrow-left</mat-icon>
+                  </div>
+                </div>
+              </div>
+   
+              <div *ngIf="clickedItem === 1 && item.subItems">
+                <div class="sub-item-content">
+                  <div class="sub-item-select" *ngFor="let subItem of item.subItems">
+                    <a class="sub-item-anchor" [routerLink]="subItem.path" routerLinkActive="sub-link-mobile-active">
+                      <div
+                        class="typography-mobile text-variable-mobile"
+                        [innerHTML]="subItem.label"
+                        [align]="TypographyAlign.center"
+                        lineHeight="1.5"
+                        [ngStyle]="{
+                          fontSize: TypographySize.sml,
+                          fontWeight: '500',
+                          color: item.color !== '' ? item.color : 'var(--color-brand-mako)'
+                        }"
+                      ></div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+   
+          <!-- MORE SUBITEMS -->
+          <div
+            *ngIf="item.subItems && item.typeOfSubMenu === SubMenuType.splited"
+            class="lateral-sub-menu"
+            [style.bottom]="subMenuMargin(item.subItems)"
+          >
+            <div
+              [ngClass]="[item.subItems.length > position + 1 ? 'lateral-active-item' : '']"
+              class="sub-item-lateral"
+              (click)="selectSubItem($event, subItem)"
+              [routerLink]="subItem.path"
+              routerLinkActive="link-mobile-active"
+              *ngFor="let subItem of item.subItems; let position = index"
+            >
+              <!-- [routerLink]="subItem.path"
+              routerLinkActive="link-mobile-active" -->
+              <div class="other-items-nav">
+                <mat-icon>{{subItem.icon}}</mat-icon>
+   
+                <div
+                  class="typography-mobile text-variable-mobile"
+                  [innerHTML]="subItem.label"
+                  [align]="TypographyAlign.left"
+                  [ngStyle]="{
+                    fontSize: TypographySize.sml,
+                    color: subItem.highlightedMobile ? 'var(--color-primary)' : 'var(--color-brand-mako)'
+                  }"
+                ></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

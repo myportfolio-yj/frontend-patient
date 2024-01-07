@@ -1,0 +1,14 @@
+<div class="header" [style.background]="backgroundColor">
+    <div class="logo-container">
+      <app-image
+        [borderRadius]="'0em'"
+        [image]="image"
+        [hasExternalUrl]="hasExternalUrl"
+        [width]="'100%'"
+        [height]="'auto'"
+      ></app-image>
+    </div>
+    <div class="content">
+      <ng-content> </ng-content>
+    </div>
+  </div>

@@ -5,11 +5,13 @@ import { FormsModule } from '@angular/forms';
 import { SharedModule } from './../../shared/shared.module';
 import { HomeComponent } from './home/home.component';
 import { SessionRoutingModule } from './session.routing.module';
+import { MyAccountComponent } from './my-account/my-account.component';
 
 
 @NgModule({
   declarations: [
     HomeComponent,
+    MyAccountComponent
   ], imports: [
     SharedModule,
     CommonModule,

@@ -1,0 +1,119 @@
+.typography {
+    width: 100%;
+    font-family: 'Brevia';
+    font-weight: 500;
+    line-height: 1.333;
+    color: var(--color-font-base);
+}
+
+.color-base {
+    color: var(--color-font-base);
+}
+
+.color-inverted {
+    color: var(--color-font-inverted);
+}
+
+.color-muted {
+    color: var(--color-font-muted);
+}
+
+.color-disabled {
+    color: var(--color-brand-casper);
+}
+
+.color-primary {
+    color: var(--color-primary);
+}
+
+.color-secondary {
+    color: var(--color-secondary);
+}
+
+.color-tertiary {
+    color: var(--color-tertiary);
+}
+
+.color-info {
+    color: var(--color-info2);
+}
+
+.color-warning {
+    color: var(--color-tertiary);
+}
+
+.color-error {
+    color: var(--color-error);
+}
+
+.color-fontcard {
+    color: var(--color-fontcard);
+}
+
+.size-xs {
+    font-size: var(--font-size-xs);
+}
+
+.size-sm {
+    font-size: var(--font-size-sm);
+}
+
+.size-sml {
+    font-size: var(--font-size-sml);
+}
+
+.size-md {
+    font-size: var(--font-size-md);
+}
+
+.size-lg {
+    font-size: var(--font-size-lg);
+}
+
+.size-lgs {
+    font-size: var(--font-size-lgs);
+}
+
+.size-xl {
+    font-size: var(--font-size-xl);
+}
+
+.size-xxl {
+    font-size: var(--font-size-xxl);
+}
+
+.size-xxxl {
+    font-size: var(--font-size-xxxl);
+}
+
+.is-striked {
+    text-decoration: line-through;
+}
+
+.is-inline {
+    display: inline-block;
+    max-width: max-content;
+}
+
+.is-monospace {
+    font-family: var(--font-family-mono) !important;
+}
+
+.is-truncated {
+    margin: 0 auto;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.enable-selection {
+    -webkit-user-select: auto;
+    -ms-user-select: auto;
+    user-select: auto;
+}
+
+.disable-selection {
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}

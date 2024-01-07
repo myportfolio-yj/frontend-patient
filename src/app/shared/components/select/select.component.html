@@ -1,0 +1,59 @@
+<div [ngClass]="classes">
+    <!-- <div class="select-label" tabindex="1">
+      <mbp-typography
+        [align]="TypographyAlign.left"
+        color="var(--color-font-muted)"
+        fontSize="17px"
+        fontWeight="700"
+        lineHeight="100%"
+        margin="0 0 12px 0"
+        >{{ label }}
+      </mbp-typography>
+      <label>{{ label }}</label>
+    </div> -->
+   
+    <div class="select-box" (click)="onClicked($event)">
+      <div [ngClass]="selectedClass">
+        {{ valuePlaceholder }}
+        <div>
+          <!-- <mbp-icon
+            class="select-icon"
+            [icon]="icon"
+            [iconSize]="iconSize"
+            fontWeight="500"
+            [color]="iconColor"
+            [hasBackground]="false"
+            backgroundWidth="1em"
+            backgroundHeight="1em"
+            borderColor="transparent"
+            [enableSelection]="false"
+            [rotate]="0"
+          ></mbp-icon> -->
+        </div>
+      </div>
+      <div class="options-container" [ngClass]="opened === true ? 'active' : ''">
+        <div
+          class="option"
+          [ngClass]="opened === true ? 'active' : ''"
+          *ngFor="let item of items"
+          (click)="optionClicked(item)"
+        >
+          <!-- <mbp-typography [align]="TypographyAlign.left" color="var(--color-brand-mako)" fontSize="14px" fontWeight="500"
+            >{{ item.name }}
+          </mbp-typography> -->
+          <label>{{ item.name }}</label>
+        </div>
+      </div>
+      <ng-container *ngIf="error" class="error-text">
+        <!-- <mbp-typography
+          [align]="TypographyAlign.left"
+          color="var(--color-error)"
+          fontSize="14px"
+          fontWeight="500"
+          lineHeight="20px"
+          >{{ error }}
+        </mbp-typography> -->
+        <label>{{ error }}</label>
+      </ng-container>
+    </div>
+  </div>

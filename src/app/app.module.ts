@@ -6,6 +6,9 @@ import { AppComponent } from './app.component';
 import { RouterModule } from '@angular/router';
 import { NotFoundComponent } from './shared/components/not-found/not-found.component';
 import { SharedModule } from './shared/shared.module';
+import { RegisterService } from './services/register.service';
+import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -33,7 +36,9 @@ import { SharedModule } from './shared/shared.module';
       },
       { path: '**', component: NotFoundComponent }
     ]),
-    SharedModule
+    SharedModule,
+    HttpClientModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

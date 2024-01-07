@@ -1,0 +1,26 @@
+<div [ngClass]="classes">
+    <ng-container *ngIf="!imageAsBackground; else isBackgroundImage">
+        <img [src]="hasExternalUrl ? image : urlImg + image" (error)="changeSource($event, urlImg + onErrorImage)"
+            [ngStyle]="{
+            display: display,
+            width: width,
+            height: height,
+            borderRadius: isRounded ? '' : borderRadius,
+            backgroundColor: backgroundColor,
+            margin: margin
+          }" [alt]="alt" [title]="title" />
+    </ng-container>
+    <ng-template #isBackgroundImage>
+        <div [ngStyle]="{
+            backgroundSize: 'cover',
+            backgroundPosition: 'center center',
+            backgroundRepeat: 'no-repeat',
+            backgroundImage: 'url(' + (hasExternalUrl ? image : urlImg + image) + '), url(' + urlImg + onErrorImage + ')',
+            width: width,
+            height: height,
+            borderRadius: isRounded ? '' : borderRadius,
+            backgroundColor: backgroundColor,
+            margin: margin
+          }"></div>
+    </ng-template>
+</div>
