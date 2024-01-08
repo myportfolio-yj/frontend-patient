@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -49,7 +50,25 @@ export class HomeComponent {
     }
   ]
 
-  constructor() {
+  listReminder = [
+    {
+      name: 'Cloe',
+      date: '12/10/2024',
+      typeAppointment: 'vacuna'
+    },
+    {
+      name: 'Cloe',
+      date: '13/10/2024',
+      typeAppointment: 'baño'
+    },
+    {
+      name: 'Cloe',
+      date: '14/10/2024',
+      typeAppointment: 'vacuna'
+    }
+  ]
+
+  constructor(private router: Router) {
     this.showContent(1);
   }
 
@@ -59,6 +78,22 @@ export class HomeComponent {
       this.isContentVisible = true;
       this.selectedContent = contentNumber;
     }, 50); // Agregar un pequeño retraso para reiniciar la animación
+  }
+
+  addAppointment(): void {
+    this.router.navigate(["session/add-appointment"]); 
+  }
+
+  addPet(): void {
+    this.router.navigate(["session/add-pet"]); 
+  }
+
+  goToDetailPet(): void {
+    this.router.navigate(["session/detail-pet"]); 
+  }
+
+  goToDetailAppointment(): void {
+    this.router.navigate(["session/detail-appointment"]); 
   }
 
 }

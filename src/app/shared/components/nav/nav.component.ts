@@ -4,6 +4,7 @@ import { NavItem } from './nav.interface';
 import { ESubMenuType } from './nav.enum';
 import { TypographyAlign, TypographyColor, TypographySize } from '../typography/typography.enum';
 import { DomSanitizer } from '@angular/platform-browser';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-nav',
@@ -109,6 +110,8 @@ export class NavComponent {
  
   hoveredItem: number = 0;
   clickedItem: number = 0;
+
+  url = environment.ASSETS_URL;
  
   public get SubMenuType() {
     return ESubMenuType;

@@ -1,6 +1,6 @@
 <div [ngClass]="classes">
     <ng-container *ngIf="!imageAsBackground; else isBackgroundImage">
-        <img [src]="hasExternalUrl ? image : urlImg + image" (error)="changeSource($event, urlImg + onErrorImage)"
+        <img [src]="hasExternalUrl ? image : url + image" (error)="changeSource($event, url + onErrorImage)"
             [ngStyle]="{
             display: display,
             width: width,
@@ -15,7 +15,7 @@
             backgroundSize: 'cover',
             backgroundPosition: 'center center',
             backgroundRepeat: 'no-repeat',
-            backgroundImage: 'url(' + (hasExternalUrl ? image : urlImg + image) + '), url(' + urlImg + onErrorImage + ')',
+            backgroundImage: 'url(' + (hasExternalUrl ? image : url + image) + '), url(' + url + onErrorImage + ')',
             width: width,
             height: height,
             borderRadius: isRounded ? '' : borderRadius,

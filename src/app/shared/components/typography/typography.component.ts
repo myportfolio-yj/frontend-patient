@@ -39,7 +39,7 @@ export class TypographyComponent {
   /**
    * Font family of the text
    */
-  @Input() fontFamily: string = 'Brevia';
+  @Input() fontFamily: string = 'Arial';
   /**
    * Font weight of the text
    */
@@ -51,7 +51,7 @@ export class TypographyComponent {
   /**
    * Font size  of the text
    */
-  @Input() fontSize: string = '';
+  @Input() fontSize: string = '1em';
   /**
    * line height  of the text
    */
@@ -76,6 +76,10 @@ export class TypographyComponent {
    * if the text has any margins
    */
   @Input() margin?: string;
+  /**
+   * if the text has any margins
+   */
+  @Input() padding?: string;
  
   /**
    * Actual text to display

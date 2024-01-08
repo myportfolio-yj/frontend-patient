@@ -12,9 +12,9 @@ export class ImageComponent {
    * Url of the image
    */
   @Input() url: string = '';
-  get urlImg(): string {
-    return environment.ASSETS_URL;
-  }
+  // get urlImg(): string {
+  //   return environment.ASSETS_URL;
+  // }
   /**
    * If the image has an external url we skip the image property
    */

@@ -19,6 +19,7 @@ export class HeaderComponent {
    * `[url] = https://user-images.githubusercontent.com/32302890/`
    */
   @Input() image: string = 'brand-logo-2.svg';
+  @Input() url: string = '';
   /**
    * This property tells the component whether it's gonna add a root url to the `image` property, to be able to get the image
    */

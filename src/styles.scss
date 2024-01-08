@@ -48,3 +48,9 @@ body, html {
 }
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+:root {
+  --color-primary: #01A189;
+  --color-secondary: #AC3B93;
+  --color-font-base: #000000;
+}

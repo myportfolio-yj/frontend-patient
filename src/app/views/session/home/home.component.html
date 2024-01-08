@@ -24,21 +24,22 @@
   <div class="content-container" [ngClass]="{'show-content': isContentVisible}">
     <div class="content" *ngIf="selectedContent === 1">
       <!-- Contenido del botón 1 -->
-      <div class="content-head">
+      <div class="content-head" (click)="addPet()">
         <mat-icon>add</mat-icon>
-        <span>Agregar mascota</span>
+        <span>Agregar Mascota</span>
       </div>
       <div class="card" *ngFor="let pet of listPets">
         <div class="img">
           <app-image
           [borderRadius]="'0em'"
           [image]="image"
+          [url]="'https://homebankingqa.mibanco.com.pe/resources/assets/images/'"
           [hasExternalUrl]="false"
           [width]="'100%'"
           [height]="'auto'"
           ></app-image>
         </div>
-        <div class="info">
+        <div class="info" (click)="goToDetailPet()">
           <div class="row">
             <h2>{{ pet.name }}</h2>
           </div>
@@ -49,7 +50,7 @@
             <h3>{{ pet.typeSex }}</h3>
           </div>
           <div class="row">
-            <mat-icon>pets</mat-icon>
+            <mat-icon [ngStyle]="{'color':'#81807F'}">pets</mat-icon>
             <h4>{{ pet.typeAnimal }}</h4>
           </div>
         </div>
@@ -57,13 +58,13 @@
     </div>
     <div class="content" *ngIf="selectedContent === 2">
       <!-- Contenido del botón 2 -->
-      <div class="content-head">
+      <div class="content-head" (click)="addAppointment()">
         <mat-icon>add</mat-icon>
-        <span>Agendar cita</span>
+        <span>Agregar Cita</span>
       </div>
       <div class="card" *ngFor="let appointment of listAppointment">
         
-        <div class="info">
+        <div class="info" (click)="goToDetailPet()">
           <div class="info-title">
             <h2>{{ appointment.name }}</h2>
           </div>
@@ -80,30 +81,26 @@
       <!-- ... -->
       <div class="content-head">
         <mat-icon>add</mat-icon>
-        <span>Agendar cita</span>
+        <span>Agregar Recordatorio</span>
       </div>
-      <div class="card" *ngFor="let pet of listPets">
-        <div class="img">
-          <app-image
-          [borderRadius]="'0em'"
-          [image]="image"
-          [hasExternalUrl]="false"
-          [width]="'100%'"
-          [height]="'auto'"
-          ></app-image>
-        </div>
+      <div class="card" *ngFor="let reminder of listReminder">
         <div class="info">
-          <div class="row">
-            <mat-icon>picture_in_picture</mat-icon>
-            <span>{{ pet.name }}</span>
+          <div class="info-title">
+            <h2>{{ reminder.name }}</h2>
           </div>
           <div class="row">
-            <mat-icon>pets</mat-icon>
-            <span>{{ pet.typeAnimal }}</span>
+            <mat-icon>access_time</mat-icon>
+            <span>{{ reminder.date }}</span>
           </div>
           <div class="row">
-            <mat-icon>pets</mat-icon>
-            <span>{{ pet.typeSex }}</span>
+            <div *ngIf="reminder.typeAppointment === 'baño'">
+              <mat-icon>spa</mat-icon>
+            </div>
+
+            <div *ngIf="reminder.typeAppointment === 'vacuna'">
+              <mat-icon>local_hospital</mat-icon>
+            </div>
+            <span>{{ reminder.typeAppointment }}</span>
           </div>
         </div>
       </div>

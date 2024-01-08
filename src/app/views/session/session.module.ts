@@ -6,12 +6,20 @@ import { SharedModule } from './../../shared/shared.module';
 import { HomeComponent } from './home/home.component';
 import { SessionRoutingModule } from './session.routing.module';
 import { MyAccountComponent } from './my-account/my-account.component';
+import { AddAppointmentComponent } from './appointment/add-appointment/add-appointment.component';
+import { DetailAppointmentComponent } from './appointment/detail-appointment/detail-appointment.component';
+import { AddPetComponent } from './pets/add-pet/add-pet.component';
+import { DetailPetComponent } from './pets/detail-pet/detail-pet.component';
 
 
 @NgModule({
   declarations: [
     HomeComponent,
-    MyAccountComponent
+    MyAccountComponent,
+    AddAppointmentComponent,
+    DetailAppointmentComponent,
+    AddPetComponent,
+    DetailPetComponent
   ], imports: [
     SharedModule,
     CommonModule,
