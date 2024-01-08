@@ -10,7 +10,7 @@ export class HomeComponent {
 
   isContentVisible = false;
   selectedContent: number | null = null;
-  image: string = 'brand-logo-2.svg'
+  image: string = 'Perro-sin-pelo-del-peru.JPG'
   listPets = [
     {
       name: 'Cloe',
