@@ -17,7 +17,7 @@ export class NavComponent {
    * Defines the background color of the header
    */
   @Input() backgroundColor: string = 'var(--color-brand-white)';
-  @Input() image: string = 'brand-logo-2.svg';
+  @Input() image: string = 'Logo2_atqe8p.png';
   /**
    * This property tells the component whether it's gonna add a root url to the `image` property, to be able to get the image
    */
@@ -111,7 +111,7 @@ export class NavComponent {
   hoveredItem: number = 0;
   clickedItem: number = 0;
 
-  url = environment.ASSETS_URL;
+  url = 'https://res.cloudinary.com/dmaoa8dcd/image/upload/v1702098787/Appomsv/';
  
   public get SubMenuType() {
     return ESubMenuType;

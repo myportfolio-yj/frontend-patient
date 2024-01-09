@@ -18,7 +18,7 @@ export class HeaderComponent {
    * make sure the property `hasExternalUrl` is not set to `true` (It is `false by default`), and then send the root of the url to the `url` property like this:
    * `[url] = https://user-images.githubusercontent.com/32302890/`
    */
-  @Input() image: string = 'brand-logo-2.svg';
+  @Input() image: string = 'Logo2_atqe8p.png';
   @Input() url: string = '';
   /**
    * This property tells the component whether it's gonna add a root url to the `image` property, to be able to get the image

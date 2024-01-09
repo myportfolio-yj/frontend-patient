@@ -68,6 +68,8 @@ export class HomeComponent {
     }
   ]
 
+  faCoffee = 'faCoffee';
+
   constructor(private router: Router) {
     this.showContent(1);
   }

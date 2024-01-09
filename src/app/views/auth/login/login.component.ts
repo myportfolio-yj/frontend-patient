@@ -12,11 +12,10 @@ export class LoginComponent {
     private router: Router) { }
 
   login(){
-    console.log('loginnnnn')
+    this.router.navigate(["session/home"]); 
   }
 
   register(){
-    console.log('register')
     this.router.navigate(["auth/register"]); 
   }
 
