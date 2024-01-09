@@ -36,7 +36,7 @@ export class RegisterComponent {
         this.listDocument = JSON.stringify(data);
         console.log(data);
       }).catch(e => {
-        this.error = e;
+        this.error = JSON.stringify(e);
       });
   }
 
