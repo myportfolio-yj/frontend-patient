@@ -17,7 +17,11 @@ export class RegisterComponent {
       name: 'OTROS',
       value: '2'
     }
-  ]
+  ];
+
+  listDocument: string = '';
+  error: any;
+
   constructor(private registerService: RegisterService){
 
     this.getSavingAccountDetail();
@@ -29,7 +33,10 @@ export class RegisterComponent {
     this.registerService
       .getTypeDocument()
       .then((data) => {
-        console.log(data)
+        this.listDocument = JSON.stringify(data);
+        console.log(data);
+      }).catch(e => {
+        this.error = e;
       });
   }
 
