@@ -9,31 +9,27 @@
     </div>
     <div class="container-body">
         <div class="card">
-            <!-- <div class="row">
-                <div>
-                  <app-select [items]="itemTypeDocument"></app-select>
+            <form [formGroup]="myForm" (ngSubmit)="addPet()">
+                <input type="text" class="fadeIn" id="nombre" formControlName="nombre" placeholder="Nombre" required>
+                <input type="text" class="fadeIn" id="apellido" formControlName="apellido" placeholder="Apellido"
+                    required>
+                <input type="text" class="fadeIn" id="fechaNacimiento" formControlName="fechaNacimiento"
+                    placeholder="Fecha Nacimiento" required>
+                <div class="dropdown-container">
+                    <app-select type="text" class="fadeIn" [items]="listSex"
+                        (valueonChange)="changeSexo($event)" formControlName="idSexo"
+                        required></app-select>
                 </div>
-                <div>
-                  <input type="text" id="document" class="fadeIn" name="document" placeholder="Documento">
+                <div class="dropdown-container">
+                    <app-select type="text" class="fadeIn" [items]="listSpecies"
+                        (valueonChange)="changeEspecie($event)" formControlName="idEspecie"
+                        required></app-select>
                 </div>
-              </div> -->
-            <form>
-                <input type="text" class="fadeIn" placeholder="Nombre">
-                <input type="text" class="fadeIn" placeholder="Apellido">
-                <input type="text" class="fadeIn" placeholder="Raza">
-                <input type="text" class="fadeIn" placeholder="Raza">
-                <input type="text" class="fadeIn" placeholder="Raza">
-                <input type="text" class="fadeIn" placeholder="Raza">
-                <input type="text" class="fadeIn" placeholder="Raza">
-                <input type="text" class="fadeIn" placeholder="Raza">
-                <input type="text" class="fadeIn" placeholder="Raza">
-                <input type="text" class="fadeIn" placeholder="Raza">
-                <input type="text" class="fadeIn" placeholder="Raza">
-                <input type="text" class="fadeIn" placeholder="Raza">
-                <input type="text" class="fadeIn" placeholder="Raza">
-                <input type="text" class="fadeIn" placeholder="Raza">
-                <input type="text" class="fadeIn" placeholder="Raza">
-                <input type="text" class="fadeIn" placeholder="Raza">
+                <div class="dropdown-container">
+                    <app-select type="text" class="fadeIn" [items]="listBreed"
+                        (valueonChange)="changeRaza($event)" formControlName="idRaza"
+                        required></app-select>
+                </div>
                 <input type="submit" class="fadeIn" value="Registrar">
             </form>
         </div>
