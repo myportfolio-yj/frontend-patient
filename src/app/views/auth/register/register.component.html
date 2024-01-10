@@ -21,45 +21,30 @@
 
         <h2 class="active fadeIn">Registrarse</h2>
         <!-- Login Form -->
-        <!-- <form #myForm="ngForm" (ngSubmit)="register(myForm)">
-          <input type="text" id="nombres" class="fadeIn" name="nombres" placeholder="Nombre" [(ngModel)]="formData.nombres" required>
-          <input type="text" id="apellidos" class="fadeIn" name="apellidos" placeholder="Apellido" [(ngModel)]="formData.apellidos" required>
-          <input type="text" id="celular" class="fadeIn" name="celular" placeholder="Celular" [(ngModel)]="formData.celular" required>
-          <input type="text" id="fijo" class="fadeIn" name="fijo" placeholder="Fijo" [(ngModel)]="formData.fijo" required>
-          <input type="text" id="email" class="fadeIn" name="email" placeholder="Correo" [(ngModel)]="formData.email" required>
-          <app-select
-            [items]="itemTypeDocument" 
-            [(ngModel)]="formData.idTipoDocumento" required></app-select>
-          <input type="text" id="documento" class="fadeIn" name="documento" placeholder="Documento" [(ngModel)]="formData.documento" required>
-          <input type="text" id="password" class="fadeIn" name="password" placeholder="Password" [(ngModel)]="formData.password" required>
-          <input type="text" id="confirmarPassword" class="fadeIn" name="confirmarPassword" placeholder="Confirmar Password" [(ngModel)]="formData.confirmarPassword" required>
-          <input type="submit" class="fadeIn" value="Regístrate">
-        </form> -->
-        <form [formGroup]="myForm" (ngSubmit)="register()">
-
-
-          <input type="text" class="fadeIn" id="nombres" formControlName="nombres" placeholder="Nombre" required>
-          <input type="text" class="fadeIn" id="apellidos" formControlName="apellidos" placeholder="Apellido" required>
-          <input type="text" class="fadeIn" id="celular" formControlName="celular" placeholder="Celular" required>
-          <input type="text" class="fadeIn" id="fijo" formControlName="fijo" placeholder="Fijo" required>
-          <input type="text" class="fadeIn" id="email" formControlName="email" placeholder="Correo" required>
-
-          <div class="dropdown-container">
-            <app-select
-              type="text"
-              class="fadeIn"
-              [items]="itemTypeDocument"
-              (valueonChange)="changeDocument($event)"
-              formControlName="idTipoDocumento"
-              required
-            ></app-select>
-          </div>
-          <input type="text" class="fadeIn" id="documento" formControlName="documento" placeholder="Documento" required>
-          <input type="text" class="fadeIn" id="password" formControlName="password" placeholder="Password" required>
-          <input type="text" class="fadeIn" id="confirmarPassword" formControlName="confirmarPassword" placeholder="Confirmar Password" required>
-
-          <input type="submit" class="fadeIn" value="Regístrate" [disabled]="!myForm.valid">
-        </form>
+        <div class="content-form">
+          <form [formGroup]="myForm" (ngSubmit)="register()">
+            <input type="text" class="fadeIn" id="nombres" formControlName="nombres" placeholder="Nombre" required>
+            <input type="text" class="fadeIn" id="apellidos" formControlName="apellidos" placeholder="Apellido" required>
+            <input type="text" class="fadeIn" id="celular" formControlName="celular" placeholder="Celular" required>
+            <input type="text" class="fadeIn" id="fijo" formControlName="fijo" placeholder="Fijo" required>
+            <input type="text" class="fadeIn" id="email" formControlName="email" placeholder="Correo" required>
+            <div class="dropdown-container">
+              <app-select
+                type="text"
+                class="fadeIn"
+                [items]="itemTypeDocument"
+                (valueonChange)="changeDocument($event)"
+                formControlName="idTipoDocumento"
+                required
+              ></app-select>
+            </div>
+            <input type="text" class="fadeIn" id="documento" formControlName="documento" placeholder="Documento" required>
+            <input type="text" class="fadeIn" id="password" formControlName="password" placeholder="Password" required>
+            <input type="text" class="fadeIn" id="confirmarPassword" formControlName="confirmarPassword" placeholder="Confirmar Password" required>
+  
+            <input type="submit" class="fadeIn" value="Regístrate" [disabled]="!myForm.valid">
+          </form>
+        </div>
     
         <!-- Remind Passowrd -->
         <!-- <div id="formFooter">
