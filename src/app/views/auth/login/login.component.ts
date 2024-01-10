@@ -1,8 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { LoginRequest } from 'src/app/interfaces/login-request';
-import { User } from 'src/app/interfaces/user';
+import { LoginRequest } from 'src/app/interfaces/login-request.interface';
+import { User } from 'src/app/interfaces/user.interface';
 import { LoginService } from 'src/app/services/login.service';
 
 @Component({

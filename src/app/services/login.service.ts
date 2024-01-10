@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Endpoints } from '../config/endpoints.enum';
-import { User } from '../interfaces/user';
-import { LoginRequest } from '../interfaces/login-request';
+import { User } from '../interfaces/user.interface';
+import { LoginRequest } from '../interfaces/login-request.interface';
 
 @Injectable({
   providedIn: 'root'
