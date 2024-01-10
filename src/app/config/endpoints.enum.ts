@@ -1,3 +1,4 @@
 export enum Endpoints {
-    TYPE_DOCUMENT = '/tipodocumento'
+    TYPE_DOCUMENT = '/tipodocumento',
+    POST_LOGIN = '/login/cliente'
 }

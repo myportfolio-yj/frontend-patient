@@ -2,20 +2,9 @@
     <div class="divider">
         <div class="divider-left"></div>
         <div class="divider-right">
-          <!-- <div class="footer">
-            <div class="footer-derechos">
-              <div>Todos los derechos reservados a @AdivpoMSV</div>
-            </div>
-            <div class="footer-politicas">
-              <div>Politica de privacidad</div>
-              <div>Ayuda</div>
-            </div>
-          </div> -->
         </div>
     </div>
     <div class="wrapper">
-
-      
       <div id="formContent">
         <!-- Icon -->
         <div class="fadeIn">
@@ -33,19 +22,13 @@
         <h2 class="active fadeIn">Iniciar Sesión</h2>
     
         <!-- Login Form -->
-        <form>
-          <input type="text" id="login" class="fadeIn" name="login" placeholder="Correo electronico">
-          <input type="text" id="password" class="fadeIn" name="login" placeholder="******">
-          <input type="submit" class="fadeIn" value="Ingresar" (click)="login()">
+        <form #myForm="ngForm" (ngSubmit)="login(myForm)">
+          <input type="text" id="email" class="fadeIn" name="email" placeholder="Correo electronico" [(ngModel)]="formData.email" required>
+          <input type="password" id="password" class="fadeIn" name="password" placeholder="******" [(ngModel)]="formData.password" required>
+          <input type="submit" class="fadeIn" value="Ingresar">
         </form>
-
-        <p class="fadeIn">¿Has olvidado tu correo o contraseña?</p>
+        <app-typography fontSize="0.938em" color="var(--color-secondary)">¿Has olvidado tu correo o contraseña?</app-typography>
         <input type="reset" class="fadeIn" value="Regístrate" (click)="register()">
-    
-        <!-- Remind Passowrd -->
-        <!-- <div id="formFooter">
-          <a class="underlineHover" href="#">Forgot Password?</a>
-        </div> -->
     
       </div>
       <div class="footer">

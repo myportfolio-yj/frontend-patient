@@ -39,7 +39,7 @@ export class TypographyComponent {
   /**
    * Font family of the text
    */
-  @Input() fontFamily: string = 'Arial';
+  @Input() fontFamily: string = 'Roboto';
   /**
    * Font weight of the text
    */
@@ -51,7 +51,7 @@ export class TypographyComponent {
   /**
    * Font size  of the text
    */
-  @Input() fontSize: string = '1em';
+  @Input() fontSize: string = '0.938em';
   /**
    * line height  of the text
    */
