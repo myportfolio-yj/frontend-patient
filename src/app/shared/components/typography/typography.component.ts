@@ -51,7 +51,7 @@ export class TypographyComponent {
   /**
    * Font size  of the text
    */
-  @Input() fontSize: string = '0.938em';
+  @Input() fontSize: string = '';
   /**
    * line height  of the text
    */

@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import { TypeDocument } from '../interfaces/type-document-response.interface';
@@ -17,7 +17,7 @@ export class RegisterService {
   async getTypeDocuments(): Promise<TypeDocument[]> {
     try {
       const response: TypeDocument[] = await firstValueFrom(
-        this.httpClient.get<TypeDocument[]>(`${environment.API_URL}${Endpoints.TYPE_DOCUMENT}`
+        this.httpClient.get<TypeDocument[]>(`${environment.API_URL_USUARIO}${Endpoints.TYPE_DOCUMENT}`
          )
       );
       return response;
@@ -29,7 +29,7 @@ export class RegisterService {
   async postRegister(register: RegisterRequest): Promise<RegisterResponse> {
     try {
       const response: RegisterResponse = await firstValueFrom(
-        this.httpClient.post<RegisterResponse>(`${environment.API_URL}${Endpoints.POST_REGISTER}`, register)
+        this.httpClient.post<RegisterResponse>(`${environment.API_URL_USUARIO}${Endpoints.POST_REGISTER}`, register)
       );
       return response;
     } catch (error) {

@@ -10,6 +10,7 @@ import { NavComponent } from './components/nav/nav.component';
 import { RouterModule } from '@angular/router';
 import {MatIconModule} from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
+import { CapitalizeFirstLetterPipe } from './utils/capitalize-first-letter.pipe';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { FormsModule } from '@angular/forms';
     TypographyComponent,
     ImageComponent,
     HeaderComponent,
-    NavComponent
+    NavComponent,
+    CapitalizeFirstLetterPipe
   ],
   imports: [
     CommonModule,
@@ -34,7 +36,8 @@ import { FormsModule } from '@angular/forms';
     ImageComponent,
     HeaderComponent,
     NavComponent,
-    MatIconModule
+    MatIconModule,
+    CapitalizeFirstLetterPipe
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })

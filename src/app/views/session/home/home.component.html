@@ -17,7 +17,6 @@
         <mat-icon class="list-icon">notifications</mat-icon>
         <app-typography class="name-icon">Recordatorio</app-typography>
       </div>
-    
     </div>
   </div>
 
@@ -26,32 +25,30 @@
       <!-- Contenido del botón 1 -->
       <div class="content-head" (click)="addPet()">
         <mat-icon>add</mat-icon>
-        <span>Agregar Mascota</span>
+        <app-typography class="name-icon">Agregar Mascota</app-typography>
       </div>
       <div class="card" *ngFor="let pet of listPets">
         <div class="img">
-          <app-image
-          [borderRadius]="'1em'"
-          [image]="image"
-          [url]="'https://upload.wikimedia.org/wikipedia/commons/f/fc/'"
-          [hasExternalUrl]="false"
-          [width]="'100%'"
-          [height]="'auto'"
-          ></app-image>
+          <app-image [borderRadius]="'1em'" [image]="'perro_dpuugt.png'"
+            [url]="'https://res.cloudinary.com/dmaoa8dcd/image/upload/v1703366514/Appomsv/'" [hasExternalUrl]="false"
+            [width]="'100%'" [height]="'auto'"></app-image>
         </div>
         <div class="info" (click)="goToDetailPet()">
           <div class="row">
-            <h2>{{ pet.name }}</h2>
+            <app-typography fontSize="1.5em">{{ pet.nombre | capitalizeFirstLetter }}</app-typography>
           </div>
           <div class="row">
-            <h3>{{ pet.raza }}</h3>
+            <app-typography fontSize="1.2em" color="var(--color-detail-item)" [align]="TypographyAlign.left"
+              margin="0px">{{ pet.raza.raza | capitalizeFirstLetter }}</app-typography>
           </div>
           <div class="row">
-            <h3>{{ pet.typeSex }}</h3>
+            <app-typography fontSize="1.2em" color="var(--color-detail-item)" [align]="TypographyAlign.left"
+              margin="0px">{{ pet.sexo.sexo | capitalizeFirstLetter }}</app-typography>
           </div>
           <div class="row">
             <mat-icon [ngStyle]="{'color':'#81807F'}">pets</mat-icon>
-            <h4>{{ pet.typeAnimal }}</h4>
+            <app-typography fontSize="1.1em" color="var(--color-detail-item)" [align]="TypographyAlign.left"
+              margin="0px" padding="0px 0px 0px 8px">{{ pet.especie.especie | capitalizeFirstLetter }}</app-typography>
           </div>
         </div>
       </div>
@@ -60,10 +57,10 @@
       <!-- Contenido del botón 2 -->
       <div class="content-head" (click)="addAppointment()">
         <mat-icon>add</mat-icon>
-        <span>Agregar Cita</span>
+        <app-typography class="name-icon">Agregar Cita</app-typography>
       </div>
       <div class="card" *ngFor="let appointment of listAppointment">
-        
+
         <div class="info" (click)="goToDetailAppointment()">
           <div class="info-title">
             <h2>{{ appointment.name }}</h2>
@@ -80,8 +77,6 @@
       <!-- Contenido del botón 3 -->
       <!-- ... -->
       <div class="content-head">
-        <mat-icon>add</mat-icon>
-        <span>Agregar Recordatorio</span>
       </div>
       <div class="card" *ngFor="let reminder of listReminder">
         <div class="info">

@@ -1,36 +1,41 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ClientResponse } from 'src/app/interfaces/client-response.interface';
+import { Mascota } from 'src/app/interfaces/user.interface';
+import { HomeService } from 'src/app/services/home.service';
+import { TypographyAlign } from 'src/app/shared/components/typography/typography.enum';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
 
   isContentVisible = false;
   selectedContent: number | null = null;
   image: string = 'Perro-sin-pelo-del-peru.JPG'
-  listPets = [
-    {
-      name: 'Cloe',
-      raza: 'Buldog',
-      typeAnimal: 'Perro',
-      typeSex: 'Hembra'
-    },
-    {
-      name: 'Cloe',
-      raza: 'Shitzu',
-      typeAnimal: 'Perro',
-      typeSex: 'Hembra'
-    },
-    {
-      name: 'Cloe',
-      raza: 'Siberiano',
-      typeAnimal: 'Perro',
-      typeSex: 'Hembra'
-    }
-  ]
+  // listPets = [
+  //   {
+  //     name: 'Cloe',
+  //     raza: 'Buldog',
+  //     typeAnimal: 'Perro',
+  //     typeSex: 'Hembra'
+  //   },
+  //   {
+  //     name: 'Cloe',
+  //     raza: 'Shitzu',
+  //     typeAnimal: 'Perro',
+  //     typeSex: 'Hembra'
+  //   },
+  //   {
+  //     name: 'Cloe',
+  //     raza: 'Siberiano',
+  //     typeAnimal: 'Perro',
+  //     typeSex: 'Hembra'
+  //   }
+  // ];
+  listPets: Mascota[] = [];
 
   listAppointment = [
     {
@@ -68,10 +73,16 @@ export class HomeComponent {
     }
   ]
 
-  faCoffee = 'faCoffee';
+  client!: ClientResponse;
 
-  constructor(private router: Router) {
+  constructor(
+    private router: Router,
+    private homeService: HomeService
+  ) {
     this.showContent(1);
+  }
+  ngOnInit(): void {
+    this.getClientId('658482da6767c41116497027');
   }
 
   showContent(contentNumber: number) {
@@ -96,6 +107,28 @@ export class HomeComponent {
 
   goToDetailAppointment(): void {
     this.router.navigate(["session/detail-appointment"]); 
+  }
+
+  getClientId(clientId: string): void {
+    this.homeService
+      .getClientId(clientId)
+      .then((data) => {
+        this.client = data;
+        this.listPets = data.mascotas;
+        console.log(this.client)
+        // const newTypeDocuments: SelectOptions[] = data.map((document) => ({
+        //   name: document.tipoDocumento,
+        //   value: document.id
+        // }));
+
+        // this.itemTypeDocument = newTypeDocuments;
+      }).catch(err => {
+        console.log(err);
+      });
+  }
+
+  get TypographyAlign(): typeof TypographyAlign {
+    return TypographyAlign
   }
 
 }
