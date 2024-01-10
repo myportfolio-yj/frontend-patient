@@ -4,7 +4,6 @@ import { NavItem } from './nav.interface';
 import { ESubMenuType } from './nav.enum';
 import { TypographyAlign, TypographyColor, TypographySize } from '../typography/typography.enum';
 import { DomSanitizer } from '@angular/platform-browser';
-import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-nav',
@@ -57,44 +56,20 @@ export class NavComponent {
       color: '#000',
       highlightedMobile: false,
       icon: 'home',
-      // subItems: [
-      //   {
-      //     label: 'Sub Home',
-      //     color: '#000',
-      //     highlightedMobile: false,
-      //     icon: 'icon',
-      //     typeOfSubMenu: ESubMenuType.select,
-      //     path: '/subhome',
-      //     active: false,
-      //     nameTour: 'sub-home'
-      //   }
-      // ],
       typeOfSubMenu: ESubMenuType.splited,
       path: '/session/my-account',
       active: false,
       nameTour: 'home'
     },
     {
-      label: 'Historial',
+      label: 'Cerrar sesión',
       color: '#000',
       highlightedMobile: false,
       icon: 'home',
-      // subItems: [
-      //   {
-      //     label: 'Sub Home',
-      //     color: '#000',
-      //     highlightedMobile: false,
-      //     icon: 'icon',
-      //     typeOfSubMenu: ESubMenuType.select,
-      //     path: '/subhome',
-      //     active: false,
-      //     nameTour: 'sub-home'
-      //   }
-      // ],
       typeOfSubMenu: ESubMenuType.splited,
-      path: '/about',
+      path: '/auth/login',
       active: false,
-      nameTour: 'home'
+      nameTour: 'cerrar'
     }
   ];
   /**
