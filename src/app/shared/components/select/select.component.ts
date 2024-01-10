@@ -22,7 +22,7 @@ export class SelectComponent {
  
   name = '';
   value = '';
-  @Input() icon: string = 'dots';
+  @Input() icon: string = 'arrow_drop_down';
   @Input() iconColor: string = '#000000';
   @Input() iconSize: string = '0.7em';
  

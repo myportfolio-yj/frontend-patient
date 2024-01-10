@@ -31,28 +31,17 @@
         </div>
 
         <h2 class="active fadeIn">Registrarse</h2>
-
-        <p>
-          Lista de documento
-        </p>
-        <p>
-          {{listDocument}}
-        </p>
-
-        <span>error: {{error}}</span>
-    
         <!-- Login Form -->
         <form>
           <input type="text" id="name" class="fadeIn" name="name" placeholder="Nombre">
           <input type="text" id="lastname" class="fadeIn" name="lastname" placeholder="Apellido">
-          <div class="row">
-            <div>
-              <app-select [items]="itemTypeDocument"></app-select>
-            </div>
+          <app-select [items]="itemTypeDocument"></app-select>
+          <!-- <div class="row">
+            <app-select [items]="itemTypeDocument"></app-select>
             <div>
               <input type="text" id="document" class="fadeIn" name="document" placeholder="Documento">
             </div>
-          </div>
+          </div> -->
           <!-- <input type="text" id="email" class="fadeIn" name="email" placeholder="Correo electrónico">
           <input type="text" id="confirmEmail" class="fadeIn" name="confirmEmail" placeholder="Confirmar tu correo">
           <input type="text" id="password" class="fadeIn" name="password" placeholder="Contraseña">

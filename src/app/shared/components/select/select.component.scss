@@ -1,112 +1,114 @@
 .select {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
+}
+
+.select-label {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: auto;
+}
+
+.select-box .options-container {
+  background: #ffffff;
+  border: 1px solid var(--color-border-components);
+  color: var(--color-input-value);
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  max-height: 0;
+  width: 100%;
+  opacity: 0;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.selected {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 100%;
+  color: var(--color-placeholder);
+  background: #ffffff;
+  border: 1px solid var(--color-border-components);
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between; // Esto distribuirá los elementos a los extremos del contenedor
+  align-items: center; // Esto centrará verticalmente los elementos
+
+  &.error {
+    border-color: var(--color-error)!important;
   }
-   
-  .select-label {
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: auto;
-  }
-   
-  .select-box .options-container {
+
+  &.highlight {
+    color: var(--color-placeholder);
     background: #ffffff;
-    border: 1px solid #ccd1d9;
-    color: #434a54;
-    font-family: 'Brevia';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 17px;
-    max-height: 0;
-    width: 100%;
-    opacity: 0;
-    transition: all 0.4s;
-    border-radius: 8px;
-    overflow: hidden;
-   
-    order: 1;
   }
-   
-  .selected {
-    font-family: 'Brevia';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 17px;
-    line-height: 100%;
-    color: #aab2bd;
-    background: #ffffff;
-    border: 1px solid #ccd1d9;
-    border-radius: 8px;
-    position: relative;
-   
-    order: 0;
-    &.error {
-      border-color: #f6323e !important;
-    }
-    &.highlight {
-      color: #aab2bd;
-      background: #ffffff;
-    }
-    &.base {
-      color: #434a54;
-      background: #f2f4f8;
-    }
-    &.value {
-      color: #434a54;
-    }
+
+  &.base {
+    color: var(--color-placeholder);
+    background: var(--color-border-components);
   }
-   
-  .select-box .options-container.active {
-    max-height: 240px;
-    opacity: 1;
-    overflow-y: scroll;
+
+  &.value {
+    color: var(--color-input-value);
   }
-   
-  .select-box .options-container.active + .selected::after {
-    transform: rotateX(180deg);
-    top: -6px;
-  }
-   
-  .select-box .options-container::-webkit-scrollbar {
-    width: 8px;
-    background: #0d141f;
-    border-radius: 0 8px 8px 0;
-  }
-   
-  .select-box .options-container::-webkit-scrollbar-thumb {
-    background: #525861;
-    border-radius: 0 8px 8px 0;
-  }
-   
-  .select-box .option,
-  .selected {
-    padding: 16px;
-    cursor: pointer;
-  }
-   
-  .select-box .option:hover {
-    background: #aab2bd;
-  }
-   
-  .select-box label {
-    cursor: pointer;
-  }
-   
-  .error-text {
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: auto;
+
+  .select-value {
   }
    
   .select-icon {
-    position: absolute;
-    top: 34%;
-    right: 16px;
-    transition: all 0.4s;
   }
+}
+
+.select-box .options-container.active {
+  max-height: 200px;
+  opacity: 1;
+  overflow-y: scroll;
+  position: absolute;
+  z-index: 2; // Ajusta este valor según sea necesario
+}
+
+.select-box .options-container.active+.selected::after {
+  transform: rotateX(180deg);
+  top: -6px;
+}
+
+.select-box .options-container::-webkit-scrollbar {
+  width: 8px;
+  background: var(--color-scrollbar);
+  border-radius: 0 8px 8px 0;
+}
+
+.select-box .options-container::-webkit-scrollbar-thumb {
+  background: var(--color-scrollbar-thumb);
+  border-radius: 0 8px 8px 0;
+}
+
+.select-box .option,
+.selected {
+  padding: 16px;
+  cursor: pointer;
+}
+
+.select-box .option:hover {
+  background: var(--color-input-value);
+}
+
+.select-box label {
+  cursor: pointer;
+}
+
+.error-text {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: auto;
+}
