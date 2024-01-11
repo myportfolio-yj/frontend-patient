@@ -7,5 +7,6 @@ export enum Endpoints {
     GET_SPECIE = '/especie',
     GET_VACCINES = '/vacuna',
     GET_ALLERGIES = '/alergia',
-    POST_PET = '/mascota'
+    POST_PET = '/mascota',
+    GET_PET = '/mascota'
 }
