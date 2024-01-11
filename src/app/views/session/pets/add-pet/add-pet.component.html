@@ -3,7 +3,9 @@
         <div class="back-icon" (click)="goBack()">
             <mat-icon>arrow_back</mat-icon>
         </div>
-        <h3>Agregar Mascota</h3>
+        <div class="title-header">
+            <app-typography fontSize="1.2em" color="var(--color-white)" margin="0px">Agregar Mascota</app-typography>
+        </div>
     </header>
     <div class="container-header">
     </div>
@@ -16,19 +18,42 @@
                 <input type="text" class="fadeIn" id="fechaNacimiento" formControlName="fechaNacimiento"
                     placeholder="Fecha Nacimiento" required>
                 <div class="dropdown-container">
-                    <app-select type="text" class="fadeIn" [items]="listSex"
-                        (valueonChange)="changeSexo($event)" formControlName="idSexo"
-                        required></app-select>
+                    <app-select type="text" class="fadeIn" [items]="listSex" (valueonChange)="changeSexo($event)"
+                        formControlName="idSexo" required></app-select>
                 </div>
                 <div class="dropdown-container">
-                    <app-select type="text" class="fadeIn" [items]="listSpecies"
-                        (valueonChange)="changeEspecie($event)" formControlName="idEspecie"
-                        required></app-select>
+                    <app-select type="text" class="fadeIn" [items]="listSpecies" (valueonChange)="changeEspecie($event)"
+                        formControlName="idEspecie" required></app-select>
                 </div>
                 <div class="dropdown-container">
-                    <app-select type="text" class="fadeIn" [items]="listBreed"
-                        (valueonChange)="changeRaza($event)" formControlName="idRaza"
-                        required></app-select>
+                    <app-select type="text" class="fadeIn" [items]="listBreed" (valueonChange)="changeRaza($event)"
+                        formControlName="idRaza" required></app-select>
+                </div>
+
+                <app-typography fontSize="0.938em" [align]="TypographyAlign.left" margin="8px 0px 0px 0px">
+                    <input type="checkbox" class="fadeIn" id="esterilizado" class="mycheck"
+                        formControlName="esterilizado"> Esterilizado
+                </app-typography>
+
+                <app-typography fontSize="0.938em" [align]="TypographyAlign.left"
+                    margin="8px 0px 0px 0px">Alergias:</app-typography>
+                <div class="container-list">
+                    <div *ngFor="let allergy of listAllergies">
+                        <app-typography fontSize="0.938em" [align]="TypographyAlign.left" margin="8px 0px 0px 0px">
+                            <input type="checkbox" class="mycheck" id="{{ allergy.value }}" [value]="allergy.value"
+                                (click)="validateAllergies(allergy.value)"> {{ allergy.name | capitalizeFirstLetter }}
+                        </app-typography>
+                    </div>
+                </div>
+                <app-typography fontSize="0.938em" [align]="TypographyAlign.left"
+                    margin="16px 0px 0px 0px">Vacunas:</app-typography>
+                <div class="container-list">
+                    <div *ngFor="let vaccine of listVaccines">
+                        <app-typography fontSize="0.938em" [align]="TypographyAlign.left" margin="8px 0px 0px 0px">
+                            <input type="checkbox" class="mycheck" id="{{ vaccine.value }}" [value]="vaccine.value"
+                                (click)="validateVaccines(vaccine.value)"> {{ vaccine.name | capitalizeFirstLetter }}
+                        </app-typography>
+                    </div>
                 </div>
                 <input type="submit" class="fadeIn" value="Registrar">
             </form>

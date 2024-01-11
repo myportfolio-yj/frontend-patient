@@ -4,5 +4,8 @@ export enum Endpoints {
     POST_REGISTER = '/cliente',
     GET_CLIENT = '/cliente',
     GET_SEX = '/sexo',
-    GET_SPECIE = '/especie'
+    GET_SPECIE = '/especie',
+    GET_VACCINES = '/vacuna',
+    GET_ALLERGIES = '/alergia',
+    POST_PET = '/mascota'
 }

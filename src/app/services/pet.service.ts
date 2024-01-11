@@ -4,9 +4,11 @@ import { BehaviorSubject, Observable, firstValueFrom } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Endpoints } from '../config/endpoints.enum';
 import { RegisterResponse } from '../interfaces/register-response.interface';
-import { RegisterRequest } from '../interfaces/register-request.interface';
 import { SexResponse } from '../interfaces/sex-response.interface';
 import { Raza, SpeciesResponse } from '../interfaces/species-response.interface';
+import { AllergiesResponse } from '../interfaces/allergies-response.interface';
+import { VaccinesResponse } from '../interfaces/vaccines-response.interface';
+import { PetRequest } from '../interfaces/pet-request.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -44,10 +46,32 @@ export class PetService {
     }
   }
 
-  async postRegister(register: RegisterRequest): Promise<RegisterResponse> {
+  async getAllergies(): Promise<AllergiesResponse[]> {
     try {
-      const response: RegisterResponse = await firstValueFrom(
-        this.httpClient.post<RegisterResponse>(`${environment.API_URL_USUARIO}${Endpoints.POST_REGISTER}`, register)
+      const response = await firstValueFrom(
+        this.httpClient.get<AllergiesResponse[]>(`${environment.API_URL_MASCOTA}${Endpoints.GET_ALLERGIES}`)
+      );
+      return response;
+    } catch (error) {
+      throw error
+    }
+  }
+
+  async getVaccines(): Promise<VaccinesResponse[]> {
+    try {
+      const response = await firstValueFrom(
+        this.httpClient.get<VaccinesResponse[]>(`${environment.API_URL_MASCOTA}${Endpoints.GET_VACCINES}`)
+      );
+      return response;
+    } catch (error) {
+      throw error
+    }
+  }
+
+  async postAddPetById(pet: PetRequest, idUser: string): Promise<RegisterResponse> {
+    try {
+      const response: any = await firstValueFrom(
+        this.httpClient.post<any>(`${environment.API_URL_USUARIO}${Endpoints.POST_PET}/${idUser}`, pet)
       );
       return response;
     } catch (error) {
