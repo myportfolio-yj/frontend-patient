@@ -1,7 +1,8 @@
 .container {
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    height: 100%;
+    width: 100%;
 }
 
 header {
@@ -221,3 +222,11 @@ input[type=text]:placeholder {
 #icon {
     width: 60%;
 }
+
+//Desktop
+// @media (min-width: 768px) {
+//     .container {
+//         width: 100%;
+//     }
+//   }
+  

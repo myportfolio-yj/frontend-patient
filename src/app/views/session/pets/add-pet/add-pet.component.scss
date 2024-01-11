@@ -1,7 +1,9 @@
 .container {
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    align-items: center;
+    height: 100%;
+    width: 100%;
 }
 
 header {
@@ -44,6 +46,7 @@ header {
     position: relative;
     border-radius: 16px;
     z-index: 2;
+    //width: 100%;
 }
 
 .card {
@@ -195,3 +198,13 @@ input[type=text]:placeholder {
 #icon {
     width: 60%;
 }
+
+
+//Desktop
+@media (min-width: 768px) {
+    .container-body {
+        width: 800px;
+    }
+}
+
+
