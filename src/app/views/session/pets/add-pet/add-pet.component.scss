@@ -2,8 +2,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 100%;
-    width: 100%;
 }
 
 header {
@@ -27,7 +25,8 @@ header {
     border-radius: 0px 0px 0px 16px;
     position: relative;
     margin-top: -1px;
-    padding-top: 120px; // Ajusta el padding superior para compensar la altura del header
+    height: 120px;
+    width: 100%;
     z-index: 1;
 }
 
