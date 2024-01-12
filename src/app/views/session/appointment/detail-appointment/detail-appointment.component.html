@@ -1,1 +1,79 @@
-<p>Detalle de Citas</p>
+<div class="container">
+    <header [style.background-color]="headerColor">
+        <div class="back-icon" (click)="goBack()">
+            <mat-icon>arrow_back</mat-icon>
+        </div>
+    </header>
+    <div class="container-header">
+        <app-image [borderRadius]="'0em'" [image]="image" [url]="'https://upload.wikimedia.org/wikipedia/commons/f/fc/'"
+            [hasExternalUrl]="false" [width]="'100%'" [height]="'auto'"></app-image>
+    </div>
+    <div class="container-body">
+        <div class="card">
+            <div class="info">
+                <div class="info-title">
+                    <h1>{{ dataPet.nombre | capitalizeFirstLetter }}</h1>
+                    <app-typography fontSize="1.4em" color="var(--color-tertiary)" padding="0px 0px 0px 8px">{{ dataPet.apellido | capitalizeFirstLetter }}</app-typography>
+                </div>
+                <div class="row">
+                    <mat-icon class="list-icon">calendar_today</mat-icon>
+                    <app-typography fontSize="1.1em" color="var(--color-tertiary)" padding="0px 0px 0px 8px">{{ dataPet.fechaNacimiento }}</app-typography>
+                </div>
+                <div class="info-profile">
+                    <div class="info-profile-data">
+                        <div class="row">
+                            <app-typography fontSize="1.1em" color="var(--color-border-gray)">Sexo</app-typography>
+                        </div>
+                        <div class="row">
+                            <app-typography fontSize="1.1em" color="var(--color-tertiary)">{{ dataPet.sexo.sexo | capitalizeFirstLetter }}</app-typography>
+                        </div>
+                    </div>
+
+                    <div class="info-profile-data">
+                        <div class="row">
+                            <app-typography fontSize="1.1em" color="var(--color-border-gray)">Especie</app-typography>
+                        </div>
+                        <div class="row">
+                            <app-typography fontSize="1.1em" color="var(--color-tertiary)">{{ dataPet.especie.especie | capitalizeFirstLetter }}</app-typography>
+                        </div>
+                    </div>
+
+                    <div class="info-profile-data">
+                        <div class="row">
+                            <app-typography fontSize="1.1em" color="var(--color-border-gray)">Raza</app-typography>
+                        </div>
+                        <div class="row">
+                            <app-typography fontSize="1.1em" color="var(--color-tertiary)">{{ dataPet.raza.raza | capitalizeFirstLetter }}</app-typography>
+                        </div>
+                    </div>
+
+                    <div class="info-profile-data">
+                        <div class="row">
+                            <app-typography fontSize="1.1em" color="var(--color-border-gray)">Esterilizado</app-typography>
+                        </div>
+                        <div class="row">
+                            <app-typography fontSize="1.1em" color="var(--color-tertiary)">Si</app-typography>
+                        </div>
+                    </div>
+                </div>
+                <div class="info-alergic">
+                    <app-typography
+                        fontSize="2em"
+                        color="var(--color-tertiary)"
+                        [align]="TypographyAlign.left">Alergias</app-typography>
+                    <app-typography fontSize="1.4em" color="var(--color-tertiary-light)" padding="0px 0px 0px 8px">Alergia canina a la picadura de pulgas</app-typography>
+                </div>
+
+                <div class="info-alergic">
+                    <app-typography
+                        fontSize="2em"
+                        color="var(--color-tertiary)"
+                        [align]="TypographyAlign.left">Vacunas</app-typography>
+                    <app-typography fontSize="1.4em" color="var(--color-tertiary-light)" padding="0px 0px 0px 8px">Coronavirus canino</app-typography>
+                </div>
+
+                <input type="reset" class="fadeIn" value="Actualizar">
+            </div>
+        </div>
+    </div>
+</div>
