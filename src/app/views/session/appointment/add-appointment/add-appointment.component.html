@@ -1,47 +1,3 @@
-<!-- <div class="container">
-    <header [style.background-color]="headerColor">
-        <div class="back-icon" (click)="goBack()">
-            <mat-icon>arrow_back</mat-icon>
-        </div>
-    </header>
-    <div class="container-header">
-        <app-image [borderRadius]="'0em'" [image]="'Perro-sin-pelo-del-peru.JPG'" [url]="'https://upload.wikimedia.org/wikipedia/commons/f/fc/'"
-            [hasExternalUrl]="false" [width]="'100%'" [height]="'auto'"></app-image>
-    </div>
-    <div class="container-body">
-        <div class="card">
-            <form [formGroup]="myForm" (ngSubmit)="addPet()">
-                <input type="text" class="fadeIn" id="mascota" formControlName="mascota" placeholder="Mascota" required>
-                <div class="dropdown-container">
-                    <app-select type="text" class="fadeIn" [items]="listSex" (valueonChange)="changeSexo($event)"
-                        formControlName="tipoCita" valuePlaceholder="Tipo Cita" required></app-select>
-                </div>
-                <div class="dropdown-container">
-                    <app-select type="text" class="fadeIn" [items]="listSpecies" (valueonChange)="changeEspecie($event)"
-                        formControlName="fecha" valuePlaceholder="Fecha" required></app-select>
-                </div>
-                <div class="dropdown-container">
-                    <app-select type="text" class="fadeIn" [items]="listBreed" (valueonChange)="changeRaza($event)"
-                        formControlName="turno" valuePlaceholder="Turno" required></app-select>
-                </div>
-
-                <app-typography fontSize="0.938em" [align]="TypographyAlign.left" margin="8px 0px 0px 0px">
-                    <input type="checkbox" class="fadeIn" id="baño" class="mycheck"
-                        formControlName="baño"> Baño
-                </app-typography>
-
-                <app-typography fontSize="0.938em" [align]="TypographyAlign.left" margin="8px 0px 0px 0px">
-                    <input type="checkbox" class="fadeIn" id="corte" class="mycheck"
-                        formControlName="corte"> Corte
-                </app-typography>
-
-                <input type="text" class="fadeIn" id="observaciones" formControlName="observaciones" placeholder="Observaciones" required>
-                <input type="submit" class="fadeIn" value="Agendar">
-            </form>
-        </div>
-    </div>
-</div> -->
-
 <div class="container">
     <header [style.background-color]="headerColor">
         <div class="back-icon" (click)="goBack()">
@@ -49,53 +5,71 @@
         </div>
     </header>
     <div class="container-header">
-        <app-image [borderRadius]="'0em'" [image]="'Perro-sin-pelo-del-peru.JPG'" [url]="'https://upload.wikimedia.org/wikipedia/commons/f/fc/'"
-            [hasExternalUrl]="false" [width]="'100%'" [height]="'auto'"></app-image>
+        <!-- <app-image [borderRadius]="'0em'" [image]="'Perro-sin-pelo-del-peru.JPG'" [url]="'https://upload.wikimedia.org/wikipedia/commons/f/fc/'"
+            [hasExternalUrl]="false" [width]="'100%'" [height]="'auto'"></app-image> -->
+        <img src="assets/img/bg-appointment.svg">
     </div>
     <form [formGroup]="myForm" (ngSubmit)="addPet()" class="container-body">
+        <app-typography fontSize="1em" [align]="TypographyAlign.left" margin="8px 0px 0px 0px"
+            color="var(--color-primary)">
+            Fechas disponibles
+        </app-typography>
         <div class="container-date">
-            <div *ngFor="let section of sections; let i = index" 
-                 class="section" 
-                 [ngClass]="{'selected': i === selectedSection}"
-                 (click)="selectSection(i)">
-              <!-- Contenido de la sección -->
-              <label>Lunes martes</label>
+            <div *ngFor="let day of listDay; let i = index" class="section"
+                [ngClass]="{'selected': i === selectedDay}" (click)="selectDay(i)">
+                <!-- Contenido de la sección -->
+                <div class="section-box">
+                    <app-typography fontSize="0.938em" [align]="TypographyAlign.left" margin="8px 0px 0px 0px"
+                        color="var(--color-primary)">
+                        Lunes
+                    </app-typography>
+                    <app-typography fontSize="0.938em" [align]="TypographyAlign.left" margin="8px 0px 0px 0px"
+                        color="var(--color-primary)">
+                        15
+                    </app-typography>
+                </div>
             </div>
-          </div>
-        
-          <div class="container-time">
-            <div *ngFor="let box of boxes; let i = index" 
-                 class="box" 
-                 [ngClass]="{'selected': i === selectedBox}"
-                 (click)="selectBox(i)">
-              <!-- Contenido del cuadro -->
+        </div>
+        <app-typography fontSize="1em" [align]="TypographyAlign.left" margin="8px 0px 0px 0px"
+            color="var(--color-primary)">
+            Turnos disponibles
+        </app-typography>
+        <div class="container-time">
+            <div *ngFor="let time of listTime; let i = index" class="box" [ngClass]="{'selected': i === selectedTime}"
+                (click)="selectTime(i)">
+                <!-- Contenido del cuadro -->
+                <app-typography fontSize="0.938em" [align]="TypographyAlign.left" color="var(--color-primary)">
+                    15:30
+                </app-typography>
             </div>
-          </div>
-        <input type="text" class="fadeIn" id="mascota" placeholder="Mascota" required>
-        <div class="dropdown-container">
-            <app-select type="text" class="fadeIn" [items]="listSex" (valueonChange)="changeSexo($event)"
-                 valuePlaceholder="Tipo Cita" required></app-select>
         </div>
-        <div class="dropdown-container">
-            <app-select type="text" class="fadeIn" [items]="listSpecies" (valueonChange)="changeEspecie($event)"
-                valuePlaceholder="Fecha" required></app-select>
-        </div>
-        <div class="dropdown-container">
-            <app-select type="text" class="fadeIn" [items]="listBreed" (valueonChange)="changeRaza($event)"
-                valuePlaceholder="Turno" required></app-select>
-        </div>
-
-        <app-typography fontSize="0.938em" [align]="TypographyAlign.left" margin="8px 0px 0px 0px">
-            <input type="checkbox" class="fadeIn" id="baño" class="mycheck"
-                > Baño
+        <app-typography fontSize="1em" [align]="TypographyAlign.left" margin="8px 0px 0px 0px"
+            color="var(--color-primary)">
+            Tipo de cita
         </app-typography>
-
-        <app-typography fontSize="0.938em" [align]="TypographyAlign.left" margin="8px 0px 0px 0px">
-            <input type="checkbox" class="fadeIn" id="corte" class="mycheck"
-                > Corte
-        </app-typography>
-
-        <input type="text" class="fadeIn" id="observaciones" formControlName="observaciones" placeholder="Observaciones" required>
+        <div class="container-appointment">
+            <div *ngFor="let typeAppointment of listTyAppointment; let i = index" class="container-appointment-data" [ngClass]="{'selected': i === selectedTyAppointment}"
+                (click)="selectTypeAppointment(i)">
+                <!-- Contenido del cuadro -->
+                <app-typography fontSize="0.938em" [align]="TypographyAlign.left" color="var(--color-primary)">
+                    Veterinaria
+                </app-typography>
+            </div>
+        </div>
+        <div class="container-appointment-type">
+            <app-typography fontSize="1em" [align]="TypographyAlign.left" margin="8px 0px 0px 0px" color="var(--color-secondary)">
+                <input type="checkbox" class="fadeIn" id="baño" class="mycheck"> Baño
+            </app-typography>
+    
+            <app-typography fontSize="0.938em" [align]="TypographyAlign.left" margin="8px 0px 0px 0px" color="var(--color-secondary)">
+                <input type="checkbox" class="fadeIn" id="corte" class="mycheck"> Corte
+            </app-typography>
+        </div>
+        <div class="container-obs">
+            <app-typography fontSize="0.938em" [align]="TypographyAlign.left" margin="0px 0px 0px 0px">
+                <textarea class="fadeIn" id="observaciones" formControlName="observaciones" placeholder="Observaciones">Hola! Creo que estás completamente equivocado!</textarea>
+            </app-typography>
+        </div>
         <input type="submit" class="fadeIn" value="Agendar">
     </form>
 </div>

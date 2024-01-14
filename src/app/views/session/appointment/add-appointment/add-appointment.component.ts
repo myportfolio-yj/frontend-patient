@@ -104,8 +104,8 @@ export class AddAppointmentComponent {
     }
   }
 
-  sections: any[] = Array.from({ length: 20 }, (_, index) => index + 1);
-  selectedSection: number | null = null;
+  listDay: any[] = Array.from({ length: 10 }, (_, index) => index + 1);
+  selectedDay: number | null = null;
 
   listDays: any = [
     {
@@ -152,15 +152,22 @@ export class AddAppointmentComponent {
     }
   ];
 
-  boxes: any[] = Array.from({ length: 40 }, (_, index) => index + 1);
-  selectedBox: number | null = null;
+  listTime: any[] = Array.from({ length: 20 }, (_, index) => index + 1);
+  selectedTime: number | null = null;
 
-  selectSection(index: number): void {
-    this.selectedSection = this.selectedSection === index ? null : index;
+  listTyAppointment: any[] = Array.from({ length: 2 }, (_, index) => index + 1);
+  selectedTyAppointment: number | null = null;
+
+  selectDay(index: number): void {
+    this.selectedDay = this.selectedDay === index ? null : index;
   }
 
-  selectBox(index: number): void {
-    this.selectedBox = this.selectedBox === index ? null : index;
+  selectTime(index: number): void {
+    this.selectedTime = this.selectedTime === index ? null : index;
+  }
+
+  selectTypeAppointment(index: number): void {
+    this.selectedTyAppointment = this.selectedTyAppointment === index ? null : index;
   }
 
 }

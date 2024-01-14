@@ -81,8 +81,9 @@ export class HomeComponent implements OnInit {
   ) {
     this.showContent(1);
   }
+
   ngOnInit(): void {
-    this.getClientId('658482da6767c41116497027');
+    this.getClientId('658482da6767c41116497027'); 
   }
 
   showContent(contentNumber: number) {
