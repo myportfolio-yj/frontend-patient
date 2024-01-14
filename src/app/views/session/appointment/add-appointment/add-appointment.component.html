@@ -56,6 +56,7 @@
                 </app-typography>
             </div>
         </div>
+        
         <div class="container-appointment-type">
             <app-typography fontSize="1em" [align]="TypographyAlign.left" margin="8px 0px 0px 0px" color="var(--color-secondary)">
                 <input type="checkbox" class="fadeIn" id="baño" class="mycheck"> Baño
@@ -65,6 +66,7 @@
                 <input type="checkbox" class="fadeIn" id="corte" class="mycheck"> Corte
             </app-typography>
         </div>
+        <input type="text" class="fadeIn" id="nombre" formControlName="nombre" placeholder="Nombre" required>
         <div class="container-obs">
             <app-typography fontSize="0.938em" [align]="TypographyAlign.left" margin="0px 0px 0px 0px">
                 <textarea class="fadeIn" id="observaciones" formControlName="observaciones" placeholder="Observaciones">Hola! Creo que estás completamente equivocado!</textarea>
