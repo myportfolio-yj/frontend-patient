@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { Location } from '@angular/common';
 import { TypographyAlign } from 'src/app/shared/components/typography/typography.enum';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -21,6 +21,7 @@ export class AddAppointmentComponent {
   
   allergiesSelected: string[] = [];
   vaccinesSelected: string[] = [];
+  headerColor: string = 'transparent'; // Inicialmente transparente
 
   constructor(
     private location: Location,
@@ -41,6 +42,19 @@ export class AddAppointmentComponent {
 
   get TypographyAlign(): typeof TypographyAlign {
     return TypographyAlign
+  }
+
+  @HostListener('window:scroll', [])
+  onWindowScroll() {
+    const scrollPosition = window.scrollY || document.documentElement.scrollTop || document.body.scrollTop || 0;
+
+    // Cambia el color del fondo del header cuando la posición de desplazamiento sea mayor a cierta cantidad
+    if (scrollPosition > 100) {
+      //this.headerColor = 'var(--color-primary)'; // Nuevo color cuando se desplaza hacia abajo
+      this.headerColor = 'transparent';
+    } else {
+      this.headerColor = 'transparent'; // Color inicial cuando está en la parte superior
+    }
   }
 
   goBack(): void {
@@ -88,6 +102,65 @@ export class AddAppointmentComponent {
     } else {
       console.error('Control "nombres" no encontrado en el formulario.');
     }
+  }
+
+  sections: any[] = Array.from({ length: 20 }, (_, index) => index + 1);
+  selectedSection: number | null = null;
+
+  listDays: any = [
+    {
+      id: '1',
+      diaName: 'Lunes',
+      diaNumber: '01',
+      fecha: '01/02/2024'
+    },
+    {
+      id: '2',
+      diaName: 'Martes',
+      diaNumber: '02',
+      fecha: '02/02/2024'
+    },
+    {
+      id: '3',
+      diaName: 'Miercoles',
+      diaNumber: '03',
+      fecha: '03/02/2024'
+    },
+    {
+      id: '4',
+      diaName: 'Jueves',
+      diaNumber: '04',
+      fecha: '04/02/2024'
+    },
+    {
+      id: '5',
+      diaName: 'Viernes',
+      diaNumber: '05',
+      fecha: '05/02/2024'
+    },
+    {
+      id: '6',
+      diaName: 'Sábado',
+      diaNumber: '06',
+      fecha: '06/02/2024'
+    },
+    {
+      id: '7',
+      diaName: 'Domingo',
+      diaNumber: '07',
+      fecha: '07/02/2024'
+    }
+  ];
+
+  boxes: any[] = Array.from({ length: 40 }, (_, index) => index + 1);
+  selectedBox: number | null = null;
+
+  selectSection(index: number): void {
+    this.selectedSection = this.selectedSection === index ? null : index;
+  }
+
+  selectBox(index: number): void {
+    this.selectedBox = this.selectedBox === index ? null : index;
   }
 
 }

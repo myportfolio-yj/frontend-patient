@@ -1,13 +1,12 @@
-<div class="container">
-    <header>
+<!-- <div class="container">
+    <header [style.background-color]="headerColor">
         <div class="back-icon" (click)="goBack()">
             <mat-icon>arrow_back</mat-icon>
         </div>
-        <div class="title-header">
-            <app-typography fontSize="1.2em" color="var(--color-white)" margin="0px">Agregar Cita</app-typography>
-        </div>
     </header>
     <div class="container-header">
+        <app-image [borderRadius]="'0em'" [image]="'Perro-sin-pelo-del-peru.JPG'" [url]="'https://upload.wikimedia.org/wikipedia/commons/f/fc/'"
+            [hasExternalUrl]="false" [width]="'100%'" [height]="'auto'"></app-image>
     </div>
     <div class="container-body">
         <div class="card">
@@ -41,4 +40,62 @@
             </form>
         </div>
     </div>
+</div> -->
+
+<div class="container">
+    <header [style.background-color]="headerColor">
+        <div class="back-icon" (click)="goBack()">
+            <mat-icon>arrow_back</mat-icon>
+        </div>
+    </header>
+    <div class="container-header">
+        <app-image [borderRadius]="'0em'" [image]="'Perro-sin-pelo-del-peru.JPG'" [url]="'https://upload.wikimedia.org/wikipedia/commons/f/fc/'"
+            [hasExternalUrl]="false" [width]="'100%'" [height]="'auto'"></app-image>
+    </div>
+    <form [formGroup]="myForm" (ngSubmit)="addPet()" class="container-body">
+        <div class="container-date">
+            <div *ngFor="let section of sections; let i = index" 
+                 class="section" 
+                 [ngClass]="{'selected': i === selectedSection}"
+                 (click)="selectSection(i)">
+              <!-- Contenido de la sección -->
+              <label>Lunes martes</label>
+            </div>
+          </div>
+        
+          <div class="container-time">
+            <div *ngFor="let box of boxes; let i = index" 
+                 class="box" 
+                 [ngClass]="{'selected': i === selectedBox}"
+                 (click)="selectBox(i)">
+              <!-- Contenido del cuadro -->
+            </div>
+          </div>
+        <input type="text" class="fadeIn" id="mascota" placeholder="Mascota" required>
+        <div class="dropdown-container">
+            <app-select type="text" class="fadeIn" [items]="listSex" (valueonChange)="changeSexo($event)"
+                 valuePlaceholder="Tipo Cita" required></app-select>
+        </div>
+        <div class="dropdown-container">
+            <app-select type="text" class="fadeIn" [items]="listSpecies" (valueonChange)="changeEspecie($event)"
+                valuePlaceholder="Fecha" required></app-select>
+        </div>
+        <div class="dropdown-container">
+            <app-select type="text" class="fadeIn" [items]="listBreed" (valueonChange)="changeRaza($event)"
+                valuePlaceholder="Turno" required></app-select>
+        </div>
+
+        <app-typography fontSize="0.938em" [align]="TypographyAlign.left" margin="8px 0px 0px 0px">
+            <input type="checkbox" class="fadeIn" id="baño" class="mycheck"
+                > Baño
+        </app-typography>
+
+        <app-typography fontSize="0.938em" [align]="TypographyAlign.left" margin="8px 0px 0px 0px">
+            <input type="checkbox" class="fadeIn" id="corte" class="mycheck"
+                > Corte
+        </app-typography>
+
+        <input type="text" class="fadeIn" id="observaciones" formControlName="observaciones" placeholder="Observaciones" required>
+        <input type="submit" class="fadeIn" value="Agendar">
+    </form>
 </div>
