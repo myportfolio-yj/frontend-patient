@@ -2,6 +2,7 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { PetService } from 'src/app/services/pet.service';
 import { PetDetailResponse, Alergia } from 'src/app/interfaces/pet-detail-response.interface';
+import { TypographyAlign } from 'src/app/shared/components/typography/typography.enum';
 
 @Component({
   selector: 'app-detail-pet',
@@ -64,6 +65,10 @@ export class DetailPetComponent implements OnInit {
     private location: Location,
     private petService: PetService
   ) {
+  }
+
+  get TypographyAlign(): typeof TypographyAlign {
+    return TypographyAlign
   }
 
   ngOnInit(): void {

@@ -1,5 +1,37 @@
 <app-nav>
-    <!-- Router outlet for displaying components -->
-    <router-outlet></router-outlet>
-  </app-nav>
-<p>my account</p>  
+  <!-- Router outlet for displaying components -->
+  <router-outlet></router-outlet>
+</app-nav>
+<div class="container">
+  <div class="container-header">
+    <img src="assets/img/profile.png" class="img-round">
+  </div>
+  <div class="container-body">
+      <div class="card">
+          <form [formGroup]="myForm" (ngSubmit)="updateProfile()">
+            <input type="text" class="fadeIn" id="nombres" formControlName="nombres" placeholder="Nombres" required>
+            <input type="text" class="fadeIn" id="apellidos" formControlName="apellidos" placeholder="Apellidos" required>
+            <input type="text" class="fadeIn" id="celular" formControlName="celular" placeholder="Celular" required>
+            <input type="text" class="fadeIn" id="fijo" formControlName="fijo" placeholder="Fijo" required>
+            <input type="text" class="fadeIn" id="email" formControlName="email" placeholder="Correo" required>
+            <div class="dropdown-container">
+              <app-select
+                type="text"
+                class="fadeIn"
+                [items]="itemTypeDocument"
+                [itemSelected]="itemSelected"
+                valuePlaceholder="Tipo de documento"
+                (valueonChange)="changeDocument($event)"
+                formControlName="idTipoDocumento"
+                required
+              ></app-select>
+            </div>
+            <input type="text" class="fadeIn" id="documento" formControlName="documento" placeholder="Documento" required>
+            <!-- <input type="text" class="fadeIn" id="password" formControlName="password" placeholder="Password" required>
+            <input type="text" class="fadeIn" id="confirmarPassword" formControlName="confirmarPassword" placeholder="Confirmar Password" required> -->
+  
+            <input type="submit" class="fadeIn" value="Actualizar" [disabled]="!myForm.valid">
+          </form>
+      </div>
+  </div>
+</div>

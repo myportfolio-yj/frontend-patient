@@ -3,21 +3,41 @@
         <div class="back-icon" (click)="goBack()">
             <mat-icon>arrow_back</mat-icon>
         </div>
-        <h3>Agregar Cita</h3>
+        <div class="title-header">
+            <app-typography fontSize="1.2em" color="var(--color-white)" margin="0px">Agregar Cita</app-typography>
+        </div>
     </header>
     <div class="container-header">
     </div>
     <div class="container-body">
         <div class="card">
-            <form>
-                <input type="text" class="fadeIn" placeholder="Citas">
-                <input type="text" class="fadeIn" placeholder="Citas">
-                <input type="text" class="fadeIn" placeholder="Citas">
-                <input type="text" class="fadeIn" placeholder="Citas">
-                <input type="text" class="fadeIn" placeholder="Citas">
-                <input type="text" class="fadeIn" placeholder="Citas">
-                <input type="text" class="fadeIn" placeholder="Citas">
-                <input type="submit" class="fadeIn" value="Registrar">
+            <form [formGroup]="myForm" (ngSubmit)="addPet()">
+                <input type="text" class="fadeIn" id="mascota" formControlName="mascota" placeholder="Mascota" required>
+                <div class="dropdown-container">
+                    <app-select type="text" class="fadeIn" [items]="listSex" (valueonChange)="changeSexo($event)"
+                        formControlName="tipoCita" valuePlaceholder="Tipo Cita" required></app-select>
+                </div>
+                <div class="dropdown-container">
+                    <app-select type="text" class="fadeIn" [items]="listSpecies" (valueonChange)="changeEspecie($event)"
+                        formControlName="fecha" valuePlaceholder="Fecha" required></app-select>
+                </div>
+                <div class="dropdown-container">
+                    <app-select type="text" class="fadeIn" [items]="listBreed" (valueonChange)="changeRaza($event)"
+                        formControlName="turno" valuePlaceholder="Turno" required></app-select>
+                </div>
+
+                <app-typography fontSize="0.938em" [align]="TypographyAlign.left" margin="8px 0px 0px 0px">
+                    <input type="checkbox" class="fadeIn" id="baño" class="mycheck"
+                        formControlName="baño"> Baño
+                </app-typography>
+
+                <app-typography fontSize="0.938em" [align]="TypographyAlign.left" margin="8px 0px 0px 0px">
+                    <input type="checkbox" class="fadeIn" id="corte" class="mycheck"
+                        formControlName="corte"> Corte
+                </app-typography>
+
+                <input type="text" class="fadeIn" id="observaciones" formControlName="observaciones" placeholder="Observaciones" required>
+                <input type="submit" class="fadeIn" value="Agendar">
             </form>
         </div>
     </div>

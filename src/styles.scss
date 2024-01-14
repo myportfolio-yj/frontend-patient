@@ -52,6 +52,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 :root {
   --color-primary: #01A189;
   --color-secondary: #AC3B93;
+  --color-tertiary: #132042;
+  --color-tertiary-light: #1f3366;
+  --color-tertiary-light2: #2c4482;
+  --color-pueple-black: #27233E;
+  --color-button-reset: #132042;
   --color-font-base: #000000;
   --color-placeholder: #cccccc;
   --color-scrollbar-thumb: #707070;
@@ -62,4 +67,5 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   --color-detail-item: #81807F;
   --color-disable: #C6C6C6;
   --color-white: #ffffff;
+  --color-border-gray: #c5c0c0;
 }

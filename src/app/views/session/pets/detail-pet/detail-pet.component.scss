@@ -1,7 +1,8 @@
 .container {
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    height: 100%;
+    width: 100%;
 }
 
 header {
@@ -46,11 +47,11 @@ h3 {
 }
 
 .container-body {
-    background-color: #ffffff; // Color verde
+    background-color: var(--color-white); // Color verde
     margin: -40px 0px 0px 0px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    //display: flex;
+    //justify-content: center;
+    //align-items: center;
     justify-items: center;
     position: relative;
     border-radius: 16px;
@@ -60,7 +61,6 @@ h3 {
 
 .card {
     width: 100%; // Ancho de toda la pantalla menos los márgenes
-    height: 100%;
     display: flex;
     //align-items: center;
     justify-content: center;
@@ -76,7 +76,8 @@ h3 {
           align-items: center;
     
           h1 {
-            color: #171330;
+            //color: #171330;
+            color: var(--color-tertiary);
             margin: 0px 0px 10px 0px;
           }
         }
@@ -98,7 +99,7 @@ h3 {
                 width: 100%;
                 height: 90px;
                 border-radius: 16px;
-                border: 1px solid #c5c0c0;
+                border: 1px solid var(--color-border-gray);
             }
         }
     
@@ -199,7 +200,7 @@ input[type=submit] {
 }
 
 input[type=reset] {
-    background-color: #132042;
+    background-color: var(--color-tertiary);
     width: 100%;
 }
 
@@ -221,3 +222,11 @@ input[type=text]:placeholder {
 #icon {
     width: 60%;
 }
+
+//Desktop
+// @media (min-width: 768px) {
+//     .container {
+//         width: 100%;
+//     }
+//   }
+  
