@@ -2,8 +2,8 @@ import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RegisterRequest } from 'src/app/interfaces/register-request.interface';
-import { SelectOptions } from 'src/app/interfaces/select-options.interface';
 import { RegisterService } from 'src/app/services/register.service';
+import { Option } from './../../../shared/components/select/option.interface';
 
 @Component({
   selector: 'app-register',
@@ -14,7 +14,7 @@ export class RegisterComponent {
 
   myForm!: FormGroup;
   
-  itemTypeDocument: SelectOptions[] = [
+  itemTypeDocument: Option[] = [
     {
       name: '',
       value: ''
@@ -47,7 +47,7 @@ export class RegisterComponent {
     this.registerService
       .getTypeDocuments()
       .then((data) => {
-        const newTypeDocuments: SelectOptions[] = data.map((document) => ({
+        const newTypeDocuments: Option[] = data.map((document) => ({
           name: document.tipoDocumento,
           value: document.id
         }));

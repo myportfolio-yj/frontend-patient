@@ -4,6 +4,11 @@
   justify-content: center;
   align-items: center;
   width: 100%;
+  background: var(--color-primary);
+  background: linear-gradient(180deg, var(--color-primary) 0%, rgba(255,255,255,1) 35%, rgba(255,255,255,1) 100%);
+
+  //background: rgb(4,210,179);
+//background: linear-gradient(180deg, rgba(4,210,179,1) 0%, rgba(255,255,255,1) 35%, rgba(255,255,255,1) 100%);
 }
 .container-list {
   margin: 0;
@@ -27,13 +32,15 @@
       width: 50px; /* Ajusta el tamaño del ícono según tus necesidades */
       height: 50px; /* Ajusta el tamaño del ícono según tus necesidades */
       margin-bottom: 10px;
-      background-color: #01A189;
+      background-color: #fff;
+      //background-color: #01A189;
       border-radius: 50%; /* Hace que la imagen sea circular */
       display: flex;
       justify-content: center;
       align-items: center;
       box-shadow: 0 4px 8px rgba(130, 208, 197, 0.9);
-      color: #ffffff;
+      color: #000;
+      //color: #ffffff;
     }
 
     .name-icon {
