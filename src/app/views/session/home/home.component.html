@@ -59,19 +59,23 @@
         <mat-icon>add</mat-icon>
         <app-typography class="name-icon">Agregar Cita</app-typography>
       </div>
-      <div class="card" *ngFor="let appointment of listAppointment">
+      <!-- <div class="content-list"> -->
+        <div class="card" *ngFor="let appointment of listAppointment">
 
-        <div class="info" (click)="goToDetailAppointment()">
-          <div class="info-title">
-            <h2>{{ appointment.name }}</h2>
-          </div>
-          <div class="row">
-            <mat-icon>access_time</mat-icon>
-            <span>{{ appointment.date }}</span>
-            <span>{{ appointment.time }}</span>
+          <div class="info" (click)="goToDetailAppointment()">
+            <div class="info-title">
+              <h2>{{ appointment.name }}</h2>
+            </div>
+            <div class="row">
+              <mat-icon>access_time</mat-icon>
+              <span>{{ appointment.date }}</span>
+              <span>{{ appointment.time }}</span>
+            </div>
           </div>
         </div>
-      </div>
+
+      <!-- </div> -->
+      
     </div>
     <div class="content" *ngIf="selectedContent === 3">
       <!-- Contenido del botón 3 -->

@@ -127,6 +127,21 @@
   }
 }
 
+.content-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  width: 100%;
+  gap: 20px;
+}
+
+.card-two {
+  display: flex;
+  align-items: center;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // Agrega la elevación al card
+}
+
 //Desktop
 @media (min-width: 768px) {
   .content-container {
