@@ -22,7 +22,10 @@ export class SelectComponent implements ControlValueAccessor, OnInit ,OnChanges 
   @Input() error: string = '';
   @Input() valuePlaceholder: string = 'Seleccionar';
   @Input() items: Option[] = [];
-  @Input() itemSelected: Option | null = null;
+  @Input() itemDefault: Option = {
+    name: this.valuePlaceholder,
+    value: ''
+  };
   @Input() opened = false;
   @Input() selectedVariant: SelectBackgroundColor = SelectBackgroundColor.base;
   @Output() clickedOff = new EventEmitter();
@@ -50,7 +53,7 @@ export class SelectComponent implements ControlValueAccessor, OnInit ,OnChanges 
   }
 
   ngOnChanges(changes: any): void {
-    if (changes.itemSelected && !changes.itemSelected.firstChange) {
+    if (changes.itemDefault && !changes.itemDefault.firstChange) {
       this.updateDefaultValue();
     }
   }
@@ -97,7 +100,7 @@ export class SelectComponent implements ControlValueAccessor, OnInit ,OnChanges 
   optionClicked(option: any): void {
     this.value = option.value;
     this.name = option.name;
-    this.valuePlaceholder = option.name;
+    this.itemDefault.name = option.name;
     this.selectedVariant = SelectBackgroundColor.base;
     this.valueonChange.emit(option);
   }
@@ -120,11 +123,10 @@ export class SelectComponent implements ControlValueAccessor, OnInit ,OnChanges 
   }
 
   private updateDefaultValue(): void {
-    if (this.itemSelected) {
-      console.log(this.itemSelected)
-      this.valuePlaceholder = this.itemSelected.name;
+    if (!this.itemDefault.name) {
+      this.valuePlaceholder = this.itemDefault.name;
       this.selectedVariant = SelectBackgroundColor.base;
-      this.valueonChange.emit(this.itemSelected);
+      this.valueonChange.emit(this.itemDefault);
     }
   }
 }

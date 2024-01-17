@@ -30,16 +30,10 @@
   .container-header {
     //border-radius: 0px 0px 0px 16px;
     position: relative;
-    height: 150px;
+    //height: 150px;
+    margin-top: 30px;
     //max-height: 400px;
     z-index: 1;
-
-    img {
-      //width: 150px;
-      //height: 150px;
-      //background: center center no-repeat;
-      //background-size: cover;
-    }
   }
 
   .container-body {
@@ -50,7 +44,7 @@
     //height: 100vh;
     border-radius: 16px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // Agrega la elevación al card
-    margin-top: -32px;
+    //margin-top: -32px;
     margin-bottom: 16px;
     background: #fff;
     z-index: 5;

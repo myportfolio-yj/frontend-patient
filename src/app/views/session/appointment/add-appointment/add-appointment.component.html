@@ -5,11 +5,43 @@
         </div>
     </header>
     <div class="container-header">
-        <!-- <app-image [borderRadius]="'0em'" [image]="'Perro-sin-pelo-del-peru.JPG'" [url]="'https://upload.wikimedia.org/wikipedia/commons/f/fc/'"
-            [hasExternalUrl]="false" [width]="'100%'" [height]="'auto'"></app-image> -->
-        <img src="assets/img/bg-appointment.svg">
     </div>
     <form [formGroup]="myForm" (ngSubmit)="addPet()" class="container-body">
+        <app-typography fontSize="1em" [align]="TypographyAlign.left" margin="8px 0px 0px 0px"
+            color="var(--color-primary)">
+            Tipo de cita
+        </app-typography>
+        <div class="container-appointment">
+            <div *ngFor="let typeAppointment of listTyAppointment; let i = index" class="container-appointment-data" [ngClass]="{'selected': typeAppointment.id === selectedTyAppointment}"
+                (click)="selectTypeAppointment(typeAppointment.id)">
+                <!-- Contenido del cuadro -->
+                <app-typography fontSize="0.938em" [align]="TypographyAlign.left" color="var(--color-primary)">
+                    {{ typeAppointment.tipoCita }}
+                </app-typography>
+            </div>
+        </div>
+
+        <app-typography fontSize="1em" [align]="TypographyAlign.left" margin="8px 0px 0px 0px"
+            color="var(--color-primary)">
+            Veterinarios disponibles
+        </app-typography>
+        <div class="container-date">
+            <div *ngFor="let vet of listVeterinario; let i = index" class="section"
+                [ngClass]="{'selected': i === selectedDay}" (click)="selectDay(i)">
+                <!-- Contenido de la sección -->
+                <div class="section-box">
+                    <app-typography fontSize="0.938em" [align]="TypographyAlign.left" margin="8px 0px 0px 0px"
+                        color="var(--color-primary)">
+                        {{ vet.verinario.nombres }}
+                    </app-typography>
+                    <app-typography fontSize="0.938em" [align]="TypographyAlign.left" margin="8px 0px 0px 0px"
+                        color="var(--color-primary)">
+                        {{ vet.verinario.apellidos }}
+                    </app-typography>
+                </div>
+            </div>
+        </div>
+        
         <app-typography fontSize="1em" [align]="TypographyAlign.left" margin="8px 0px 0px 0px"
             color="var(--color-primary)">
             Fechas disponibles
@@ -40,19 +72,6 @@
                 <!-- Contenido del cuadro -->
                 <app-typography fontSize="0.938em" [align]="TypographyAlign.left" color="var(--color-primary)">
                     15:30
-                </app-typography>
-            </div>
-        </div>
-        <app-typography fontSize="1em" [align]="TypographyAlign.left" margin="8px 0px 0px 0px"
-            color="var(--color-primary)">
-            Tipo de cita
-        </app-typography>
-        <div class="container-appointment">
-            <div *ngFor="let typeAppointment of listTyAppointment; let i = index" class="container-appointment-data" [ngClass]="{'selected': i === selectedTyAppointment}"
-                (click)="selectTypeAppointment(i)">
-                <!-- Contenido del cuadro -->
-                <app-typography fontSize="0.938em" [align]="TypographyAlign.left" color="var(--color-primary)">
-                    Veterinaria
                 </app-typography>
             </div>
         </div>

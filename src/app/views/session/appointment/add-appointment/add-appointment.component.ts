@@ -1,15 +1,17 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { TypographyAlign } from 'src/app/shared/components/typography/typography.enum';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Option } from './../../../../shared/components/select/option.interface';
+import { AppointmentService } from 'src/app/services/appointment.service';
+import { FormAppointmentResponse, ReservasPeluquero, ReservasVeterinario, TiposCita } from 'src/app/interfaces/form-appointment-response.interface';
 
 @Component({
   selector: 'app-add-appointment',
   templateUrl: './add-appointment.component.html',
   styleUrls: ['./add-appointment.component.scss']
 })
-export class AddAppointmentComponent {
+export class AddAppointmentComponent implements OnInit {
 
   myForm!: FormGroup;
 
@@ -22,10 +24,14 @@ export class AddAppointmentComponent {
   allergiesSelected: string[] = [];
   vaccinesSelected: string[] = [];
   headerColor: string = 'transparent'; // Inicialmente transparente
+  formAppointmentData: FormAppointmentResponse = {} as FormAppointmentResponse;
+  listVeterinario: ReservasVeterinario[] = [];
+  listPeluquero: ReservasPeluquero[] = [];
 
   constructor(
     private location: Location,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private appointmentService: AppointmentService
   ) {
     this.allergiesSelected = [];
     this.vaccinesSelected = [];
@@ -38,6 +44,10 @@ export class AddAppointmentComponent {
       corte: [false],
       observaciones: ['']
     });
+  }
+
+  ngOnInit(): void {
+    this.getFormAppointment();
   }
 
   get TypographyAlign(): typeof TypographyAlign {
@@ -155,8 +165,9 @@ export class AddAppointmentComponent {
   listTime: any[] = Array.from({ length: 20 }, (_, index) => index + 1);
   selectedTime: number | null = null;
 
-  listTyAppointment: any[] = Array.from({ length: 2 }, (_, index) => index + 1);
-  selectedTyAppointment: number | null = null;
+  //listTyAppointment: any[] = Array.from({ length: 2 }, (_, index) => index + 1);
+  listTyAppointment: TiposCita[] = [];
+  selectedTyAppointment: string | null = null;
 
   selectDay(index: number): void {
     this.selectedDay = this.selectedDay === index ? null : index;
@@ -166,8 +177,33 @@ export class AddAppointmentComponent {
     this.selectedTime = this.selectedTime === index ? null : index;
   }
 
-  selectTypeAppointment(index: number): void {
-    this.selectedTyAppointment = this.selectedTyAppointment === index ? null : index;
+  selectTypeAppointment(id: string): void {
+    this.selectedTyAppointment = this.selectedTyAppointment === id ? null : id;
+    console.log(this.selectedTyAppointment)
+    const reservas = this.listTyAppointment.find((b) => b.id === id);
+    console.log(reservas);
+    if(this.selectedTyAppointment === '6587bd5b28e28300c3fd3f54'){
+      this.listVeterinario = [];
+      if(reservas?.reservasVeterinario){
+        this.listVeterinario = reservas?.reservasVeterinario;
+      }
+    }else if(this.selectedTyAppointment === '6587bd8a28e28300c3fd3f55') {
+      if(reservas?.reservasPeluquero){
+        this.listPeluquero = reservas?.reservasPeluquero;
+      }
+    }
+  }
+
+  getFormAppointment(): void {
+    this.appointmentService
+      .getFormAppointment()
+      .then((data) => {
+        console.log(data);
+        this.formAppointmentData = data;
+        this.listTyAppointment = data.tiposCita
+      }).catch(err => {
+        console.log(err);
+      });
   }
 
 }

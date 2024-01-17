@@ -115,7 +115,7 @@ export class HomeComponent implements OnInit {
       .getClientId(clientId)
       .then((data) => {
         this.client = data;
-        this.listPets = data.mascotas;
+        this.listPets = data.mascotas ? data.mascotas: [];
         console.log(this.client)
         // const newTypeDocuments: SelectOptions[] = data.map((document) => ({
         //   name: document.tipoDocumento,
