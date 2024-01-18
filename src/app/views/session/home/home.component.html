@@ -11,11 +11,15 @@
       </div>
       <div class="item" (click)="showContent(2)">
         <mat-icon class="list-icon">calendar_today</mat-icon>
-        <app-typography class="name-icon">Citas Agendas</app-typography>
+        <app-typography class="name-icon">Citas</app-typography>
       </div>
       <div class="item" (click)="showContent(3)">
         <mat-icon class="list-icon">notifications</mat-icon>
         <app-typography class="name-icon">Recordatorio</app-typography>
+      </div>
+      <div class="item" (click)="showContent(4)">
+        <mat-icon class="list-icon">location_on</mat-icon>
+        <app-typography class="name-icon">GPS</app-typography>
       </div>
     </div>
   </div>
@@ -59,22 +63,54 @@
         <mat-icon>add</mat-icon>
         <app-typography class="name-icon">Agregar Cita</app-typography>
       </div>
-      <div class="card" *ngFor="let appointment of listAppointment">
+      <!-- <div class="content-list"> -->
+        <div class="card" *ngFor="let appointment of listAppointment">
 
-        <div class="info" (click)="goToDetailAppointment()">
+          <div class="info" (click)="goToDetailAppointment()">
+            <div class="info-title">
+              <h2>{{ appointment.name }}</h2>
+            </div>
+            <div class="row">
+              <mat-icon>access_time</mat-icon>
+              <span>{{ appointment.date }}</span>
+              <span>{{ appointment.time }}</span>
+            </div>
+          </div>
+        </div>
+
+      <!-- </div> -->
+      
+    </div>
+    <div class="content" *ngIf="selectedContent === 3">
+      <!-- Contenido del botón 3 -->
+      <!-- ... -->
+      <div class="content-head">
+      </div>
+      <div class="card" *ngFor="let reminder of listReminder">
+        <div class="info">
           <div class="info-title">
-            <h2>{{ appointment.name }}</h2>
+            <h2>{{ reminder.name }}</h2>
           </div>
           <div class="row">
             <mat-icon>access_time</mat-icon>
-            <span>{{ appointment.date }}</span>
-            <span>{{ appointment.time }}</span>
+            <span>{{ reminder.date }}</span>
+          </div>
+          <div class="row">
+            <div *ngIf="reminder.typeAppointment === 'baño'">
+              <mat-icon>spa</mat-icon>
+            </div>
+
+            <div *ngIf="reminder.typeAppointment === 'vacuna'">
+              <mat-icon>local_hospital</mat-icon>
+            </div>
+            <span>{{ reminder.typeAppointment }}</span>
           </div>
         </div>
       </div>
     </div>
-    <div class="content" *ngIf="selectedContent === 3">
-      <!-- Contenido del botón 3 -->
+
+    <div class="content" *ngIf="selectedContent === 4">
+      <!-- Contenido del botón 4 -->
       <!-- ... -->
       <div class="content-head">
       </div>

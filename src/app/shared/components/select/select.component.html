@@ -6,7 +6,7 @@
     <div class="select-box" (click)="onClicked($event)">
       <div [ngClass]="selectedClass">
         <div class="select-value">
-          <app-typography fontSize="1em" color="#27233E">{{ valuePlaceholder }}</app-typography>
+          <app-typography fontSize="1em" color="#27233E">{{ itemDefault.name }}</app-typography>
         </div>
         <div class="select-icon">
           <mat-icon>{{ icon }}</mat-icon>

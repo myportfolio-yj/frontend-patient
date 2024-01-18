@@ -81,8 +81,9 @@ export class HomeComponent implements OnInit {
   ) {
     this.showContent(1);
   }
+
   ngOnInit(): void {
-    this.getClientId('65a34a88a686cf3970887de1');
+    this.getClientId('65a34a88a686cf3970887de1'); 
   }
 
   showContent(contentNumber: number) {
@@ -114,7 +115,7 @@ export class HomeComponent implements OnInit {
       .getClientId(clientId)
       .then((data) => {
         this.client = data;
-        this.listPets = data.mascotas;
+        this.listPets = data.mascotas ? data.mascotas: [];
         console.log(this.client)
         // const newTypeDocuments: SelectOptions[] = data.map((document) => ({
         //   name: document.tipoDocumento,

@@ -9,5 +9,6 @@ export enum Endpoints {
     GET_VACCINES = '/vacuna',
     GET_ALLERGIES = '/alergia',
     POST_PET = '/mascota',
-    GET_PET = '/mascota'
+    GET_PET = '/mascota',
+    GET_FORM_APPOINTMENT = '/cita-formulario'
 }
