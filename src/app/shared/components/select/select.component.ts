@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, forwardRef } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, forwardRef } from '@angular/core';
 import { SelectBackgroundColor } from './select-background-color.enum';
 import { Option } from './option.interface';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -17,11 +17,15 @@ const SELECT_VALUE_ACCESSOR: any = {
   styleUrls: ['./select.component.scss'],
   providers: [SELECT_VALUE_ACCESSOR]
 })
-export class SelectComponent implements ControlValueAccessor {
+export class SelectComponent implements ControlValueAccessor, OnInit ,OnChanges {
   @Input() label: string = 'Selecciona';
   @Input() error: string = '';
   @Input() valuePlaceholder: string = 'Seleccionar';
   @Input() items: Option[] = [];
+  @Input() itemDefault: Option = {
+    name: this.valuePlaceholder,
+    value: ''
+  };
   @Input() opened = false;
   @Input() selectedVariant: SelectBackgroundColor = SelectBackgroundColor.base;
   @Output() clickedOff = new EventEmitter();
@@ -42,6 +46,16 @@ export class SelectComponent implements ControlValueAccessor {
     const backgroundSelected = SelectBackgroundColor[this.selectedVariant];
     if (this.error) return ['selected', 'error'];
     else return ['selected', backgroundSelected];
+  }
+
+  ngOnInit(): void {
+    this.updateDefaultValue();
+  }
+
+  ngOnChanges(changes: any): void {
+    if (changes.itemDefault && !changes.itemDefault.firstChange) {
+      this.updateDefaultValue();
+    }
   }
  
   onClicked(ev: Event): void {
@@ -86,7 +100,7 @@ export class SelectComponent implements ControlValueAccessor {
   optionClicked(option: any): void {
     this.value = option.value;
     this.name = option.name;
-    this.valuePlaceholder = option.name;
+    this.itemDefault.name = option.name;
     this.selectedVariant = SelectBackgroundColor.base;
     this.valueonChange.emit(option);
   }
@@ -106,5 +120,13 @@ export class SelectComponent implements ControlValueAccessor {
 
   setDisabledState(isDisabled: boolean): void {
     // Implementa el cambio de estado "disabled" si es necesario
+  }
+
+  private updateDefaultValue(): void {
+    if (!this.itemDefault.name) {
+      this.valuePlaceholder = this.itemDefault.name;
+      this.selectedVariant = SelectBackgroundColor.base;
+      this.valueonChange.emit(this.itemDefault);
+    }
   }
 }

@@ -1,11 +1,14 @@
 .container {
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    align-items: center;
+    background: var(--color-primary);
+    background: linear-gradient(180deg, var(--color-primary) 0%, rgba(255,255,255,1) 35%, rgba(255,255,255,1) 100%);
 }
 
 header {
-    background-color: var(--color-primary);
+    background: rgb(1,161,137);
+    //background: linear-gradient(180deg, rgba(1,161,137,1) 0%, rgba(1,161,137,1) 70%, rgba(255,255,255,1) 100%);
     display: flex;
     align-items: flex-start;
     padding: 16px 16px 16px 16px;
@@ -21,11 +24,12 @@ header {
 }
 
 .container-header {
-    background: var(--color-primary);
+    //background: var(--color-primary);
     border-radius: 0px 0px 0px 16px;
     position: relative;
     margin-top: -1px;
-    padding-top: 120px; // Ajusta el padding superior para compensar la altura del header
+    height: 120px;
+    width: 100%;
     z-index: 1;
 }
 
@@ -44,6 +48,7 @@ header {
     position: relative;
     border-radius: 16px;
     z-index: 2;
+    //width: 100%;
 }
 
 .card {
@@ -195,3 +200,13 @@ input[type=text]:placeholder {
 #icon {
     width: 60%;
 }
+
+
+//Desktop
+@media (min-width: 768px) {
+    .container-body {
+        width: 800px;
+    }
+}
+
+

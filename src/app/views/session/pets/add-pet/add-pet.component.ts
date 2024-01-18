@@ -172,7 +172,7 @@ export class AddPetComponent implements OnInit {
 
   postAddPetById(pet: PetRequest): void {
     this.petService
-      .postAddPetById(pet, '658482da6767c41116497027')
+      .postAddPetById(pet, '65a34a88a686cf3970887de1')
       .then((data) => {
         console.log(data);
         this.clearForm();

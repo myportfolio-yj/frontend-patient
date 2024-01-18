@@ -1,3 +1,15 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  background: var(--color-primary);
+  background: linear-gradient(180deg, var(--color-primary) 0%, rgba(255,255,255,1) 35%, rgba(255,255,255,1) 100%);
+
+  //background: rgb(4,210,179);
+//background: linear-gradient(180deg, rgba(4,210,179,1) 0%, rgba(255,255,255,1) 35%, rgba(255,255,255,1) 100%);
+}
 .container-list {
   margin: 0;
   display: flex;
@@ -20,13 +32,15 @@
       width: 50px; /* Ajusta el tamaño del ícono según tus necesidades */
       height: 50px; /* Ajusta el tamaño del ícono según tus necesidades */
       margin-bottom: 10px;
-      background-color: #01A189;
+      background-color: #fff;
+      //background-color: #01A189;
       border-radius: 50%; /* Hace que la imagen sea circular */
       display: flex;
       justify-content: center;
       align-items: center;
       box-shadow: 0 4px 8px rgba(130, 208, 197, 0.9);
-      color: #ffffff;
+      color: #000;
+      //color: #ffffff;
     }
 
     .name-icon {
@@ -52,6 +66,7 @@
     background-size: cover; // Ajusta el tamaño para cubrir todo el contenedor
     background-position: center; // Centra la imagen
     background-repeat: no-repeat; // Evita repetir la imagen
+    border-radius: 16px;
   }
 
   .info {
@@ -85,6 +100,7 @@
 }
 
 .content-container {
+  width: 100%;
   opacity: 0;
   transform: translateX(-100%);
   transition: opacity 0.5s ease, transform 0.5s ease;
@@ -108,5 +124,27 @@
 
   &:not(:first-child) {
     margin-top: 20px;
+  }
+}
+
+.content-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  width: 100%;
+  gap: 20px;
+}
+
+.card-two {
+  display: flex;
+  align-items: center;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // Agrega la elevación al card
+}
+
+//Desktop
+@media (min-width: 768px) {
+  .content-container {
+    width: 800px;
   }
 }

@@ -12,6 +12,10 @@
   max-width: auto;
 }
 
+.select-box {
+  position: relative;
+}
+
 .select-box .options-container {
   background: #ffffff;
   border: 1px solid var(--color-border-components);
