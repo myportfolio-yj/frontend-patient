@@ -56,6 +56,14 @@
           </div>
         </div>
       </div>
+      <!-- <ng-container *ngIf="listPets.length > 0; else newDeb">
+      </ng-container> -->
+      <!-- <ng-template #newDeb>
+        <div class="card">
+          No hay elementos
+        </div>
+      </ng-template> -->
+      
     </div>
     <div class="content" *ngIf="selectedContent === 2">
       <!-- Contenido del botón 2 -->
@@ -68,12 +76,12 @@
 
           <div class="info" (click)="goToDetailAppointment()">
             <div class="info-title">
-              <h2>{{ appointment.name }}</h2>
+              <h2>{{ appointment.nombreMascota }}</h2>
             </div>
             <div class="row">
               <mat-icon>access_time</mat-icon>
-              <span>{{ appointment.date }}</span>
-              <span>{{ appointment.time }}</span>
+              <span>{{ appointment.fecha }}</span>
+              <span>{{ appointment.turno }}</span>
             </div>
           </div>
         </div>
@@ -89,21 +97,21 @@
       <div class="card" *ngFor="let reminder of listReminder">
         <div class="info">
           <div class="info-title">
-            <h2>{{ reminder.name }}</h2>
+            <h2>{{ reminder.nombre }}</h2>
           </div>
           <div class="row">
             <mat-icon>access_time</mat-icon>
-            <span>{{ reminder.date }}</span>
+            <span>{{ reminder.fecha }}</span>
           </div>
           <div class="row">
-            <div *ngIf="reminder.typeAppointment === 'baño'">
+            <div *ngIf="reminder.tipo === 'baño'">
               <mat-icon>spa</mat-icon>
             </div>
 
-            <div *ngIf="reminder.typeAppointment === 'vacuna'">
+            <div *ngIf="reminder.tipo === 'Vacuna'">
               <mat-icon>local_hospital</mat-icon>
             </div>
-            <span>{{ reminder.typeAppointment }}</span>
+            <span>{{ reminder.tipo }}</span>
           </div>
         </div>
       </div>
@@ -117,21 +125,21 @@
       <div class="card" *ngFor="let reminder of listReminder">
         <div class="info">
           <div class="info-title">
-            <h2>{{ reminder.name }}</h2>
+            <h2>{{ reminder.nombre }}</h2>
           </div>
           <div class="row">
             <mat-icon>access_time</mat-icon>
-            <span>{{ reminder.date }}</span>
+            <span>{{ reminder.fecha }}</span>
           </div>
           <div class="row">
-            <div *ngIf="reminder.typeAppointment === 'baño'">
+            <div *ngIf="reminder.tipo === 'baño'">
               <mat-icon>spa</mat-icon>
             </div>
 
-            <div *ngIf="reminder.typeAppointment === 'vacuna'">
+            <div *ngIf="reminder.tipo === 'Vacuna'">
               <mat-icon>local_hospital</mat-icon>
             </div>
-            <span>{{ reminder.typeAppointment }}</span>
+            <span>{{ reminder.tipo }}</span>
           </div>
         </div>
       </div>

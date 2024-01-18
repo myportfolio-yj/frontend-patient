@@ -8,6 +8,23 @@ export interface ClientResponse {
     tipoDocumento: TipoDocumento;
     documento: string;
     mascotas: Mascota[];
+    citas: Cita[];
+    recordatorio: Recordatorio[];
+}
+
+export interface Cita {
+    id: string;
+    idCliente: string;
+    nombreMascota: string;
+    idMascota: string;
+    tipoCita: string;
+    idTipoCita: string;
+    atencionesPeluqueria: string[];
+    fecha: string;
+    turno: string;
+    observaciones: string;
+    image: string;
+    image_label: string;
 }
 
 export interface Mascota {
@@ -21,9 +38,9 @@ export interface Mascota {
     especie: Especie;
     raza: Raza;
     esterilizado: boolean;
-    alergias: Alergia[];
     vacunas: Vacuna[];
     foto: string;
+    alergias?: Alergia[];
 }
 
 export interface Alergia {
@@ -47,9 +64,16 @@ export interface Sexo {
 }
 
 export interface Vacuna {
-    id: string;
+    idVacuna: string;
     vacuna: string;
-    duracion: number;
+    fecha: string;
+}
+
+export interface Recordatorio {
+    nombre: string;
+    fecha: string;
+    tipo: string;
+    detalle: string;
 }
 
 export interface TipoDocumento {

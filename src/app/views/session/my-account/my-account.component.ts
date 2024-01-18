@@ -6,6 +6,7 @@ import { RegisterService } from 'src/app/services/register.service';
 import { ProfileService } from 'src/app/services/profile.service';
 import { ProfileRequest } from 'src/app/interfaces/profile-request.interface';
 import { ClientResponse } from 'src/app/interfaces/client-response.interface';
+import { LOCAL_STORAGE } from 'src/app/utils/constants';
 
 @Component({
   selector: 'app-my-account',
@@ -46,7 +47,10 @@ export class MyAccountComponent  implements OnInit {
 
   ngOnInit(): void {
     this.getDocumentType();
-    this.getClientId('65a34a88a686cf3970887de1');
+    const clientId = localStorage.getItem(LOCAL_STORAGE.USER);
+    if(clientId){
+      this.getClientId(clientId); 
+    }
   }
 
   getDocumentType(): void {
