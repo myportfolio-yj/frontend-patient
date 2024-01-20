@@ -9,7 +9,7 @@
     <form [formGroup]="myForm" (ngSubmit)="addPet()" class="container-body">
         <app-typography fontSize="1em" [align]="TypographyAlign.left" margin="8px 0px 0px 0px"
             color="var(--color-primary)">
-            Lista de mascotas
+            Selecciona tu mascota
         </app-typography>
         <div class="container-pets">
             <div *ngFor="let pet of listPets; let i = index" class="section"
