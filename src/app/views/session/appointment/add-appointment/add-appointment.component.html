@@ -9,6 +9,25 @@
     <form [formGroup]="myForm" (ngSubmit)="addPet()" class="container-body">
         <app-typography fontSize="1em" [align]="TypographyAlign.left" margin="8px 0px 0px 0px"
             color="var(--color-primary)">
+            Lista de mascotas
+        </app-typography>
+        <div class="container-pets">
+            <div *ngFor="let pet of listPets; let i = index" class="section"
+                [ngClass]="{'selected': i === selectedPet }" (click)="selectPet(i)">
+                <div class="section-box">
+                    <app-typography fontSize="0.938em" [align]="TypographyAlign.left" margin="8px 0px 0px 0px"
+                        color="var(--color-primary)">
+                        {{ pet.nombre }}
+                    </app-typography>
+                    <app-typography fontSize="0.938em" [align]="TypographyAlign.left" margin="8px 0px 0px 0px"
+                        color="var(--color-primary)">
+                        {{ pet.apellido }}
+                    </app-typography>
+                </div>
+            </div>
+        </div>
+        <app-typography fontSize="1em" [align]="TypographyAlign.left" margin="8px 0px 0px 0px"
+            color="var(--color-primary)">
             Tipo de cita
         </app-typography>
         <div class="container-appointment">

@@ -3,7 +3,7 @@ import { Location } from '@angular/common';
 import { TypographyAlign } from 'src/app/shared/components/typography/typography.enum';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AppointmentService } from 'src/app/services/appointment.service';
-import { FormAppointmentResponse, ReservasPeluquero, ReservasVeterinario, TiposCita, Turno } from 'src/app/interfaces/form-appointment-response.interface';
+import { FormAppointmentResponse, Mascota, ReservasPeluquero, ReservasVeterinario, TiposCita, Turno } from 'src/app/interfaces/form-appointment-response.interface';
 
 @Component({
   selector: 'app-add-appointment',
@@ -20,10 +20,12 @@ export class AddAppointmentComponent implements OnInit {
   listVeterinario: ReservasVeterinario[] = [];
   listPeluquero: ReservasPeluquero[] = [];
 
+  listPets: Mascota[] = [];
   listDays:Turno[] = [];
   listTime: string[] = [];
   listTyAppointment: TiposCita[] = [];
 
+  selectedPet: number | null = null;
   selectedTyAppointment: string | null = null;
   selectedVet: number | null = null;
   selectedPelu: number | null = null;
@@ -89,6 +91,10 @@ export class AddAppointmentComponent implements OnInit {
     this.myForm.reset();
   }
 
+  selectPet(index: number): void {
+    this.selectedPet = this.selectedPet === index ? null : index;
+  }
+
   selectTypeAppointment(id: string): void {
     this.selectedTyAppointment = this.selectedTyAppointment === id ? null : id;
     console.log(this.selectedTyAppointment)
@@ -146,7 +152,8 @@ export class AddAppointmentComponent implements OnInit {
       .then((data) => {
         console.log(data);
         this.formAppointmentData = data;
-        this.listTyAppointment = data.tiposCita
+        this.listTyAppointment = data.tiposCita;
+        this.listPets = data.mascotas;
       }).catch(err => {
         console.log(err);
       });
