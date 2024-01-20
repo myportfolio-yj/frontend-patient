@@ -37,7 +37,7 @@
   }
 
   .container-body {
-    flex: 1;
+    //flex: 1;
     display: flex;
     flex-direction: column;
     width: 100%; // Ancho de toda la pantalla menos los márgenes
@@ -55,8 +55,36 @@
     //   max-width: 800px; /* Ancho máximo para escritorio */
     // }
 
-    .container-date {
-      height: 100%;
+    .container-appointment {
+      display: grid;
+      grid-template-columns: repeat(
+          auto-fit,
+          minmax(100px, 1fr)
+      );
+      gap: 32px;
+      margin: 16px 0px;
+
+      .container-appointment-data {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          width: 100%;
+          height: 60px;
+          border-radius: 16px;
+          background: var(--color-primary-litght);
+          cursor: pointer;
+
+          &.selected {
+            border: 1px solid var(--color-primary);
+            //border: 1px solid rgba(130, 208, 197, 0.9);
+            box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 48px;
+          }
+      }
+    }
+
+    .container-employee {
+      //height: 60px;
       overflow-x: auto;
       white-space: nowrap;
       display: flex;
@@ -64,13 +92,56 @@
       
       .section {
         width: 100%;
-        height: 100%;
+        //height: 100%;
         margin-right: 8px;
         cursor: pointer;
         transition: background-color 0.3s ease;
         white-space: nowrap;
         background: var(--color-primary-litght);
         border-radius: 8px;
+        //display: flex;
+        //align-items: center;
+        //justify-content: center;
+
+        .section-box {
+          display: flex;
+          flex-direction: column;
+          width: 110px;
+          height: 80px;
+          align-items: center;
+          justify-content: center;
+          
+        }
+
+        &.selected {
+          //background-color: #ffffff;
+          //box-shadow: 0 8px 16px rgba(0, 128, 0, 0.2);
+          border: 1px solid var(--color-primary);
+          //border: 1px solid rgba(130, 208, 197, 0.9);
+          box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 48px;
+        }
+      }
+    }
+
+    .container-date {
+      //height: 100%;
+      overflow-x: auto;
+      white-space: nowrap;
+      display: flex;
+      margin: 16px 0px;
+      
+      .section {
+        width: 100%;
+        //height: 100%;
+        margin-right: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        white-space: nowrap;
+        background: var(--color-primary-litght);
+        border-radius: 8px;
+        //display: flex;
+        //align-items: center;
+        //justify-content: center;
 
         .section-box {
           display: flex;
@@ -102,7 +173,8 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 60px;
+        
+        width: 110px;
         height: 40px;
         background: var(--color-primary-litght);
         border-radius: 8px;
@@ -114,34 +186,6 @@
           //border: 1px solid rgba(130, 208, 197, 0.9);
           box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 48px;
         }
-      }
-    }
-
-    .container-appointment {
-      display: grid;
-      grid-template-columns: repeat(
-          auto-fit,
-          minmax(100px, 1fr)
-      );
-      gap: 32px;
-      margin: 16px 0px;
-
-      .container-appointment-data {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          width: 100%;
-          height: 60px;
-          border-radius: 16px;
-          background: var(--color-primary-litght);
-          cursor: pointer;
-
-          &.selected {
-            border: 1px solid var(--color-primary);
-            //border: 1px solid rgba(130, 208, 197, 0.9);
-            box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 48px;
-          }
       }
     }
 

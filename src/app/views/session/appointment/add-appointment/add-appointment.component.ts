@@ -2,9 +2,8 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { TypographyAlign } from 'src/app/shared/components/typography/typography.enum';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Option } from './../../../../shared/components/select/option.interface';
 import { AppointmentService } from 'src/app/services/appointment.service';
-import { FormAppointmentResponse, ReservasPeluquero, ReservasVeterinario, TiposCita } from 'src/app/interfaces/form-appointment-response.interface';
+import { FormAppointmentResponse, ReservasPeluquero, ReservasVeterinario, TiposCita, Turno } from 'src/app/interfaces/form-appointment-response.interface';
 
 @Component({
   selector: 'app-add-appointment',
@@ -14,27 +13,31 @@ import { FormAppointmentResponse, ReservasPeluquero, ReservasVeterinario, TiposC
 export class AddAppointmentComponent implements OnInit {
 
   myForm!: FormGroup;
-
-  listSex: Option[] = [];
-  listSpecies: Option[] = [];
-  listBreed: Option[] = [];
-  listAllergies: Option[] = [];
-  listVaccines: Option[] = [];
   
-  allergiesSelected: string[] = [];
-  vaccinesSelected: string[] = [];
   headerColor: string = 'transparent'; // Inicialmente transparente
   formAppointmentData: FormAppointmentResponse = {} as FormAppointmentResponse;
+
   listVeterinario: ReservasVeterinario[] = [];
   listPeluquero: ReservasPeluquero[] = [];
+
+  listDays:Turno[] = [];
+  listTime: string[] = [];
+  listTyAppointment: TiposCita[] = [];
+
+  selectedTyAppointment: string | null = null;
+  selectedVet: number | null = null;
+  selectedPelu: number | null = null;
+  selectedDay: number | null = null;
+  selectedTime: number | null = null;
+
+  isVet = true;
+  titleEmploye = 'Seleccione su tipo de cita'
 
   constructor(
     private location: Location,
     private formBuilder: FormBuilder,
     private appointmentService: AppointmentService
   ) {
-    this.allergiesSelected = [];
-    this.vaccinesSelected = [];
     this.myForm = this.formBuilder.group({
       mascota: ['', Validators.required],
       tipoCita: ['', Validators.required],
@@ -86,97 +89,6 @@ export class AddAppointmentComponent implements OnInit {
     this.myForm.reset();
   }
 
-  changeSexo(event: any): void {
-    const nombresControl = this.myForm.get('idSexo');
-    if (nombresControl) {
-      nombresControl.setValue(event.value);
-    } else {
-      console.error('Control "nombres" no encontrado en el formulario.');
-    }
-  }
-
-  changeEspecie(event: any): void {
-    const nombresControl = this.myForm.get('idEspecie');
-    if (nombresControl) {
-      nombresControl.setValue(event.value);
-      //this.onSpeciesChange(event.name);
-    } else {
-      console.error('Control "nombres" no encontrado en el formulario.');
-    }
-  }
-
-  changeRaza(event: any): void {
-    const nombresControl = this.myForm.get('idRaza');
-    if (nombresControl) {
-      nombresControl.setValue(event.value);
-    } else {
-      console.error('Control "nombres" no encontrado en el formulario.');
-    }
-  }
-
-  listDay: any[] = Array.from({ length: 10 }, (_, index) => index + 1);
-  selectedDay: number | null = null;
-
-  listDays: any = [
-    {
-      id: '1',
-      diaName: 'Lunes',
-      diaNumber: '01',
-      fecha: '01/02/2024'
-    },
-    {
-      id: '2',
-      diaName: 'Martes',
-      diaNumber: '02',
-      fecha: '02/02/2024'
-    },
-    {
-      id: '3',
-      diaName: 'Miercoles',
-      diaNumber: '03',
-      fecha: '03/02/2024'
-    },
-    {
-      id: '4',
-      diaName: 'Jueves',
-      diaNumber: '04',
-      fecha: '04/02/2024'
-    },
-    {
-      id: '5',
-      diaName: 'Viernes',
-      diaNumber: '05',
-      fecha: '05/02/2024'
-    },
-    {
-      id: '6',
-      diaName: 'Sábado',
-      diaNumber: '06',
-      fecha: '06/02/2024'
-    },
-    {
-      id: '7',
-      diaName: 'Domingo',
-      diaNumber: '07',
-      fecha: '07/02/2024'
-    }
-  ];
-
-  listTime: any[] = Array.from({ length: 20 }, (_, index) => index + 1);
-  selectedTime: number | null = null;
-
-  //listTyAppointment: any[] = Array.from({ length: 2 }, (_, index) => index + 1);
-  listTyAppointment: TiposCita[] = [];
-  selectedTyAppointment: string | null = null;
-
-  selectDay(index: number): void {
-    this.selectedDay = this.selectedDay === index ? null : index;
-  }
-
-  selectTime(index: number): void {
-    this.selectedTime = this.selectedTime === index ? null : index;
-  }
-
   selectTypeAppointment(id: string): void {
     this.selectedTyAppointment = this.selectedTyAppointment === id ? null : id;
     console.log(this.selectedTyAppointment)
@@ -184,14 +96,44 @@ export class AddAppointmentComponent implements OnInit {
     console.log(reservas);
     if(this.selectedTyAppointment === '6587bd5b28e28300c3fd3f54'){
       this.listVeterinario = [];
+      this.isVet = true;
+      this.selectedVet = null;
+      this.titleEmploye = 'Veterinarios disponibles'
       if(reservas?.reservasVeterinario){
         this.listVeterinario = reservas?.reservasVeterinario;
+        console.log(this.listVeterinario)
       }
     }else if(this.selectedTyAppointment === '6587bd8a28e28300c3fd3f55') {
+      this.listPeluquero = [];
+      this.isVet = false;
+      this.selectedPelu = null;
+      this.titleEmploye = 'Peluqueros disponibles'
       if(reservas?.reservasPeluquero){
         this.listPeluquero = reservas?.reservasPeluquero;
+        console.log(this.listPeluquero)
       }
     }
+  }
+
+  selectVet(index: number): void {
+    this.selectedVet = this.selectedVet === index ? null : index;
+    this.listDays = this.listVeterinario[index].turnos;
+    console.log(this.listDays);
+  }
+
+  selectPelu(index: number): void {
+    this.selectedPelu = this.selectedPelu === index ? null : index;
+    this.listDays = this.listPeluquero[index].turnos;
+    console.log(this.listDays);
+  }
+
+  selectDay(index: number): void {
+    this.selectedDay = this.selectedDay === index ? null : index;
+    this.listTime = this.listDays[index].turnos;
+  }
+
+  selectTime(index: number): void {
+    this.selectedTime = this.selectedTime === index ? null : index;
   }
 
   getFormAppointment(): void {
@@ -204,6 +146,10 @@ export class AddAppointmentComponent implements OnInit {
       }).catch(err => {
         console.log(err);
       });
+  }
+
+  cleanSelectedAll(): void {
+    
   }
 
 }

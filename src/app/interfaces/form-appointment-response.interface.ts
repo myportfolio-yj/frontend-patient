@@ -1,12 +1,6 @@
 export interface FormAppointmentResponse {
     mascotas: Mascota[];
     tiposCita: TiposCita[];
-    atencionesPeluqueria: AtencionesPeluqueria[];
-}
-
-export interface AtencionesPeluqueria {
-    id: string;
-    atencionPeluquero: string;
 }
 
 export interface Mascota {
@@ -21,6 +15,12 @@ export interface TiposCita {
     tipoCita: string;
     reservasVeterinario?: ReservasVeterinario[];
     reservasPeluquero?: ReservasPeluquero[];
+    atencionesPeluqueria?: AtencionesPeluqueria[];
+}
+
+export interface AtencionesPeluqueria {
+    id: string;
+    atencionPeluquero: string;
 }
 
 export interface ReservasPeluquero {
@@ -48,6 +48,6 @@ export interface Turno {
 }
 
 export interface ReservasVeterinario {
-    verinario: Veterinario;
+    veterinario: Veterinario;
     turnos: Turno[];
 }

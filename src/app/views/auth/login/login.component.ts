@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoginRequest } from 'src/app/interfaces/login-request.interface';
 import { LoginService } from 'src/app/services/login.service';
+import { LOCAL_STORAGE } from 'src/app/utils/constants';
 
 @Component({
   selector: 'app-login',
@@ -37,7 +38,7 @@ export class LoginComponent {
     this.loginService
       .postLogin(formData)
       .then((data) => {
-        console.log(data);
+        localStorage.setItem(LOCAL_STORAGE.USER, data.id);
         this.myForm.resetForm();
         this.router.navigate(["session/home"]); 
       }).catch(err => {

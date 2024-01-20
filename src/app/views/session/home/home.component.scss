@@ -5,7 +5,7 @@
   align-items: center;
   width: 100%;
   background: var(--color-primary);
-  background: linear-gradient(180deg, var(--color-primary) 0%, rgba(255,255,255,1) 35%, rgba(255,255,255,1) 100%);
+  background: linear-gradient(180deg, var(--color-primary) 0%, rgba(255,255,255,1) 150px, rgba(255,255,255,1) 100%);
 
   //background: rgb(4,210,179);
 //background: linear-gradient(180deg, rgba(4,210,179,1) 0%, rgba(255,255,255,1) 35%, rgba(255,255,255,1) 100%);
@@ -132,15 +132,61 @@
   grid-template-columns: repeat(2, 1fr);
   width: 100%;
   gap: 20px;
+  padding: 16px;
+  
+  .card-two {
+    display: flex;
+    align-items: center;
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // Agrega la elevación al card
+  
+    .info-two {
+      flex-grow: 1; // El contenido en la parte derecha ocupa todo el espacio disponible
+      margin: 16px;
+  
+      .img {
+        width: 100%;
+        height: 120px;
+
+        img{
+          width: 100%;
+          height: 100%;
+          margin-right: 10px;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // Agrega la elevación al card
+          background-size: cover; // Ajusta el tamaño para cubrir todo el contenedor
+          background-position: center; // Centra la imagen
+          background-repeat: no-repeat; // Evita repetir la imagen
+          border-radius: 16px;
+        }
+      }
+
+      .info-title {
+        display: flex;
+        align-items: center;
+  
+        h3 {
+          color: #000000;
+          margin: 0px 0px 10px 0px;
+        }
+      }
+  
+      .row {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+      }
+    }
+  }
 }
 
-.card-two {
-  display: flex;
-  align-items: center;
-  background: #ffffff;
-  border-radius: 16px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // Agrega la elevación al card
-}
+// .card-two {
+//   display: flex;
+//   align-items: center;
+//   background: #ffffff;
+//   border-radius: 16px;
+//   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // Agrega la elevación al card
+// }
 
 //Desktop
 @media (min-width: 768px) {

@@ -11,6 +11,7 @@ import { RouterModule } from '@angular/router';
 import {MatIconModule} from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
 import { CapitalizeFirstLetterPipe } from './utils/capitalize-first-letter.pipe';
+import { DayPipe } from './utils/day.pipe';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { CapitalizeFirstLetterPipe } from './utils/capitalize-first-letter.pipe'
     ImageComponent,
     HeaderComponent,
     NavComponent,
-    CapitalizeFirstLetterPipe
+    CapitalizeFirstLetterPipe,
+    DayPipe
   ],
   imports: [
     CommonModule,
@@ -37,7 +39,8 @@ import { CapitalizeFirstLetterPipe } from './utils/capitalize-first-letter.pipe'
     HeaderComponent,
     NavComponent,
     MatIconModule,
-    CapitalizeFirstLetterPipe
+    CapitalizeFirstLetterPipe,
+    DayPipe
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })

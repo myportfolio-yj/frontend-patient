@@ -23,41 +23,59 @@
 
         <app-typography fontSize="1em" [align]="TypographyAlign.left" margin="8px 0px 0px 0px"
             color="var(--color-primary)">
-            Veterinarios disponibles
+            {{ titleEmploye }}
         </app-typography>
-        <div class="container-date">
+        <div class="container-employee" *ngIf="isVet; else esPeluquero">
             <div *ngFor="let vet of listVeterinario; let i = index" class="section"
-                [ngClass]="{'selected': i === selectedDay}" (click)="selectDay(i)">
+                [ngClass]="{'selected': i === selectedVet }" (click)="selectVet(i)">
                 <!-- Contenido de la sección -->
                 <div class="section-box">
                     <app-typography fontSize="0.938em" [align]="TypographyAlign.left" margin="8px 0px 0px 0px"
                         color="var(--color-primary)">
-                        {{ vet.verinario.nombres }}
+                        {{ vet.veterinario.nombres }}
                     </app-typography>
                     <app-typography fontSize="0.938em" [align]="TypographyAlign.left" margin="8px 0px 0px 0px"
                         color="var(--color-primary)">
-                        {{ vet.verinario.apellidos }}
+                        {{ vet.veterinario.apellidos }}
                     </app-typography>
                 </div>
             </div>
         </div>
+        <ng-template #esPeluquero>
+            <div class="container-employee">
+                <div *ngFor="let pelu of listPeluquero; let i = index" class="section"
+                [ngClass]="{'selected': i === selectedPelu }" (click)="selectPelu(i)">
+                <!-- Contenido de la sección -->
+                <div class="section-box">
+                    <app-typography fontSize="0.938em" [align]="TypographyAlign.left" margin="8px 0px 0px 0px"
+                        color="var(--color-primary)">
+                        {{ pelu.peluquero.nombres }}
+                    </app-typography>
+                    <app-typography fontSize="0.938em" [align]="TypographyAlign.left" margin="8px 0px 0px 0px"
+                        color="var(--color-primary)">
+                        {{ pelu.peluquero.apellidos }}
+                    </app-typography>
+                </div>
+            </div>
+            </div>
+        </ng-template>
         
         <app-typography fontSize="1em" [align]="TypographyAlign.left" margin="8px 0px 0px 0px"
             color="var(--color-primary)">
             Fechas disponibles
         </app-typography>
         <div class="container-date">
-            <div *ngFor="let day of listDay; let i = index" class="section"
+            <div *ngFor="let day of listDays; let i = index" class="section"
                 [ngClass]="{'selected': i === selectedDay}" (click)="selectDay(i)">
                 <!-- Contenido de la sección -->
                 <div class="section-box">
                     <app-typography fontSize="0.938em" [align]="TypographyAlign.left" margin="8px 0px 0px 0px"
                         color="var(--color-primary)">
-                        Lunes
+                        {{ day.dia | day }}
                     </app-typography>
                     <app-typography fontSize="0.938em" [align]="TypographyAlign.left" margin="8px 0px 0px 0px"
                         color="var(--color-primary)">
-                        15
+                        {{ day.fecha | day }}
                     </app-typography>
                 </div>
             </div>
@@ -71,7 +89,7 @@
                 (click)="selectTime(i)">
                 <!-- Contenido del cuadro -->
                 <app-typography fontSize="0.938em" [align]="TypographyAlign.left" color="var(--color-primary)">
-                    15:30
+                    {{ time }}
                 </app-typography>
             </div>
         </div>
@@ -85,7 +103,6 @@
                 <input type="checkbox" class="fadeIn" id="corte" class="mycheck"> Corte
             </app-typography>
         </div>
-        <input type="text" class="fadeIn" id="nombre" formControlName="nombre" placeholder="Nombre" required>
         <div class="container-obs">
             <app-typography fontSize="0.938em" [align]="TypographyAlign.left" margin="0px 0px 0px 0px">
                 <textarea class="fadeIn" id="observaciones" formControlName="observaciones" placeholder="Observaciones">Hola! Creo que estás completamente equivocado!</textarea>
