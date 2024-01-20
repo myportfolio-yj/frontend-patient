@@ -94,7 +94,7 @@
             </div>
         </div>
         
-        <div class="container-appointment-type">
+        <div class="container-appointment-type" *ngIf="!isVet">
             <app-typography fontSize="1em" [align]="TypographyAlign.left" margin="8px 0px 0px 0px" color="var(--color-secondary)">
                 <input type="checkbox" class="fadeIn" id="baño" class="mycheck"> Baño
             </app-typography>

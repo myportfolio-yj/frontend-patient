@@ -94,10 +94,11 @@ export class AddAppointmentComponent implements OnInit {
     console.log(this.selectedTyAppointment)
     const reservas = this.listTyAppointment.find((b) => b.id === id);
     console.log(reservas);
+    this.cleanSelectAppointment();
     if(this.selectedTyAppointment === '6587bd5b28e28300c3fd3f54'){
       this.listVeterinario = [];
       this.isVet = true;
-      this.selectedVet = null;
+      //this.selectedVet = null;
       this.titleEmploye = 'Veterinarios disponibles'
       if(reservas?.reservasVeterinario){
         this.listVeterinario = reservas?.reservasVeterinario;
@@ -106,7 +107,7 @@ export class AddAppointmentComponent implements OnInit {
     }else if(this.selectedTyAppointment === '6587bd8a28e28300c3fd3f55') {
       this.listPeluquero = [];
       this.isVet = false;
-      this.selectedPelu = null;
+      //this.selectedPelu = null;
       this.titleEmploye = 'Peluqueros disponibles'
       if(reservas?.reservasPeluquero){
         this.listPeluquero = reservas?.reservasPeluquero;
@@ -118,18 +119,21 @@ export class AddAppointmentComponent implements OnInit {
   selectVet(index: number): void {
     this.selectedVet = this.selectedVet === index ? null : index;
     this.listDays = this.listVeterinario[index].turnos;
+    this.cleanSelectVetOrPelu();
     console.log(this.listDays);
   }
 
   selectPelu(index: number): void {
     this.selectedPelu = this.selectedPelu === index ? null : index;
     this.listDays = this.listPeluquero[index].turnos;
+    this.cleanSelectVetOrPelu();
     console.log(this.listDays);
   }
 
   selectDay(index: number): void {
     this.selectedDay = this.selectedDay === index ? null : index;
     this.listTime = this.listDays[index].turnos;
+    this.cleanSelectDay();
   }
 
   selectTime(index: number): void {
@@ -148,8 +152,19 @@ export class AddAppointmentComponent implements OnInit {
       });
   }
 
-  cleanSelectedAll(): void {
-    
+  cleanSelectAppointment(): void {
+    this.selectedVet = null;
+    this.selectedPelu = null;
+    this.selectedDay = null;
+    this.selectedTime = null;
   }
 
+  cleanSelectVetOrPelu(): void {
+    this.selectedDay = null;
+    this.selectedTime = null;
+  }
+
+  cleanSelectDay(): void {
+    this.selectedTime = null;
+  }
 }
