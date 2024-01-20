@@ -3,7 +3,7 @@ import { Location } from '@angular/common';
 import { TypographyAlign } from 'src/app/shared/components/typography/typography.enum';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AppointmentService } from 'src/app/services/appointment.service';
-import { FormAppointmentResponse, ReservasPeluquero, ReservasVeterinario, TiposCita, Turno } from 'src/app/interfaces/form-appointment-response.interface';
+import { FormAppointmentResponse, Mascota, ReservasPeluquero, ReservasVeterinario, TiposCita, Turno } from 'src/app/interfaces/form-appointment-response.interface';
 
 @Component({
   selector: 'app-add-appointment',
@@ -20,10 +20,12 @@ export class AddAppointmentComponent implements OnInit {
   listVeterinario: ReservasVeterinario[] = [];
   listPeluquero: ReservasPeluquero[] = [];
 
+  listPets: Mascota[] = [];
   listDays:Turno[] = [];
   listTime: string[] = [];
   listTyAppointment: TiposCita[] = [];
 
+  selectedPet: number | null = null;
   selectedTyAppointment: string | null = null;
   selectedVet: number | null = null;
   selectedPelu: number | null = null;
@@ -89,15 +91,20 @@ export class AddAppointmentComponent implements OnInit {
     this.myForm.reset();
   }
 
+  selectPet(index: number): void {
+    this.selectedPet = this.selectedPet === index ? null : index;
+  }
+
   selectTypeAppointment(id: string): void {
     this.selectedTyAppointment = this.selectedTyAppointment === id ? null : id;
     console.log(this.selectedTyAppointment)
     const reservas = this.listTyAppointment.find((b) => b.id === id);
     console.log(reservas);
+    this.cleanSelectAppointment();
     if(this.selectedTyAppointment === '6587bd5b28e28300c3fd3f54'){
       this.listVeterinario = [];
       this.isVet = true;
-      this.selectedVet = null;
+      //this.selectedVet = null;
       this.titleEmploye = 'Veterinarios disponibles'
       if(reservas?.reservasVeterinario){
         this.listVeterinario = reservas?.reservasVeterinario;
@@ -106,7 +113,7 @@ export class AddAppointmentComponent implements OnInit {
     }else if(this.selectedTyAppointment === '6587bd8a28e28300c3fd3f55') {
       this.listPeluquero = [];
       this.isVet = false;
-      this.selectedPelu = null;
+      //this.selectedPelu = null;
       this.titleEmploye = 'Peluqueros disponibles'
       if(reservas?.reservasPeluquero){
         this.listPeluquero = reservas?.reservasPeluquero;
@@ -118,18 +125,21 @@ export class AddAppointmentComponent implements OnInit {
   selectVet(index: number): void {
     this.selectedVet = this.selectedVet === index ? null : index;
     this.listDays = this.listVeterinario[index].turnos;
+    this.cleanSelectVetOrPelu();
     console.log(this.listDays);
   }
 
   selectPelu(index: number): void {
     this.selectedPelu = this.selectedPelu === index ? null : index;
     this.listDays = this.listPeluquero[index].turnos;
+    this.cleanSelectVetOrPelu();
     console.log(this.listDays);
   }
 
   selectDay(index: number): void {
     this.selectedDay = this.selectedDay === index ? null : index;
     this.listTime = this.listDays[index].turnos;
+    this.cleanSelectDay();
   }
 
   selectTime(index: number): void {
@@ -142,14 +152,26 @@ export class AddAppointmentComponent implements OnInit {
       .then((data) => {
         console.log(data);
         this.formAppointmentData = data;
-        this.listTyAppointment = data.tiposCita
+        this.listTyAppointment = data.tiposCita;
+        this.listPets = data.mascotas;
       }).catch(err => {
         console.log(err);
       });
   }
 
-  cleanSelectedAll(): void {
-    
+  cleanSelectAppointment(): void {
+    this.selectedVet = null;
+    this.selectedPelu = null;
+    this.selectedDay = null;
+    this.selectedTime = null;
   }
 
+  cleanSelectVetOrPelu(): void {
+    this.selectedDay = null;
+    this.selectedTime = null;
+  }
+
+  cleanSelectDay(): void {
+    this.selectedTime = null;
+  }
 }
