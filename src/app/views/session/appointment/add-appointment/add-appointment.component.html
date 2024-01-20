@@ -23,9 +23,9 @@
 
         <app-typography fontSize="1em" [align]="TypographyAlign.left" margin="8px 0px 0px 0px"
             color="var(--color-primary)">
-            Veterinarios disponibles
+            {{ titleEmploye }}
         </app-typography>
-        <div class="container-date" *ngIf="listVeterinario.length > 0; else noVeterinarios">
+        <div class="container-employee" *ngIf="isVet; else esPeluquero">
             <div *ngFor="let vet of listVeterinario; let i = index" class="section"
                 [ngClass]="{'selected': i === selectedVet }" (click)="selectVet(i)">
                 <!-- Contenido de la sección -->
@@ -41,11 +41,10 @@
                 </div>
             </div>
         </div>
-
-        <ng-template #noVeterinarios>
-            <div> es la otra selección</div>
-            <div *ngFor="let pelu of listPeluquero; let i = index" class="section"
-                [ngClass]="{'selected': i === selectedVet }" (click)="selectVet(i)">
+        <ng-template #esPeluquero>
+            <div class="container-employee">
+                <div *ngFor="let pelu of listPeluquero; let i = index" class="section"
+                [ngClass]="{'selected': i === selectedPelu }" (click)="selectPelu(i)">
                 <!-- Contenido de la sección -->
                 <div class="section-box">
                     <app-typography fontSize="0.938em" [align]="TypographyAlign.left" margin="8px 0px 0px 0px"
@@ -58,7 +57,8 @@
                     </app-typography>
                 </div>
             </div>
-          </ng-template>
+            </div>
+        </ng-template>
         
         <app-typography fontSize="1em" [align]="TypographyAlign.left" margin="8px 0px 0px 0px"
             color="var(--color-primary)">

@@ -26,8 +26,12 @@ export class AddAppointmentComponent implements OnInit {
 
   selectedTyAppointment: string | null = null;
   selectedVet: number | null = null;
+  selectedPelu: number | null = null;
   selectedDay: number | null = null;
   selectedTime: number | null = null;
+
+  isVet = true;
+  titleEmploye = 'Seleccione su tipo de cita'
 
   constructor(
     private location: Location,
@@ -85,37 +89,41 @@ export class AddAppointmentComponent implements OnInit {
     this.myForm.reset();
   }
 
-  changeSexo(event: any): void {
-    const nombresControl = this.myForm.get('idSexo');
-    if (nombresControl) {
-      nombresControl.setValue(event.value);
-    } else {
-      console.error('Control "nombres" no encontrado en el formulario.');
-    }
-  }
-
-  changeEspecie(event: any): void {
-    const nombresControl = this.myForm.get('idEspecie');
-    if (nombresControl) {
-      nombresControl.setValue(event.value);
-      //this.onSpeciesChange(event.name);
-    } else {
-      console.error('Control "nombres" no encontrado en el formulario.');
-    }
-  }
-
-  changeRaza(event: any): void {
-    const nombresControl = this.myForm.get('idRaza');
-    if (nombresControl) {
-      nombresControl.setValue(event.value);
-    } else {
-      console.error('Control "nombres" no encontrado en el formulario.');
+  selectTypeAppointment(id: string): void {
+    this.selectedTyAppointment = this.selectedTyAppointment === id ? null : id;
+    console.log(this.selectedTyAppointment)
+    const reservas = this.listTyAppointment.find((b) => b.id === id);
+    console.log(reservas);
+    if(this.selectedTyAppointment === '6587bd5b28e28300c3fd3f54'){
+      this.listVeterinario = [];
+      this.isVet = true;
+      this.selectedVet = null;
+      this.titleEmploye = 'Veterinarios disponibles'
+      if(reservas?.reservasVeterinario){
+        this.listVeterinario = reservas?.reservasVeterinario;
+        console.log(this.listVeterinario)
+      }
+    }else if(this.selectedTyAppointment === '6587bd8a28e28300c3fd3f55') {
+      this.listPeluquero = [];
+      this.isVet = false;
+      this.selectedPelu = null;
+      this.titleEmploye = 'Peluqueros disponibles'
+      if(reservas?.reservasPeluquero){
+        this.listPeluquero = reservas?.reservasPeluquero;
+        console.log(this.listPeluquero)
+      }
     }
   }
 
   selectVet(index: number): void {
     this.selectedVet = this.selectedVet === index ? null : index;
     this.listDays = this.listVeterinario[index].turnos;
+    console.log(this.listDays);
+  }
+
+  selectPelu(index: number): void {
+    this.selectedPelu = this.selectedPelu === index ? null : index;
+    this.listDays = this.listPeluquero[index].turnos;
     console.log(this.listDays);
   }
 
@@ -128,24 +136,6 @@ export class AddAppointmentComponent implements OnInit {
     this.selectedTime = this.selectedTime === index ? null : index;
   }
 
-  selectTypeAppointment(id: string): void {
-    this.selectedTyAppointment = this.selectedTyAppointment === id ? null : id;
-    console.log(this.selectedTyAppointment)
-    const reservas = this.listTyAppointment.find((b) => b.id === id);
-    console.log(reservas);
-    if(this.selectedTyAppointment === '6587bd5b28e28300c3fd3f54'){
-      this.listVeterinario = [];
-      if(reservas?.reservasVeterinario){
-        this.listVeterinario = reservas?.reservasVeterinario;
-        console.log(this.listVeterinario)
-      }
-    }else if(this.selectedTyAppointment === '6587bd8a28e28300c3fd3f55') {
-      if(reservas?.reservasPeluquero){
-        this.listPeluquero = reservas?.reservasPeluquero;
-      }
-    }
-  }
-
   getFormAppointment(): void {
     this.appointmentService
       .getFormAppointment()
@@ -156,6 +146,10 @@ export class AddAppointmentComponent implements OnInit {
       }).catch(err => {
         console.log(err);
       });
+  }
+
+  cleanSelectedAll(): void {
+    
   }
 
 }
