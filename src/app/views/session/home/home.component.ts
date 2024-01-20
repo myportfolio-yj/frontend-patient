@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { Cita, ClientResponse, Mascota, Recordatorio } from 'src/app/interfaces/client-response.interface';
 import { HomeService } from 'src/app/services/home.service';
@@ -23,9 +24,14 @@ export class HomeComponent implements OnInit {
 
   client!: ClientResponse;
 
+  latitud: number = 37.7749; // Reemplaza con tu latitud
+  longitud: number = -122.4194; // Reemplaza con tu longitud
+  googleMapsUrl!: SafeResourceUrl;
+
   constructor(
     private router: Router,
-    private homeService: HomeService
+    private homeService: HomeService,
+    private sanitizer: DomSanitizer
   ) {
     this.showContent(1);
   }
@@ -83,4 +89,12 @@ export class HomeComponent implements OnInit {
     console.log('cerrar sesión')
   }
 
+  abrirGoogleMaps() {
+    const url = `https://www.google.com/maps/search/?api=1&query=${this.latitud},${this.longitud}`;
+    console.log(url);
+    this.googleMapsUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+
+    // Abre una nueva pestaña con la URL de Google Maps
+    window.open(this.googleMapsUrl.toString(), '_blank');
+  }
 }
