@@ -4,7 +4,6 @@ import { BehaviorSubject, Observable, firstValueFrom } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Endpoints } from '../config/endpoints.enum';
 import { RegisterResponse } from '../interfaces/register-response.interface';
-import { SexResponse } from '../interfaces/sex-response.interface';
 import { Raza, SpeciesResponse } from '../interfaces/species-response.interface';
 import { AllergiesResponse } from '../interfaces/allergies-response.interface';
 import { VaccinesResponse } from '../interfaces/vaccines-response.interface';
@@ -26,10 +25,10 @@ export class AppointmentService {
 
   constructor(private httpClient: HttpClient) { }
 
-  async getFormAppointment(): Promise<FormAppointmentResponse> {
+  async getFormAppointmentByClient(idClient: string): Promise<FormAppointmentResponse> {
     try {
       const response: FormAppointmentResponse = await firstValueFrom(
-        this.httpClient.get<FormAppointmentResponse>(`${environment.API_URL_CLINICA}${Endpoints.GET_FORM_APPOINTMENT}`)
+        this.httpClient.get<FormAppointmentResponse>(`${environment.API_URL_CLINICA}${Endpoints.GET_FORM_APPOINTMENT}/${idClient}`)
       );
       return response;
     } catch (error) {

@@ -27,7 +27,7 @@ export class AddAppointmentComponent implements OnInit {
   listTime: string[] = [];
   listTyAppointment: TiposCita[] = [];
   listAttentionPelu: AtencionesPeluqueria[] = [];
-  listAttentionForm: string [] = [];
+  listAttentionForm: string[] = [];
 
   selectedPet: number | null = null;
   selectedTyAppointment: string | null = null;
@@ -58,7 +58,7 @@ export class AddAppointmentComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getFormAppointment();
+    this.getFormAppointmentByClient(this.idClient);
     this.validateAndSetControlValue('idCliente', this.idClient, this.myForm);
   }
 
@@ -69,7 +69,6 @@ export class AddAppointmentComponent implements OnInit {
   @HostListener('window:scroll', [])
   onWindowScroll() {
     const scrollPosition = window.scrollY || document.documentElement.scrollTop || document.body.scrollTop || 0;
-
     // Cambia el color del fondo del header cuando la posición de desplazamiento sea mayor a cierta cantidad
     if (scrollPosition > 100) {
       //this.headerColor = 'var(--color-primary)'; // Nuevo color cuando se desplaza hacia abajo
@@ -88,7 +87,6 @@ export class AddAppointmentComponent implements OnInit {
       // Realizar el registro si el formulario es válido
       const formData = this.myForm.value;
       //this.postAddPetById(formData);
-      console.log(formData);
     } else {
       console.log('Formulario inválido. Por favor, complete todos los campos requeridos.');
     }
@@ -106,28 +104,22 @@ export class AddAppointmentComponent implements OnInit {
 
   selectTypeAppointment(id: string): void {
     this.selectedTyAppointment = id;
-    console.log(this.selectedTyAppointment)
     const reservas = this.listTyAppointment.find((b) => b.id === id);
     console.log(reservas);
     this.cleanSelectAppointment();
     this.validateAndSetControlValue('idTipoCita', id, this.myForm);
     if (this.selectedTyAppointment === '6587bd5b28e28300c3fd3f54') {
-      this.listVeterinario = [];
       this.isVet = true;
       this.titleEmploye = 'Veterinarios disponibles'
       if (reservas?.reservasVeterinario) {
         this.listVeterinario = reservas?.reservasVeterinario;
-        console.log(this.listVeterinario)
       }
     } else if (this.selectedTyAppointment === '6587bd8a28e28300c3fd3f55') {
-      this.listPeluquero = [];
-      this.listAttentionPelu = [];
       this.listAttentionPelu = reservas?.atencionesPeluqueria || [];
       this.isVet = false;
       this.titleEmploye = 'Peluqueros disponibles'
       if (reservas?.reservasPeluquero) {
         this.listPeluquero = reservas?.reservasPeluquero;
-        console.log(this.listPeluquero)
       }
     }
   }
@@ -137,14 +129,12 @@ export class AddAppointmentComponent implements OnInit {
     this.selectedVet = index;
     this.listDays = this.listVeterinario[index].turnos;
     this.cleanSelectVetOrPelu();
-    console.log(this.listDays);
   }
 
   selectPelu(index: number): void {
     this.selectedPelu = index;
     this.listDays = this.listPeluquero[index].turnos;
     this.cleanSelectVetOrPelu();
-    console.log(this.listDays);
   }
 
   selectDay(index: number, fecha: string): void {
@@ -166,11 +156,12 @@ export class AddAppointmentComponent implements OnInit {
     }else {
       this.listAttentionForm.splice(pos, 1);
     }
+    this.validateAndSetControlValue('atencionesPeluqueria', this.listAttentionForm, this.myForm);
   }
 
-  getFormAppointment(): void {
+  getFormAppointmentByClient(idClient: string): void {
     this.appointmentService
-      .getFormAppointment()
+      .getFormAppointmentByClient(idClient)
       .then((data) => {
         console.log(data);
         this.formAppointmentData = data;
@@ -186,18 +177,29 @@ export class AddAppointmentComponent implements OnInit {
     this.selectedPelu = null;
     this.selectedDay = null;
     this.selectedTime = null;
+    this.listAttentionForm = [];
+    this.listVeterinario = [];
+    this.listPeluquero = [];
+    this.listAttentionPelu = [];
+    this.validateAndSetControlValue('fecha', '', this.myForm);
+    this.validateAndSetControlValue('turno', '', this.myForm);
+    this.validateAndSetControlValue('observaciones', '', this.myForm);
+    this.validateAndSetControlValue('atencionesPeluqueria', this.listAttentionForm, this.myForm);
   }
 
   cleanSelectVetOrPelu(): void {
     this.selectedDay = null;
     this.selectedTime = null;
+    this.validateAndSetControlValue('fecha', '', this.myForm);
+    this.validateAndSetControlValue('turno', '', this.myForm);
   }
 
   cleanSelectDay(): void {
     this.selectedTime = null;
+    this.validateAndSetControlValue('turno', '', this.myForm);
   }
 
-  validateAndSetControlValue(controlName: string, controlValue: string, form: FormGroup): void {
+  validateAndSetControlValue(controlName: string, controlValue: any, form: FormGroup): void {
     const controls = form.get(controlName);
     if (controls) {
       controls.setValue(controlValue);
