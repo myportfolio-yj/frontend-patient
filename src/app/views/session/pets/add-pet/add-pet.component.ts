@@ -87,31 +87,16 @@ export class AddPetComponent implements OnInit {
   }
 
   changeSexo(event: any): void {
-    const nombresControl = this.myForm.get('idSexo');
-    if (nombresControl) {
-      nombresControl.setValue(event.value);
-    } else {
-      console.error('Control "nombres" no encontrado en el formulario.');
-    }
+    this.validateAndSetControlValue('idSexo', event.value, this.myForm);
   }
 
   changeEspecie(event: any): void {
-    const nombresControl = this.myForm.get('idEspecie');
-    if (nombresControl) {
-      nombresControl.setValue(event.value);
-      this.onSpeciesChange(event.name);
-    } else {
-      console.error('Control "nombres" no encontrado en el formulario.');
-    }
+    this.validateAndSetControlValue('idEspecie', event.value, this.myForm);
+    this.onSpeciesChange(event.name);
   }
 
   changeRaza(event: any): void {
-    const nombresControl = this.myForm.get('idRaza');
-    if (nombresControl) {
-      nombresControl.setValue(event.value);
-    } else {
-      console.error('Control "nombres" no encontrado en el formulario.');
-    }
+    this.validateAndSetControlValue('idRaza', event.value, this.myForm);
   }
 
   getSexo(): void {
@@ -192,11 +177,7 @@ export class AddPetComponent implements OnInit {
     }else {
       this.allergiesSelected.splice(pos, 1);
     }
-
-    const controls = this.myForm.get('alergias');
-    if (controls) {
-      controls.setValue(this.allergiesSelected);
-    }
+    this.validateAndSetControlValue('alergias', this.allergiesSelected, this.myForm);
   }
 
   validateVaccines(vaccineValue: string):void {
@@ -206,10 +187,15 @@ export class AddPetComponent implements OnInit {
     }else {
       this.vaccinesSelected.splice(pos, 1);
     }
+    this.validateAndSetControlValue('vacunas', this.vaccinesSelected, this.myForm);
+  }
 
-    const controls = this.myForm.get('vacunas');
+  validateAndSetControlValue(controlName: string, controlValue: any, form: FormGroup): void {
+    const controls = form.get(controlName);
     if (controls) {
-      controls.setValue(this.vaccinesSelected);
+      controls.setValue(controlValue);
+    } else {
+      console.error(`Control "${controlName}" no encontrado en el formulario.`);
     }
   }
 
