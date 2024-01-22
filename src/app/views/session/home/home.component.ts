@@ -28,10 +28,11 @@ export class HomeComponent implements OnInit {
   longitud: number = -122.4194; // Reemplaza con tu longitud
   googleMapsUrl!: SafeResourceUrl;
 
+  urlMapa = 'https://maps.google.com/?q=-12.1631619,-77.0191987';
+
   constructor(
     private router: Router,
-    private homeService: HomeService,
-    private sanitizer: DomSanitizer
+    private homeService: HomeService
   ) {
     this.showContent(1);
   }
@@ -87,14 +88,5 @@ export class HomeComponent implements OnInit {
 
   logout(event: any): void {
     console.log('cerrar sesión')
-  }
-
-  abrirGoogleMaps() {
-    const url = `https://www.google.com/maps/search/?api=1&query=${this.latitud},${this.longitud}`;
-    console.log(url);
-    this.googleMapsUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
-
-    // Abre una nueva pestaña con la URL de Google Maps
-    window.open(this.googleMapsUrl.toString(), '_blank');
   }
 }

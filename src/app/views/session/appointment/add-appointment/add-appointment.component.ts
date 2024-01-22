@@ -3,7 +3,8 @@ import { Location } from '@angular/common';
 import { TypographyAlign } from 'src/app/shared/components/typography/typography.enum';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AppointmentService } from 'src/app/services/appointment.service';
-import { FormAppointmentResponse, Mascota, ReservasPeluquero, ReservasVeterinario, TiposCita, Turno } from 'src/app/interfaces/form-appointment-response.interface';
+import { AtencionesPeluqueria, FormAppointmentResponse, Mascota, ReservasPeluquero, ReservasVeterinario, TiposCita, Turno } from 'src/app/interfaces/form-appointment-response.interface';
+import { LOCAL_STORAGE } from 'src/app/utils/constants';
 
 @Component({
   selector: 'app-add-appointment',
@@ -13,17 +14,20 @@ import { FormAppointmentResponse, Mascota, ReservasPeluquero, ReservasVeterinari
 export class AddAppointmentComponent implements OnInit {
 
   myForm!: FormGroup;
-  
+
   headerColor: string = 'transparent'; // Inicialmente transparente
   formAppointmentData: FormAppointmentResponse = {} as FormAppointmentResponse;
 
+  idClient = '';
   listVeterinario: ReservasVeterinario[] = [];
   listPeluquero: ReservasPeluquero[] = [];
 
   listPets: Mascota[] = [];
-  listDays:Turno[] = [];
+  listDays: Turno[] = [];
   listTime: string[] = [];
   listTyAppointment: TiposCita[] = [];
+  listAttentionPelu: AtencionesPeluqueria[] = [];
+  listAttentionForm: string [] = [];
 
   selectedPet: number | null = null;
   selectedTyAppointment: string | null = null;
@@ -41,18 +45,21 @@ export class AddAppointmentComponent implements OnInit {
     private appointmentService: AppointmentService
   ) {
     this.myForm = this.formBuilder.group({
-      mascota: ['', Validators.required],
-      tipoCita: ['', Validators.required],
+      idCliente: ['', Validators.required],
+      idMascota: ['', Validators.required],
+      idTipoCita: ['', Validators.required],
       fecha: ['', Validators.required],
       turno: ['', Validators.required],
-      baño: [false],
-      corte: [false],
-      observaciones: ['']
+      observaciones: [''],
+      atencionesPeluqueria: [this.listAttentionForm]
     });
+
+    this.idClient = localStorage.getItem(LOCAL_STORAGE.USER) || '';
   }
 
   ngOnInit(): void {
     this.getFormAppointment();
+    this.validateAndSetControlValue('idCliente', this.idClient, this.myForm);
   }
 
   get TypographyAlign(): typeof TypographyAlign {
@@ -76,7 +83,7 @@ export class AddAppointmentComponent implements OnInit {
     this.location.back();
   }
 
-  addPet() {
+  addAppointment() {
     if (this.myForm.valid) {
       // Realizar el registro si el formulario es válido
       const formData = this.myForm.value;
@@ -91,59 +98,74 @@ export class AddAppointmentComponent implements OnInit {
     this.myForm.reset();
   }
 
-  selectPet(index: number): void {
-    this.selectedPet = this.selectedPet === index ? null : index;
+  selectPet(index: number, petId: string): void {
+    //this.selectedPet = this.selectedPet === index ? null : index;
+    this.selectedPet = index;
+    this.validateAndSetControlValue('idMascota', petId, this.myForm);
   }
 
   selectTypeAppointment(id: string): void {
-    this.selectedTyAppointment = this.selectedTyAppointment === id ? null : id;
+    this.selectedTyAppointment = id;
     console.log(this.selectedTyAppointment)
     const reservas = this.listTyAppointment.find((b) => b.id === id);
     console.log(reservas);
     this.cleanSelectAppointment();
-    if(this.selectedTyAppointment === '6587bd5b28e28300c3fd3f54'){
+    this.validateAndSetControlValue('idTipoCita', id, this.myForm);
+    if (this.selectedTyAppointment === '6587bd5b28e28300c3fd3f54') {
       this.listVeterinario = [];
       this.isVet = true;
-      //this.selectedVet = null;
       this.titleEmploye = 'Veterinarios disponibles'
-      if(reservas?.reservasVeterinario){
+      if (reservas?.reservasVeterinario) {
         this.listVeterinario = reservas?.reservasVeterinario;
         console.log(this.listVeterinario)
       }
-    }else if(this.selectedTyAppointment === '6587bd8a28e28300c3fd3f55') {
+    } else if (this.selectedTyAppointment === '6587bd8a28e28300c3fd3f55') {
       this.listPeluquero = [];
+      this.listAttentionPelu = [];
+      this.listAttentionPelu = reservas?.atencionesPeluqueria || [];
       this.isVet = false;
-      //this.selectedPelu = null;
       this.titleEmploye = 'Peluqueros disponibles'
-      if(reservas?.reservasPeluquero){
+      if (reservas?.reservasPeluquero) {
         this.listPeluquero = reservas?.reservasPeluquero;
         console.log(this.listPeluquero)
       }
     }
   }
 
+  /** TODO: No se envía el dato del Veterianrio o el Peluquero seleccionado en el API */
   selectVet(index: number): void {
-    this.selectedVet = this.selectedVet === index ? null : index;
+    this.selectedVet = index;
     this.listDays = this.listVeterinario[index].turnos;
     this.cleanSelectVetOrPelu();
     console.log(this.listDays);
   }
 
   selectPelu(index: number): void {
-    this.selectedPelu = this.selectedPelu === index ? null : index;
+    this.selectedPelu = index;
     this.listDays = this.listPeluquero[index].turnos;
     this.cleanSelectVetOrPelu();
     console.log(this.listDays);
   }
 
-  selectDay(index: number): void {
-    this.selectedDay = this.selectedDay === index ? null : index;
+  selectDay(index: number, fecha: string): void {
+    this.selectedDay = index;
     this.listTime = this.listDays[index].turnos;
+    this.validateAndSetControlValue('fecha', fecha, this.myForm);
     this.cleanSelectDay();
   }
 
-  selectTime(index: number): void {
-    this.selectedTime = this.selectedTime === index ? null : index;
+  selectTime(index: number, time: string): void {
+    this.selectedTime = index;
+    this.validateAndSetControlValue('turno', time, this.myForm);
+  }
+
+  selectAttention(attentionId: string): void{
+    const pos = this.listAttentionForm.indexOf(attentionId);
+    if(pos === -1){
+      this.listAttentionForm.push(attentionId);
+    }else {
+      this.listAttentionForm.splice(pos, 1);
+    }
   }
 
   getFormAppointment(): void {
@@ -173,5 +195,14 @@ export class AddAppointmentComponent implements OnInit {
 
   cleanSelectDay(): void {
     this.selectedTime = null;
+  }
+
+  validateAndSetControlValue(controlName: string, controlValue: string, form: FormGroup): void {
+    const controls = form.get(controlName);
+    if (controls) {
+      controls.setValue(controlValue);
+    } else {
+      console.error(`Control "${controlName}" no encontrado en el formulario.`);
+    }
   }
 }

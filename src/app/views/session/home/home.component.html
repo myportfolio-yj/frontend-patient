@@ -132,8 +132,10 @@
               <app-typography fontSize="0.75em" color="var(--color-primary)" [align]="TypographyAlign.left"
               margin="0px">Mira la ubicación haciendo click en el Mapa</app-typography>
             </div>
-            <div class="img" (click)="abrirGoogleMaps()">
-              <img src="/assets/img/maps.jpg">
+            <div class="img">
+              <a [href]="urlMapa" target="_blank">
+                <img src="/assets/img/maps.jpg">
+              </a>
             </div>
           </div>
         </div>
