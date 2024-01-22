@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AppointmentService } from 'src/app/services/appointment.service';
 import { AtencionesPeluqueria, FormAppointmentResponse, Mascota, ReservasPeluquero, ReservasVeterinario, TiposCita, Turno } from 'src/app/interfaces/form-appointment-response.interface';
 import { LOCAL_STORAGE } from 'src/app/utils/constants';
+import { AddAppointmentRequest } from 'src/app/interfaces/add-appointment-request.interface';
 
 @Component({
   selector: 'app-add-appointment',
@@ -86,7 +87,7 @@ export class AddAppointmentComponent implements OnInit {
     if (this.myForm.valid) {
       // Realizar el registro si el formulario es válido
       const formData = this.myForm.value;
-      //this.postAddPetById(formData);
+      this.postAddAppointmentById(formData);
     } else {
       console.log('Formulario inválido. Por favor, complete todos los campos requeridos.');
     }
@@ -157,6 +158,17 @@ export class AddAppointmentComponent implements OnInit {
       this.listAttentionForm.splice(pos, 1);
     }
     this.validateAndSetControlValue('atencionesPeluqueria', this.listAttentionForm, this.myForm);
+  }
+
+  postAddAppointmentById(appointment: AddAppointmentRequest): void {
+    this.appointmentService
+      .postAddAppointmentById(appointment)
+      .then((data) => {
+        console.log('Se agregó la cita');
+        console.log(data);
+      }).catch(err => {
+        console.log(err);
+      });
   }
 
   getFormAppointmentByClient(idClient: string): void {
