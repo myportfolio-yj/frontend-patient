@@ -166,6 +166,8 @@ export class AddAppointmentComponent implements OnInit {
       .then((data) => {
         console.log('Se agregó la cita');
         console.log(data);
+        this.clearForm();
+        this.cleanSelectAppointment();
       }).catch(err => {
         console.log(err);
       });

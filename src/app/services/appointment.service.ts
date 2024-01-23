@@ -40,7 +40,7 @@ export class AppointmentService {
   async postAddAppointmentById(appointment: AddAppointmentRequest): Promise<any> {
     try {
       const response: any = await firstValueFrom(
-        this.httpClient.post<any>(`${environment.API_URL_USUARIO}${Endpoints.POST_APPOINTMENT}`, appointment)
+        this.httpClient.post<any>(`${environment.API_URL_CLINICA}${Endpoints.POST_APPOINTMENT}`, appointment)
       );
       return response;
     } catch (error) {

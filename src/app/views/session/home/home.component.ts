@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { Cita, ClientResponse, Mascota, Recordatorio } from 'src/app/interfaces/client-response.interface';
+import { Cita, ClientResponse, Geolocalizaciones, Mascota, Recordatorio } from 'src/app/interfaces/client-response.interface';
 import { HomeService } from 'src/app/services/home.service';
 import { TypographyAlign } from 'src/app/shared/components/typography/typography.enum';
 import { LOCAL_STORAGE } from 'src/app/utils/constants';
@@ -20,7 +20,8 @@ export class HomeComponent implements OnInit {
 
   listAppointment: Cita[] = [];
 
-  listReminder: Recordatorio[] = []
+  listReminder: Recordatorio[] = [];
+  listGeolocalizacion: Geolocalizaciones[] = [];
 
   client!: ClientResponse;
 
@@ -77,6 +78,7 @@ export class HomeComponent implements OnInit {
         this.listPets = data.mascotas;
         this.listAppointment = data.citas;
         this.listReminder = data.recordatorio;
+        this.listGeolocalizacion = data.geolocalizaciones;
       }).catch(err => {
         console.log(err);
       });

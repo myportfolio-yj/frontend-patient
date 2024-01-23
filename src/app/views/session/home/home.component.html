@@ -122,24 +122,38 @@
       <!-- ... -->
       <div class="content-head">
       </div>
-      <div class="content-list">
-        <div class="card-two" *ngFor="let reminder of listReminder">
-          <div class="info-two">
-            <div class="info-title">
-              <h3>{{ reminder.nombre }}</h3>
-            </div>
-            <div class="row">
-              <app-typography fontSize="0.75em" color="var(--color-primary)" [align]="TypographyAlign.left"
-              margin="0px">Mira la ubicación haciendo click en el Mapa</app-typography>
-            </div>
-            <div class="img">
-              <a [href]="urlMapa" target="_blank">
-                <img src="/assets/img/maps.jpg">
-              </a>
+        <div *ngFor="let geolocalizacion of listGeolocalizacion">
+          <div class="content-list">
+            <div class="card-two" *ngFor="let geo of geolocalizacion.geolocalizaciones">
+              <div class="info-two">
+                <div class="info-title">
+                  <h3>{{ geolocalizacion.mascotaNombre }}</h3>
+                </div>
+                <div class="row">
+                  <mat-icon>access_time</mat-icon>
+                  <span>{{ geo.fecha }}</span>
+                </div>
+                <div class="row">
+                  <mat-icon>access_time</mat-icon>
+                  <span>{{ geo.hora }}</span>
+                </div>
+                <div class="row">
+                  <mat-icon>phone</mat-icon>
+                  <span>{{ geo.telefono }}</span>
+                </div>
+                <div class="row">
+                  <app-typography fontSize="0.75em" color="var(--color-primary)" [align]="TypographyAlign.left"
+                  margin="0px">Mira la ubicación haciendo click en el Mapa</app-typography>
+                </div>
+                <div class="img">
+                  <a [href]="urlMapa" target="_blank">
+                    <img src="/assets/img/maps.jpg">
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
     </div>
   </div>
 </div>
