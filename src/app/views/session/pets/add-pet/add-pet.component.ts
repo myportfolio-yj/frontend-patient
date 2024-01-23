@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Option } from './../../../../shared/components/select/option.interface';
 import { PetService } from 'src/app/services/pet.service';
 import { Raza } from 'src/app/interfaces/species-response.interface';
 import { TypographyAlign } from 'src/app/shared/components/typography/typography.enum';
 import { PetRequest } from 'src/app/interfaces/pet-request.interface';
+import { VaccinesForm } from 'src/app/interfaces/vaccines-form.interface';
 
 @Component({
   selector: 'app-add-pet',
@@ -21,7 +22,7 @@ export class AddPetComponent implements OnInit {
   listBreed: Option[] = [];
   itemBreeds: Raza[] = [];
   listAllergies: Option[] = [];
-  listVaccines: Option[] = [];
+  listVaccines: VaccinesForm[] = [];
   
   allergiesSelected: string[] = [];
   vaccinesSelected: string[] = [];
@@ -42,8 +43,17 @@ export class AddPetComponent implements OnInit {
       idRaza: ['', Validators.required],
       esterilizado: [false, Validators.required],
       alergias: [[]],
-      vacunas: [[]],
+      //vacunas: [[]],
+      vacunas: this.formBuilder.array([]),
+      //vacunas: this.formBuilder.array([this.createEmptyVaccine()]),
       foto: ['']
+    });
+  }
+
+  createEmptyVaccine(): FormGroup {
+    return this.formBuilder.group({
+      idVacuna: ['', Validators.required],
+      fechaVacuna: ['']
     });
   }
 
@@ -72,6 +82,8 @@ export class AddPetComponent implements OnInit {
   }
 
   addPet() {
+    const formData = this.myForm.value;
+    console.log(formData);
     if (this.myForm.valid) {
       // Realizar el registro si el formulario es válido
       const formData = this.myForm.value;
@@ -84,6 +96,12 @@ export class AddPetComponent implements OnInit {
 
   clearForm(): void {
     this.myForm.reset();
+  }
+
+  onDateChange(vaccine: any): void {
+    console.log('onDateChange',vaccine)
+    // Aquí puedes realizar validaciones adicionales de la fecha si es necesario
+    //this.validateAndSetControlValue('vacunas', this.getSelectedVaccines(), this.myForm);
   }
 
   changeSexo(event: any): void {
@@ -145,9 +163,11 @@ export class AddPetComponent implements OnInit {
     this.petService
       .getVaccines()
       .then((data) => {
-        const newItems: Option[] = data.map((document) => ({
+        const newItems: VaccinesForm[] = data.map((document) => ({
           name: document.vacuna,
-          value: document.id
+          value: document.id,
+          selected: false,
+          date: ''
         }));
         this.listVaccines = newItems;
       }).catch(err => {
@@ -180,14 +200,56 @@ export class AddPetComponent implements OnInit {
     this.validateAndSetControlValue('alergias', this.allergiesSelected, this.myForm);
   }
 
-  validateVaccines(vaccineValue: string):void {
-    const pos = this.vaccinesSelected.indexOf(vaccineValue);
-    if(pos === -1){
-      this.vaccinesSelected.push(vaccineValue);
-    }else {
-      this.vaccinesSelected.splice(pos, 1);
+  // validateVaccines(vaccineValue: string):void {
+  //   const pos = this.vaccinesSelected.indexOf(vaccineValue);
+  //   if(pos === -1){
+  //     this.vaccinesSelected.push(vaccineValue);
+  //   }else {
+  //     this.vaccinesSelected.splice(pos, 1);
+  //   }
+  //   this.validateAndSetControlValue('vacunas', this.vaccinesSelected, this.myForm);
+  // }
+
+  validateVaccines(vaccine: VaccinesForm):void {
+    vaccine.selected = !vaccine.selected;
+    this.selectVaccine(vaccine.value);
+  }
+
+  selectVaccine(idVacuna: string): void {
+    const vacunasArray = this.myForm.get('vacunas') as FormArray;
+    const existingVaccineIndex = vacunasArray.controls.findIndex(
+      (control) => control.get('idVacuna')?.value === idVacuna
+    );
+  
+    if (existingVaccineIndex !== -1) {
+      // Si la vacuna ya está en la lista, eliminarla
+      vacunasArray.removeAt(existingVaccineIndex);
+    } else {
+      // Si la vacuna no está en la lista, agregar un nuevo FormGroup vacío
+      vacunasArray.push(this.formBuilder.group({
+        idVacuna: [idVacuna, Validators.required],
+        fechaVacuna: ['', Validators.required]
+      }));
     }
-    this.validateAndSetControlValue('vacunas', this.vaccinesSelected, this.myForm);
+  }
+
+  getFecha(idVacuna: string): string {
+    const vacunasArray = this.myForm.get('vacunas') as FormArray;
+    const vaccineControl = vacunasArray.controls.find(
+      (control) => control.get('idVacuna')?.value === idVacuna
+    );
+    return vaccineControl ? vaccineControl.get('fechaVacuna')?.value : '';
+  }
+
+  updateFecha(idVacuna: string, event: any): void {
+    console.log(event)
+    // const vacunasArray = this.myForm.get('vacunas') as FormArray;
+    // const vaccineControl = vacunasArray.controls.find(
+    //   (control) => control.get('idVacuna')?.value === idVacuna
+    // );
+    // if (vaccineControl) {
+    //   vaccineControl.get('fechaVacuna')?.setValue(fecha);
+    // }
   }
 
   validateAndSetControlValue(controlName: string, controlValue: any, form: FormGroup): void {

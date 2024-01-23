@@ -47,13 +47,23 @@
                 </div>
                 <app-typography fontSize="0.938em" [align]="TypographyAlign.left"
                     margin="16px 0px 0px 0px">Vacunas:</app-typography>
-                <div class="container-list">
+                <div class="container-list" formArrayName="vacunas">
                     <div *ngFor="let vaccine of listVaccines">
                         <app-typography fontSize="0.938em" [align]="TypographyAlign.left" margin="8px 0px 0px 0px">
                             <input type="checkbox" class="mycheck" id="{{ vaccine.value }}" [value]="vaccine.value"
-                                (click)="validateVaccines(vaccine.value)"> {{ vaccine.name | capitalizeFirstLetter }}
+                                (click)="validateVaccines(vaccine)" [checked]="vaccine.selected"> {{ vaccine.name | capitalizeFirstLetter }}
+                            <input *ngIf="vaccine.selected" type="text" placeholder="Fecha vacuna" [value]="getFecha(vaccine.date)"
+                                (change)="updateFecha(vaccine.value, $event)" id="fechaVacuna" formControlName="fechaVacuna">
                         </app-typography>
                     </div>
+                    <!-- <div formArrayName="vacunas">
+                        <div *ngFor="let vaccineGroup of myForm.get('vacunas').controls; let i = index" [formGroupName]="i">
+                          <input type="checkbox" (change)="selectVaccine(vaccineGroup.get('idVacuna')?.value)">
+                          <label>{{ vaccineGroup.get('idVacuna')?.value }}</label>
+                          <input type="text" formControlName="fecha" placeholder="Fecha">
+                          <button (click)="removeVaccine(i)">Eliminar</button>
+                        </div>
+                      </div> -->
                 </div>
                 <input type="submit" class="fadeIn" value="Registrar">
             </form>
