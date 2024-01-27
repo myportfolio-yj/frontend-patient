@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { Cita, ClientResponse, Geolocalizaciones, Mascota, Recordatorio } from 'src/app/interfaces/client-response.interface';
+import { DataService } from 'src/app/services/data.service';
 import { HomeService } from 'src/app/services/home.service';
 import { TypographyAlign } from 'src/app/shared/components/typography/typography.enum';
 import { LOCAL_STORAGE } from 'src/app/utils/constants';
@@ -33,7 +34,8 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private homeService: HomeService
+    private homeService: HomeService,
+    private dataService: DataService
   ) {
     this.showContent(1);
   }
@@ -70,9 +72,11 @@ export class HomeComponent implements OnInit {
   }
 
   getClientId(clientId: string): void {
+    this.dataService.setLoading(true);
     this.homeService
       .getClientId(clientId)
       .then((data) => {
+        this.dataService.setLoading(false);
         console.log(data);
         this.client = data;
         this.listPets = data.mascotas;
@@ -80,6 +84,7 @@ export class HomeComponent implements OnInit {
         this.listReminder = data.recordatorio;
         this.listGeolocalizacion = data.geolocalizaciones;
       }).catch(err => {
+        this.dataService.setLoading(false);
         console.log(err);
       });
   }

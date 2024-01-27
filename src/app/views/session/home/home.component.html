@@ -34,8 +34,8 @@
       <div class="card" *ngFor="let pet of listPets">
         <div class="img">
           <app-image [borderRadius]="'1em'" [image]="'Perro-sin-pelo-del-peru.JPG'"
-            [url]="'https://upload.wikimedia.org/wikipedia/commons/f/fc/'" [hasExternalUrl]="false"
-            [width]="'100%'" [height]="'auto'"></app-image>
+            [url]="'https://upload.wikimedia.org/wikipedia/commons/f/fc/'" [hasExternalUrl]="false" [width]="'100%'"
+            [height]="'auto'"></app-image>
         </div>
         <div class="info" (click)="goToDetailPet()">
           <div class="row">
@@ -63,7 +63,7 @@
           No hay elementos
         </div>
       </ng-template> -->
-      
+
     </div>
     <div class="content" *ngIf="selectedContent === 2">
       <!-- Contenido del botón 2 -->
@@ -72,22 +72,22 @@
         <app-typography class="name-icon">Agregar Cita</app-typography>
       </div>
       <!-- <div class="content-list"> -->
-        <div class="card" *ngFor="let appointment of listAppointment">
+      <div class="card" *ngFor="let appointment of listAppointment">
 
-          <div class="info" (click)="goToDetailAppointment()">
-            <div class="info-title">
-              <h2>{{ appointment.nombreMascota }}</h2>
-            </div>
-            <div class="row">
-              <mat-icon>access_time</mat-icon>
-              <span>{{ appointment.fecha }}</span>
-              <span>{{ appointment.turno }}</span>
-            </div>
+        <div class="info" (click)="goToDetailAppointment()">
+          <div class="info-title">
+            <h2>{{ appointment.nombreMascota }}</h2>
+          </div>
+          <div class="row">
+            <mat-icon>access_time</mat-icon>
+            <span>{{ appointment.fecha }}</span>
+            <span>{{ appointment.turno }}</span>
           </div>
         </div>
+      </div>
 
       <!-- </div> -->
-      
+
     </div>
     <div class="content" *ngIf="selectedContent === 3">
       <!-- Contenido del botón 3 -->
@@ -122,38 +122,34 @@
       <!-- ... -->
       <div class="content-head">
       </div>
-        <div *ngFor="let geolocalizacion of listGeolocalizacion">
-          <div class="content-list">
-            <div class="card-two" *ngFor="let geo of geolocalizacion.geolocalizaciones">
-              <div class="info-two">
-                <div class="info-title">
-                  <h3>{{ geolocalizacion.mascotaNombre }}</h3>
-                </div>
-                <div class="row">
-                  <mat-icon>access_time</mat-icon>
-                  <span>{{ geo.fecha }}</span>
-                </div>
-                <div class="row">
-                  <mat-icon>access_time</mat-icon>
-                  <span>{{ geo.hora }}</span>
-                </div>
-                <div class="row">
-                  <mat-icon>phone</mat-icon>
-                  <span>{{ geo.telefono }}</span>
-                </div>
-                <div class="row">
-                  <app-typography fontSize="0.75em" color="var(--color-primary)" [align]="TypographyAlign.left"
-                  margin="0px">Mira la ubicación haciendo click en el Mapa</app-typography>
-                </div>
-                <div class="img">
-                  <a [href]="urlMapa" target="_blank">
-                    <img src="/assets/img/maps.jpg">
-                  </a>
-                </div>
-              </div>
+      <div *ngFor="let geolocalizacion of listGeolocalizacion">
+        <div class="card" *ngFor="let geo of geolocalizacion.geolocalizaciones">
+          <div class="info">
+            <div class="info-title">
+              <h2>{{ geolocalizacion.mascotaNombre }}</h2>
+            </div>
+            <div class="row">
+              <mat-icon>access_time</mat-icon>
+              <span>{{ geo.fecha }}</span>
+            </div>
+            <div class="row">
+              <mat-icon>access_time</mat-icon>
+              <span>{{ geo.hora }}</span>
+            </div>
+            <div class="row">
+              <mat-icon>phone</mat-icon>
+              <span>{{ geo.telefono }}</span>
+            </div>
+          </div>
+          <div class="maps">
+            <div class="img">
+              <a [href]="geo.url" target="_blank">
+                <img src="/assets/img/maps.jpg">
+              </a>
             </div>
           </div>
         </div>
+      </div>
     </div>
   </div>
 </div>
