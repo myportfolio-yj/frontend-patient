@@ -5,7 +5,8 @@
     background-color: var(--color-secondary);
     padding: 10px;
     border-radius: 5px;
-    animation: fadeOut 6s ease forwards;
+    //animation: fadeOut 7s ease forwards;
+    z-index: 1000;
 }
 
 .notification-content {

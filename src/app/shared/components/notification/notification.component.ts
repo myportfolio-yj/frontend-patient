@@ -1,22 +1,33 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { Alert } from 'src/app/interfaces/alert.interface';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-notification',
   templateUrl: './notification.component.html',
   styleUrls: ['./notification.component.scss']
 })
-export class NotificationComponent implements OnInit {
+export class NotificationComponent implements OnInit, OnDestroy {
 
-  @Input() message: string = '';
-  @Input() isVisible: boolean = false;
+  alert: Alert = {
+    showAlert: false,
+    message: ''
+  };
+  private alertSubscription: Subscription = new Subscription();
 
-  constructor() { }
+  constructor(
+    private dataService: DataService
+  ) { }
+
+  ngOnDestroy(): void {
+    this.alertSubscription.unsubscribe();
+  }
 
   ngOnInit(): void {
-    // //Desaparece después de 4 segundos
-    setTimeout(() => {
-      this.isVisible = false;
-    }, 4000);
+    this.alertSubscription = this.dataService.alert.subscribe((alert: Alert) => {
+      this.alert = alert;
+    })
   }
 
 }

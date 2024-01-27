@@ -6,6 +6,7 @@ import { AppointmentService } from 'src/app/services/appointment.service';
 import { AtencionesPeluqueria, FormAppointmentResponse, Mascota, ReservasPeluquero, ReservasVeterinario, TiposCita, Turno } from 'src/app/interfaces/form-appointment-response.interface';
 import { LOCAL_STORAGE } from 'src/app/utils/constants';
 import { AddAppointmentRequest } from 'src/app/interfaces/add-appointment-request.interface';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-add-appointment',
@@ -43,7 +44,8 @@ export class AddAppointmentComponent implements OnInit {
   constructor(
     private location: Location,
     private formBuilder: FormBuilder,
-    private appointmentService: AppointmentService
+    private appointmentService: AppointmentService,
+    private dataService: DataService
   ) {
     this.myForm = this.formBuilder.group({
       idCliente: ['', Validators.required],
@@ -161,15 +163,17 @@ export class AddAppointmentComponent implements OnInit {
   }
 
   postAddAppointmentById(appointment: AddAppointmentRequest): void {
+    this.dataService.setLoading(true);
     this.appointmentService
       .postAddAppointmentById(appointment)
       .then((data) => {
-        console.log('Se agregó la cita');
-        console.log(data);
+        this.dataService.setLoading(false);
+        this.dataService.setAlert({showAlert: true, message: 'Se agregó la cita'});
         this.clearForm();
-        this.cleanSelectAppointment();
+        this.cleanNewAppointment();
       }).catch(err => {
         console.log(err);
+        this.dataService.setLoading(false);
       });
   }
 
@@ -195,6 +199,24 @@ export class AddAppointmentComponent implements OnInit {
     this.listVeterinario = [];
     this.listPeluquero = [];
     this.listAttentionPelu = [];
+    this.validateAndSetControlValue('fecha', '', this.myForm);
+    this.validateAndSetControlValue('turno', '', this.myForm);
+    this.validateAndSetControlValue('observaciones', '', this.myForm);
+    this.validateAndSetControlValue('atencionesPeluqueria', this.listAttentionForm, this.myForm);
+  }
+
+  cleanNewAppointment(){
+    this.validateAndSetControlValue('idCliente', this.idClient, this.myForm);
+    this.selectedVet = null;
+    this.selectedPelu = null;
+    this.selectedDay = null;
+    this.selectedTime = null;
+    this.listAttentionForm = [];
+    this.listVeterinario = [];
+    this.listPeluquero = [];
+    this.listAttentionPelu = [];
+    this.selectedPet = null;
+    this.selectedTyAppointment = null;
     this.validateAndSetControlValue('fecha', '', this.myForm);
     this.validateAndSetControlValue('turno', '', this.myForm);
     this.validateAndSetControlValue('observaciones', '', this.myForm);

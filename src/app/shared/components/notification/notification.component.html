@@ -1,5 +1,5 @@
-<div *ngIf="isVisible" class="notification-container">
+<div *ngIf="alert.showAlert" class="notification-container">
     <div class="notification-content">
-        {{ message }}
+        {{ alert.message }}
     </div>
 </div>

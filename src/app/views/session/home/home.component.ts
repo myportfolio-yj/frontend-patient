@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
-import { Router } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 import { Cita, ClientResponse, Geolocalizaciones, Mascota, Recordatorio } from 'src/app/interfaces/client-response.interface';
 import { DataService } from 'src/app/services/data.service';
 import { HomeService } from 'src/app/services/home.service';
@@ -60,7 +60,7 @@ export class HomeComponent implements OnInit {
   }
 
   addPet(): void {
-    this.router.navigate(["session/add-pet"]); 
+    this.router.navigate(["session/add-pet"]);
   }
 
   goToDetailPet(): void {

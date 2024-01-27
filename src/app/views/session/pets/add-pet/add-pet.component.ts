@@ -7,6 +7,8 @@ import { Raza } from 'src/app/interfaces/species-response.interface';
 import { TypographyAlign } from 'src/app/shared/components/typography/typography.enum';
 import { PetRequest } from 'src/app/interfaces/pet-request.interface';
 import { VaccinesForm } from 'src/app/interfaces/vaccines-form.interface';
+import { LOCAL_STORAGE } from 'src/app/utils/constants';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-add-pet',
@@ -26,11 +28,13 @@ export class AddPetComponent implements OnInit {
   
   allergiesSelected: string[] = [];
   vaccinesSelected: string[] = [];
+  idClient = ''
 
   constructor(
     private location: Location,
     private formBuilder: FormBuilder,
-    private petService: PetService
+    private petService: PetService,
+    private dataService: DataService
   ) {
     this.allergiesSelected = [];
     this.vaccinesSelected = [];
@@ -44,16 +48,18 @@ export class AddPetComponent implements OnInit {
       esterilizado: [false, Validators.required],
       alergias: [[]],
       //vacunas: [[]],
-      vacunas: this.formBuilder.array([]),
-      //vacunas: this.formBuilder.array([this.createEmptyVaccine()]),
+      //vacunas: this.formBuilder.array([]),
+      vacunas: this.formBuilder.array([this.createEmptyVaccine()]),
       foto: ['']
     });
+
+    this.idClient = localStorage.getItem(LOCAL_STORAGE.USER) || '';
   }
 
   createEmptyVaccine(): FormGroup {
     return this.formBuilder.group({
       idVacuna: ['', Validators.required],
-      fechaVacuna: ['']
+      fechaVacuna: ['12/12/2022']
     });
   }
 
@@ -87,7 +93,7 @@ export class AddPetComponent implements OnInit {
     if (this.myForm.valid) {
       // Realizar el registro si el formulario es válido
       const formData = this.myForm.value;
-      //this.postAddPetById(formData);
+      this.postAddPetById(formData);
       console.log(formData);
     } else {
       console.log('Formulario inválido. Por favor, complete todos los campos requeridos.');
@@ -176,13 +182,17 @@ export class AddPetComponent implements OnInit {
   }
 
   postAddPetById(pet: PetRequest): void {
+    this.dataService.setLoading(true);
     this.petService
-      .postAddPetById(pet, '65a34a88a686cf3970887de1')
+      .postAddPetById(pet, this.idClient)
       .then((data) => {
+        this.dataService.setLoading(false);
+        this.dataService.setAlert({showAlert: true, message: 'Se agregó la mascota'})
         console.log(data);
         this.clearForm();
       }).catch(err => {
         console.log(err);
+        this.dataService.setLoading(false);
       });
   }
 
@@ -242,7 +252,8 @@ export class AddPetComponent implements OnInit {
   }
 
   updateFecha(idVacuna: string, event: any): void {
-    console.log(event)
+    console.log('se ejecuta actualizar fecha')
+    console.log(event);
     // const vacunasArray = this.myForm.get('vacunas') as FormArray;
     // const vaccineControl = vacunasArray.controls.find(
     //   (control) => control.get('idVacuna')?.value === idVacuna
