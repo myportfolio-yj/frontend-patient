@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
-import { Router } from '@angular/router';
-import { Cita, ClientResponse, Mascota, Recordatorio } from 'src/app/interfaces/client-response.interface';
+import { NavigationExtras, Router } from '@angular/router';
+import { Cita, ClientResponse, Geolocalizaciones, Mascota, Recordatorio } from 'src/app/interfaces/client-response.interface';
+import { DataService } from 'src/app/services/data.service';
 import { HomeService } from 'src/app/services/home.service';
 import { TypographyAlign } from 'src/app/shared/components/typography/typography.enum';
 import { LOCAL_STORAGE } from 'src/app/utils/constants';
@@ -20,7 +21,8 @@ export class HomeComponent implements OnInit {
 
   listAppointment: Cita[] = [];
 
-  listReminder: Recordatorio[] = []
+  listReminder: Recordatorio[] = [];
+  listGeolocalizacion: Geolocalizaciones[] = [];
 
   client!: ClientResponse;
 
@@ -28,10 +30,12 @@ export class HomeComponent implements OnInit {
   longitud: number = -122.4194; // Reemplaza con tu longitud
   googleMapsUrl!: SafeResourceUrl;
 
+  urlMapa = 'https://maps.google.com/?q=-12.1631619,-77.0191987';
+
   constructor(
     private router: Router,
     private homeService: HomeService,
-    private sanitizer: DomSanitizer
+    private dataService: DataService
   ) {
     this.showContent(1);
   }
@@ -56,7 +60,7 @@ export class HomeComponent implements OnInit {
   }
 
   addPet(): void {
-    this.router.navigate(["session/add-pet"]); 
+    this.router.navigate(["session/add-pet"]);
   }
 
   goToDetailPet(): void {
@@ -68,15 +72,19 @@ export class HomeComponent implements OnInit {
   }
 
   getClientId(clientId: string): void {
+    this.dataService.setLoading(true);
     this.homeService
       .getClientId(clientId)
       .then((data) => {
+        this.dataService.setLoading(false);
         console.log(data);
         this.client = data;
         this.listPets = data.mascotas;
         this.listAppointment = data.citas;
         this.listReminder = data.recordatorio;
+        this.listGeolocalizacion = data.geolocalizaciones;
       }).catch(err => {
+        this.dataService.setLoading(false);
         console.log(err);
       });
   }
@@ -87,14 +95,5 @@ export class HomeComponent implements OnInit {
 
   logout(event: any): void {
     console.log('cerrar sesión')
-  }
-
-  abrirGoogleMaps() {
-    const url = `https://www.google.com/maps/search/?api=1&query=${this.latitud},${this.longitud}`;
-    console.log(url);
-    this.googleMapsUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
-
-    // Abre una nueva pestaña con la URL de Google Maps
-    window.open(this.googleMapsUrl.toString(), '_blank');
   }
 }

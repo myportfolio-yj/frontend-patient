@@ -1,1 +1,9 @@
-<router-outlet></router-outlet>
+<router-outlet>
+    <div *ngIf="isLoading" class="loader-overlay">
+        <div class="loader-content">
+            <img src="/assets/img/loading-2.gif" alt="Cargando...">
+            <p>Cargando...</p>
+        </div>
+    </div>
+    <app-notification></app-notification>
+</router-outlet>

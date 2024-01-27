@@ -10,6 +10,7 @@ export interface ClientResponse {
     mascotas: Mascota[];
     citas: Cita[];
     recordatorio: Recordatorio[];
+    geolocalizaciones: Geolocalizaciones[]
 }
 
 export interface Cita {
@@ -79,4 +80,18 @@ export interface Recordatorio {
 export interface TipoDocumento {
     id: string;
     tipoDocumento: string;
+}
+
+export interface Geolocalizaciones {
+    mascotaId: string;
+    mascotaNombre: string;
+    geolocalizaciones: GeolocalizacionesMascota[];
+}
+
+export interface GeolocalizacionesMascota {
+    id: string;
+    url: string;
+    telefono: string;
+    fecha: string;
+    hora: string;
 }

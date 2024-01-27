@@ -12,6 +12,7 @@ import {MatIconModule} from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
 import { CapitalizeFirstLetterPipe } from './utils/capitalize-first-letter.pipe';
 import { DayPipe } from './utils/day.pipe';
+import { NotificationComponent } from './components/notification/notification.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { DayPipe } from './utils/day.pipe';
     HeaderComponent,
     NavComponent,
     CapitalizeFirstLetterPipe,
-    DayPipe
+    DayPipe,
+    NotificationComponent
   ],
   imports: [
     CommonModule,
@@ -40,7 +42,8 @@ import { DayPipe } from './utils/day.pipe';
     NavComponent,
     MatIconModule,
     CapitalizeFirstLetterPipe,
-    DayPipe
+    DayPipe,
+    NotificationComponent
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })

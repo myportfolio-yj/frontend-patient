@@ -6,14 +6,14 @@
     </header>
     <div class="container-header">
     </div>
-    <form [formGroup]="myForm" (ngSubmit)="addPet()" class="container-body">
+    <form [formGroup]="myForm" (ngSubmit)="addAppointment()" class="container-body">
         <app-typography fontSize="1em" [align]="TypographyAlign.left" margin="8px 0px 0px 0px"
             color="var(--color-primary)">
             Selecciona tu mascota
         </app-typography>
         <div class="container-pets">
             <div *ngFor="let pet of listPets; let i = index" class="section"
-                [ngClass]="{'selected': i === selectedPet }" (click)="selectPet(i)">
+                [ngClass]="{'selected': i === selectedPet }" (click)="selectPet(i, pet.id)">
                 <div class="section-box">
                     <app-typography fontSize="0.938em" [align]="TypographyAlign.left" margin="8px 0px 0px 0px"
                         color="var(--color-primary)">
@@ -31,15 +31,14 @@
             Tipo de cita
         </app-typography>
         <div class="container-appointment">
-            <div *ngFor="let typeAppointment of listTyAppointment; let i = index" class="container-appointment-data" [ngClass]="{'selected': typeAppointment.id === selectedTyAppointment}"
+            <div *ngFor="let typeAppointment of listTyAppointment; let i = index" class="container-appointment-data"
+                [ngClass]="{'selected': typeAppointment.id === selectedTyAppointment}"
                 (click)="selectTypeAppointment(typeAppointment.id)">
-                <!-- Contenido del cuadro -->
                 <app-typography fontSize="0.938em" [align]="TypographyAlign.left" color="var(--color-primary)">
                     {{ typeAppointment.tipoCita }}
                 </app-typography>
             </div>
         </div>
-
         <app-typography fontSize="1em" [align]="TypographyAlign.left" margin="8px 0px 0px 0px"
             color="var(--color-primary)">
             {{ titleEmploye }}
@@ -47,7 +46,6 @@
         <div class="container-employee" *ngIf="isVet; else esPeluquero">
             <div *ngFor="let vet of listVeterinario; let i = index" class="section"
                 [ngClass]="{'selected': i === selectedVet }" (click)="selectVet(i)">
-                <!-- Contenido de la sección -->
                 <div class="section-box">
                     <app-typography fontSize="0.938em" [align]="TypographyAlign.left" margin="8px 0px 0px 0px"
                         color="var(--color-primary)">
@@ -63,30 +61,28 @@
         <ng-template #esPeluquero>
             <div class="container-employee">
                 <div *ngFor="let pelu of listPeluquero; let i = index" class="section"
-                [ngClass]="{'selected': i === selectedPelu }" (click)="selectPelu(i)">
-                <!-- Contenido de la sección -->
-                <div class="section-box">
-                    <app-typography fontSize="0.938em" [align]="TypographyAlign.left" margin="8px 0px 0px 0px"
-                        color="var(--color-primary)">
-                        {{ pelu.peluquero.nombres }}
-                    </app-typography>
-                    <app-typography fontSize="0.938em" [align]="TypographyAlign.left" margin="8px 0px 0px 0px"
-                        color="var(--color-primary)">
-                        {{ pelu.peluquero.apellidos }}
-                    </app-typography>
+                    [ngClass]="{'selected': i === selectedPelu }" (click)="selectPelu(i)">
+                    <!-- Contenido de la sección -->
+                    <div class="section-box">
+                        <app-typography fontSize="0.938em" [align]="TypographyAlign.left" margin="8px 0px 0px 0px"
+                            color="var(--color-primary)">
+                            {{ pelu.peluquero.nombres }}
+                        </app-typography>
+                        <app-typography fontSize="0.938em" [align]="TypographyAlign.left" margin="8px 0px 0px 0px"
+                            color="var(--color-primary)">
+                            {{ pelu.peluquero.apellidos }}
+                        </app-typography>
+                    </div>
                 </div>
             </div>
-            </div>
         </ng-template>
-        
         <app-typography fontSize="1em" [align]="TypographyAlign.left" margin="8px 0px 0px 0px"
             color="var(--color-primary)">
             Fechas disponibles
         </app-typography>
         <div class="container-date">
-            <div *ngFor="let day of listDays; let i = index" class="section"
-                [ngClass]="{'selected': i === selectedDay}" (click)="selectDay(i)">
-                <!-- Contenido de la sección -->
+            <div *ngFor="let day of listDays; let i = index" class="section" [ngClass]="{'selected': i === selectedDay}"
+                (click)="selectDay(i, day.fecha)">
                 <div class="section-box">
                     <app-typography fontSize="0.938em" [align]="TypographyAlign.left" margin="8px 0px 0px 0px"
                         color="var(--color-primary)">
@@ -105,26 +101,25 @@
         </app-typography>
         <div class="container-time">
             <div *ngFor="let time of listTime; let i = index" class="box" [ngClass]="{'selected': i === selectedTime}"
-                (click)="selectTime(i)">
-                <!-- Contenido del cuadro -->
+                (click)="selectTime(i, time)">
                 <app-typography fontSize="0.938em" [align]="TypographyAlign.left" color="var(--color-primary)">
                     {{ time }}
                 </app-typography>
             </div>
         </div>
-        
         <div class="container-appointment-type" *ngIf="!isVet">
-            <app-typography fontSize="1em" [align]="TypographyAlign.left" margin="8px 0px 0px 0px" color="var(--color-secondary)">
-                <input type="checkbox" class="fadeIn" id="baño" class="mycheck"> Baño
-            </app-typography>
-    
-            <app-typography fontSize="0.938em" [align]="TypographyAlign.left" margin="8px 0px 0px 0px" color="var(--color-secondary)">
-                <input type="checkbox" class="fadeIn" id="corte" class="mycheck"> Corte
-            </app-typography>
+            <div *ngFor="let attentionPelu of listAttentionPelu">
+                <app-typography fontSize="0.938em" [align]="TypographyAlign.left" margin="8px 0px 0px 0px"
+                    color="var(--color-secondary)">
+                    <input type="checkbox" class="fadeIn" id="corte" class="mycheck"
+                        (click)="selectAttention(attentionPelu.id)">{{ attentionPelu.atencionPeluquero }}
+                </app-typography>
+            </div>
         </div>
         <div class="container-obs">
             <app-typography fontSize="0.938em" [align]="TypographyAlign.left" margin="0px 0px 0px 0px">
-                <textarea class="fadeIn" id="observaciones" formControlName="observaciones" placeholder="Observaciones">Hola! Creo que estás completamente equivocado!</textarea>
+                <textarea class="fadeIn" id="observaciones" formControlName="observaciones" placeholder="Observaciones"
+                    formControlName="observaciones"></textarea>
             </app-typography>
         </div>
         <input type="submit" class="fadeIn" value="Agendar">

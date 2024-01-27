@@ -4,13 +4,13 @@ import { BehaviorSubject, Observable, firstValueFrom } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Endpoints } from '../config/endpoints.enum';
 import { RegisterResponse } from '../interfaces/register-response.interface';
-import { SexResponse } from '../interfaces/sex-response.interface';
 import { Raza, SpeciesResponse } from '../interfaces/species-response.interface';
 import { AllergiesResponse } from '../interfaces/allergies-response.interface';
 import { VaccinesResponse } from '../interfaces/vaccines-response.interface';
 import { PetRequest } from '../interfaces/pet-request.interface';
 import { PetDetailResponse } from '../interfaces/pet-detail-response.interface';
 import { FormAppointmentResponse } from '../interfaces/form-appointment-response.interface';
+import { AddAppointmentRequest } from '../interfaces/add-appointment-request.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -26,10 +26,21 @@ export class AppointmentService {
 
   constructor(private httpClient: HttpClient) { }
 
-  async getFormAppointment(): Promise<FormAppointmentResponse> {
+  async getFormAppointmentByClient(idClient: string): Promise<FormAppointmentResponse> {
     try {
       const response: FormAppointmentResponse = await firstValueFrom(
-        this.httpClient.get<FormAppointmentResponse>(`${environment.API_URL_CLINICA}${Endpoints.GET_FORM_APPOINTMENT}`)
+        this.httpClient.get<FormAppointmentResponse>(`${environment.API_URL_CLINICA}${Endpoints.GET_FORM_APPOINTMENT}/${idClient}`)
+      );
+      return response;
+    } catch (error) {
+      throw error
+    }
+  }
+
+  async postAddAppointmentById(appointment: AddAppointmentRequest): Promise<any> {
+    try {
+      const response: any = await firstValueFrom(
+        this.httpClient.post<any>(`${environment.API_URL_CLINICA}${Endpoints.POST_APPOINTMENT}`, appointment)
       );
       return response;
     } catch (error) {
@@ -63,17 +74,6 @@ export class AppointmentService {
     try {
       const response = await firstValueFrom(
         this.httpClient.get<VaccinesResponse[]>(`${environment.API_URL_MASCOTA}${Endpoints.GET_VACCINES}`)
-      );
-      return response;
-    } catch (error) {
-      throw error
-    }
-  }
-
-  async postAddPetById(pet: PetRequest, idUser: string): Promise<RegisterResponse> {
-    try {
-      const response: any = await firstValueFrom(
-        this.httpClient.post<any>(`${environment.API_URL_USUARIO}${Endpoints.POST_PET}/${idUser}`, pet)
       );
       return response;
     } catch (error) {
