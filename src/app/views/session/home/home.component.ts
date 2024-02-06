@@ -63,12 +63,24 @@ export class HomeComponent implements OnInit {
     this.router.navigate(["session/add-pet"]);
   }
 
-  goToDetailPet(): void {
-    this.router.navigate(["session/detail-pet"]); 
+  goToDetailPet(pet: any): void {
+    const params = {
+      idPet: pet.id
+    }
+    const navigationExtras: NavigationExtras = {
+      state: params
+    }
+    this.router.navigate(["session/detail-pet"], navigationExtras); 
   }
 
-  goToDetailAppointment(): void {
-    this.router.navigate(["session/detail-appointment"]); 
+  goToDetailAppointment(appointment: any): void {
+    const params = {
+      idAppointment: appointment.id
+    }
+    const navigationExtras: NavigationExtras = {
+      state: params
+    }
+    this.router.navigate(["session/detail-appointment"],navigationExtras); 
   }
 
   getClientId(clientId: string): void {

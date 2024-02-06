@@ -3,6 +3,7 @@ import { Location } from '@angular/common';
 import { PetService } from 'src/app/services/pet.service';
 import { PetDetailResponse, Alergia } from 'src/app/interfaces/pet-detail-response.interface';
 import { TypographyAlign } from 'src/app/shared/components/typography/typography.enum';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-detail-appointment',
@@ -15,15 +16,6 @@ export class DetailAppointmentComponent implements OnInit  {
 
   headerColor: string = 'transparent'; // Inicialmente transparente
 
-  // dataPet = {
-  //   nombre: 'Cloe',
-  //   apellidos: 'Jimenez',
-  //   fechaNacimiento: '12/12/2023',
-  //   sexo: 'Hembra',
-  //   especie: 'Perro',
-  //   raza: 'Chusco',
-  //   esterilizado: 'Si'
-  // }
   dataPet: PetDetailResponse = {
     id: '',
     codIdentificacion: '',
@@ -47,6 +39,7 @@ export class DetailAppointmentComponent implements OnInit  {
     vacunas: [],
     foto: ''
   };
+  idAppointment = '';
 
   @HostListener('window:scroll', [])
   onWindowScroll() {
@@ -63,8 +56,16 @@ export class DetailAppointmentComponent implements OnInit  {
 
   constructor(
     private location: Location,
-    private petService: PetService
+    private petService: PetService,
+    private router: Router
   ) {
+    const state = this.router.getCurrentNavigation()?.extras.state
+    if(state){
+      this.idAppointment = state['idAppointment'];
+      console.log('this.idAppointment',this.idAppointment);
+    }else {
+      this.router.navigate(["session/home"])
+    }
   }
 
   get TypographyAlign(): typeof TypographyAlign {
@@ -81,7 +82,7 @@ export class DetailAppointmentComponent implements OnInit  {
 
   getDetailPet(): void {
     this.petService
-      .getDetailPet('65826db7f1da1054f7569ac1')
+      .getDetailPet(this.idAppointment)
       .then((data) => {
         console.log(data);
         this.dataPet = data;

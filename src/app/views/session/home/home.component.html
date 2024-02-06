@@ -37,7 +37,7 @@
             [url]="'https://upload.wikimedia.org/wikipedia/commons/f/fc/'" [hasExternalUrl]="false" [width]="'100%'"
             [height]="'auto'"></app-image>
         </div>
-        <div class="info" (click)="goToDetailPet()">
+        <div class="info" (click)="goToDetailPet(pet)">
           <div class="row">
             <app-typography fontSize="1.5em">{{ pet.nombre | capitalizeFirstLetter }}</app-typography>
           </div>
@@ -74,7 +74,7 @@
       <!-- <div class="content-list"> -->
       <div class="card" *ngFor="let appointment of listAppointment">
 
-        <div class="info" (click)="goToDetailAppointment()">
+        <div class="info" (click)="goToDetailAppointment(appointment)">
           <div class="info-title">
             <h2>{{ appointment.nombreMascota }}</h2>
           </div>

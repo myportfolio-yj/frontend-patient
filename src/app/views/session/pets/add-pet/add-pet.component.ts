@@ -83,12 +83,10 @@ export class AddPetComponent implements OnInit {
   }
 
   addPet() {
-    const formData = this.myForm.value;
-    console.log(formData);
     if (this.myForm.valid) {
       // Realizar el registro si el formulario es válido
       const formData = this.myForm.value;
-      //this.postAddPetById(formData);
+      this.postAddPetById(formData);
       console.log(formData);
     } else {
       console.log('Formulario inválido. Por favor, complete todos los campos requeridos.');
