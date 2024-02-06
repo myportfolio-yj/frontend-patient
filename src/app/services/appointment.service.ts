@@ -40,7 +40,7 @@ export class AppointmentService {
   async postAddAppointmentById(appointment: AddAppointmentRequest): Promise<any> {
     try {
       const response: any = await firstValueFrom(
-        this.httpClient.post<any>(`${environment.API_URL_CLINICA}${Endpoints.POST_APPOINTMENT}`, appointment)
+        this.httpClient.post<any>(`${environment.API_URL_CLINICA}${Endpoints.APPOINTMENT}`, appointment)
       );
       return response;
     } catch (error) {
@@ -81,10 +81,10 @@ export class AppointmentService {
     }
   }
 
-  async getDetailPet(idPet: string): Promise<PetDetailResponse> {
+  async getDetailAppointment(idAppointment: string): Promise<PetDetailResponse> {
     try {
       const response = await firstValueFrom(
-        this.httpClient.get<PetDetailResponse>(`${environment.API_URL_MASCOTA}${Endpoints.GET_PET}/${idPet}`)
+        this.httpClient.get<PetDetailResponse>(`${environment.API_URL_CLINICA}${Endpoints.APPOINTMENT}/${idAppointment}`)
       );
       return response;
     } catch (error) {

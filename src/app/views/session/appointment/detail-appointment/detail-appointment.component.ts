@@ -1,9 +1,9 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { PetService } from 'src/app/services/pet.service';
-import { PetDetailResponse, Alergia } from 'src/app/interfaces/pet-detail-response.interface';
+import { PetDetailResponse } from 'src/app/interfaces/pet-detail-response.interface';
 import { TypographyAlign } from 'src/app/shared/components/typography/typography.enum';
 import { Router } from '@angular/router';
+import { AppointmentService } from 'src/app/services/appointment.service';
 
 @Component({
   selector: 'app-detail-appointment',
@@ -56,7 +56,7 @@ export class DetailAppointmentComponent implements OnInit  {
 
   constructor(
     private location: Location,
-    private petService: PetService,
+    private appointmentService: AppointmentService,
     private router: Router
   ) {
     const state = this.router.getCurrentNavigation()?.extras.state
@@ -73,16 +73,16 @@ export class DetailAppointmentComponent implements OnInit  {
   }
 
   ngOnInit(): void {
-    this.getDetailPet();
+    this.getDetailAppointment();
   }
 
   goBack(): void {
     this.location.back();
   }
 
-  getDetailPet(): void {
-    this.petService
-      .getDetailPet(this.idAppointment)
+  getDetailAppointment(): void {
+    this.appointmentService
+      .getDetailAppointment(this.idAppointment)
       .then((data) => {
         console.log(data);
         this.dataPet = data;

@@ -11,5 +11,5 @@ export enum Endpoints {
   POST_PET = '/mascota',
   GET_PET = '/mascota',
   GET_FORM_APPOINTMENT = '/cita-formulario',
-  POST_APPOINTMENT = '/cita'
+  APPOINTMENT = '/cita'
 }

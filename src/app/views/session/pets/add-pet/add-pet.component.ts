@@ -1,6 +1,6 @@
-import { AfterViewInit, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Option } from './../../../../shared/components/select/option.interface';
 import { PetService } from 'src/app/services/pet.service';
 import { Raza } from 'src/app/interfaces/species-response.interface';
@@ -48,7 +48,8 @@ export class AddPetComponent implements OnInit {
       esterilizado: [false, Validators.required],
       alergias: [[]],
       vacunas: this.formBuilder.array([]),
-      foto: ['']
+      foto: [''],
+      clientes: this.formBuilder.array([])
     });
 
     this.idClient = localStorage.getItem(LOCAL_STORAGE.USER) || '';
@@ -75,7 +76,11 @@ export class AddPetComponent implements OnInit {
         value: document.id
       }));
       this.listBreed = newItems;
+      console.log('this.itemBreeds',this.itemBreeds)
     });
+
+    const clientArray = this.myForm.get('clientes') as FormArray;
+    clientArray.push(this.formBuilder.control(this.idClient));
   }
 
   goBack(): void {
@@ -86,9 +91,10 @@ export class AddPetComponent implements OnInit {
     if (this.myForm.valid) {
       // Realizar el registro si el formulario es válido
       const formData = this.myForm.value;
+      console.log(JSON.stringify(formData));
       this.postAddPetById(formData);
-      console.log(formData);
     } else {
+      this.dataService.setAlert({ showAlert: true, message: 'Complete todos los campos' })
       console.log('Formulario inválido. Por favor, complete todos los campos requeridos.');
     }
   }
@@ -107,6 +113,7 @@ export class AddPetComponent implements OnInit {
   }
 
   changeRaza(event: any): void {
+    console.log(event.value)
     this.validateAndSetControlValue('idRaza', event.value, this.myForm);
   }
 
@@ -172,7 +179,7 @@ export class AddPetComponent implements OnInit {
   postAddPetById(pet: PetRequest): void {
     this.dataService.setLoading(true);
     this.petService
-      .postAddPetById(pet, this.idClient)
+      .postAddPetById(pet)
       .then((data) => {
         this.dataService.setLoading(false);
         this.dataService.setAlert({ showAlert: true, message: 'Se agregó la mascota' })
@@ -218,7 +225,7 @@ export class AddPetComponent implements OnInit {
       // Si la vacuna no está en la lista, agregar un nuevo FormGroup vacío
       vacunasArray.push(this.formBuilder.group({
         idVacuna: [idVacuna, Validators.required],
-        fechaVacuna: ['', [Validators.required, Validators.minLength(10)]]
+        fecha: ['', [Validators.required, Validators.minLength(10)]]
       }));
     }
   }
