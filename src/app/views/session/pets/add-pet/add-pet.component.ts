@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Option } from './../../../../shared/components/select/option.interface';
 import { PetService } from 'src/app/services/pet.service';
 import { Raza } from 'src/app/interfaces/species-response.interface';
@@ -25,9 +25,9 @@ export class AddPetComponent implements OnInit {
   itemBreeds: Raza[] = [];
   listAllergies: Option[] = [];
   listVaccines: VaccinesForm[] = [];
-  
+
   allergiesSelected: string[] = [];
-  vaccinesSelected: string[] = [];
+  //vaccinesSelected: string[] = [];
   idClient = ''
 
   constructor(
@@ -37,7 +37,7 @@ export class AddPetComponent implements OnInit {
     private dataService: DataService
   ) {
     this.allergiesSelected = [];
-    this.vaccinesSelected = [];
+    //this.vaccinesSelected = [];
     this.myForm = this.formBuilder.group({
       nombre: ['', Validators.required],
       apellido: ['', Validators.required],
@@ -47,24 +47,19 @@ export class AddPetComponent implements OnInit {
       idRaza: ['', Validators.required],
       esterilizado: [false, Validators.required],
       alergias: [[]],
-      //vacunas: [[]],
-      //vacunas: this.formBuilder.array([]),
-      vacunas: this.formBuilder.array([this.createEmptyVaccine()]),
+      vacunas: this.formBuilder.array([]),
       foto: ['']
     });
 
     this.idClient = localStorage.getItem(LOCAL_STORAGE.USER) || '';
   }
 
-  createEmptyVaccine(): FormGroup {
-    return this.formBuilder.group({
-      idVacuna: ['', Validators.required],
-      fechaVacuna: ['12/12/2022']
-    });
-  }
-
   get TypographyAlign(): typeof TypographyAlign {
     return TypographyAlign
+  }
+
+  get listFechaVacuna() : FormArray  {
+    return this.myForm.get('vacunas') as FormArray;
   }
 
   ngOnInit(): void {
@@ -72,7 +67,7 @@ export class AddPetComponent implements OnInit {
     this.getSpecies();
     this.getAllergies();
     this.getVaccines();
-    
+
     this.petService.selectedSpecies$.subscribe((species) => {
       this.itemBreeds = this.petService.getBreedsBySpecies(species);
       const newItems: Option[] = this.itemBreeds.map((document) => ({
@@ -93,7 +88,7 @@ export class AddPetComponent implements OnInit {
     if (this.myForm.valid) {
       // Realizar el registro si el formulario es válido
       const formData = this.myForm.value;
-      this.postAddPetById(formData);
+      //this.postAddPetById(formData);
       console.log(formData);
     } else {
       console.log('Formulario inválido. Por favor, complete todos los campos requeridos.');
@@ -102,12 +97,6 @@ export class AddPetComponent implements OnInit {
 
   clearForm(): void {
     this.myForm.reset();
-  }
-
-  onDateChange(vaccine: any): void {
-    console.log('onDateChange',vaccine)
-    // Aquí puedes realizar validaciones adicionales de la fecha si es necesario
-    //this.validateAndSetControlValue('vacunas', this.getSelectedVaccines(), this.myForm);
   }
 
   changeSexo(event: any): void {
@@ -176,6 +165,7 @@ export class AddPetComponent implements OnInit {
           date: ''
         }));
         this.listVaccines = newItems;
+        console.log(this.listVaccines)
       }).catch(err => {
         console.log(err);
       });
@@ -187,7 +177,7 @@ export class AddPetComponent implements OnInit {
       .postAddPetById(pet, this.idClient)
       .then((data) => {
         this.dataService.setLoading(false);
-        this.dataService.setAlert({showAlert: true, message: 'Se agregó la mascota'})
+        this.dataService.setAlert({ showAlert: true, message: 'Se agregó la mascota' })
         console.log(data);
         this.clearForm();
       }).catch(err => {
@@ -200,28 +190,19 @@ export class AddPetComponent implements OnInit {
     this.petService.setSelectedSpecies(species);
   }
 
-  validateAllergies(allergyValue: string):void {
+  validateAllergies(allergyValue: string): void {
     const pos = this.allergiesSelected.indexOf(allergyValue);
-    if(pos === -1){
+    if (pos === -1) {
       this.allergiesSelected.push(allergyValue);
-    }else {
+    } else {
       this.allergiesSelected.splice(pos, 1);
     }
     this.validateAndSetControlValue('alergias', this.allergiesSelected, this.myForm);
   }
 
-  // validateVaccines(vaccineValue: string):void {
-  //   const pos = this.vaccinesSelected.indexOf(vaccineValue);
-  //   if(pos === -1){
-  //     this.vaccinesSelected.push(vaccineValue);
-  //   }else {
-  //     this.vaccinesSelected.splice(pos, 1);
-  //   }
-  //   this.validateAndSetControlValue('vacunas', this.vaccinesSelected, this.myForm);
-  // }
-
-  validateVaccines(vaccine: VaccinesForm):void {
+  validateVaccines(vaccine: VaccinesForm): void {
     vaccine.selected = !vaccine.selected;
+    console.log('vaccine', vaccine);
     this.selectVaccine(vaccine.value);
   }
 
@@ -230,7 +211,8 @@ export class AddPetComponent implements OnInit {
     const existingVaccineIndex = vacunasArray.controls.findIndex(
       (control) => control.get('idVacuna')?.value === idVacuna
     );
-  
+
+    console.log('existingVaccineIndex', existingVaccineIndex);
     if (existingVaccineIndex !== -1) {
       // Si la vacuna ya está en la lista, eliminarla
       vacunasArray.removeAt(existingVaccineIndex);
@@ -238,29 +220,21 @@ export class AddPetComponent implements OnInit {
       // Si la vacuna no está en la lista, agregar un nuevo FormGroup vacío
       vacunasArray.push(this.formBuilder.group({
         idVacuna: [idVacuna, Validators.required],
-        fechaVacuna: ['', Validators.required]
+        fechaVacuna: ['', [Validators.required, Validators.minLength(10)]]
       }));
     }
   }
 
-  getFecha(idVacuna: string): string {
-    const vacunasArray = this.myForm.get('vacunas') as FormArray;
-    const vaccineControl = vacunasArray.controls.find(
-      (control) => control.get('idVacuna')?.value === idVacuna
-    );
-    return vaccineControl ? vaccineControl.get('fechaVacuna')?.value : '';
+  getNameVacune(idVacuna: string): string {
+    const vacine: VaccinesForm | undefined = this.listVaccines.find((x) => x.value === idVacuna);
+    if (vacine) {
+      return vacine.name
+    }
+    return '';
   }
 
-  updateFecha(idVacuna: string, event: any): void {
-    console.log('se ejecuta actualizar fecha')
-    console.log(event);
-    // const vacunasArray = this.myForm.get('vacunas') as FormArray;
-    // const vaccineControl = vacunasArray.controls.find(
-    //   (control) => control.get('idVacuna')?.value === idVacuna
-    // );
-    // if (vaccineControl) {
-    //   vaccineControl.get('fechaVacuna')?.setValue(fecha);
-    // }
+  isListFechaVacunaNotEmpty(): boolean {
+    return this.listFechaVacuna.controls.length > 0;
   }
 
   validateAndSetControlValue(controlName: string, controlValue: any, form: FormGroup): void {
