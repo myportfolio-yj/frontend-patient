@@ -3,6 +3,7 @@ import { Location } from '@angular/common';
 import { PetService } from 'src/app/services/pet.service';
 import { PetDetailResponse, Alergia } from 'src/app/interfaces/pet-detail-response.interface';
 import { TypographyAlign } from 'src/app/shared/components/typography/typography.enum';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-detail-pet',
@@ -60,11 +61,20 @@ export class DetailPetComponent implements OnInit {
       this.headerColor = 'transparent'; // Color inicial cuando está en la parte superior
     }
   }
+  idPet = '';
 
   constructor(
     private location: Location,
-    private petService: PetService
+    private petService: PetService,
+    private router: Router
   ) {
+    const state = this.router.getCurrentNavigation()?.extras.state
+    if(state){
+      this.idPet = state['idPet'];
+      console.log('this.idPet',this.idPet);
+    }else {
+      this.router.navigate(["session/home"])
+    }
   }
 
   get TypographyAlign(): typeof TypographyAlign {
@@ -81,7 +91,7 @@ export class DetailPetComponent implements OnInit {
 
   getDetailPet(): void {
     this.petService
-      .getDetailPet('65826db7f1da1054f7569ac1')
+      .getDetailPet(this.idPet)
       .then((data) => {
         console.log(data);
         this.dataPet = data;

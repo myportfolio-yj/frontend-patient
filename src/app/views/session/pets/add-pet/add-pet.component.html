@@ -47,23 +47,28 @@
                 </div>
                 <app-typography fontSize="0.938em" [align]="TypographyAlign.left"
                     margin="16px 0px 0px 0px">Vacunas:</app-typography>
-                <div class="container-list" formArrayName="vacunas">
+                <div class="container-list">
                     <div *ngFor="let vaccine of listVaccines">
                         <app-typography fontSize="0.938em" [align]="TypographyAlign.left" margin="8px 0px 0px 0px">
                             <input type="checkbox" class="mycheck" id="{{ vaccine.value }}" [value]="vaccine.value"
-                                (click)="validateVaccines(vaccine)" [checked]="vaccine.selected"> {{ vaccine.name | capitalizeFirstLetter }}
-                            <input *ngIf="vaccine.selected" type="text" placeholder="Fecha vacuna" [value]="getFecha(vaccine.date)"
-                                (change)="updateFecha(vaccine.value, $event)">
+                                (click)="validateVaccines(vaccine)" [checked]="vaccine.selected"> {{ vaccine.name |
+                            capitalizeFirstLetter }}
                         </app-typography>
                     </div>
-                    <!-- <div formArrayName="vacunas">
-                        <div *ngFor="let vaccineGroup of myForm.get('vacunas').controls; let i = index" [formGroupName]="i">
-                          <input type="checkbox" (change)="selectVaccine(vaccineGroup.get('idVacuna')?.value)">
-                          <label>{{ vaccineGroup.get('idVacuna')?.value }}</label>
-                          <input type="text" formControlName="fecha" placeholder="Fecha">
-                          <button (click)="removeVaccine(i)">Eliminar</button>
+                </div>
+                <div *ngIf="isListFechaVacunaNotEmpty()">
+                    <app-typography fontSize="0.938em" [align]="TypographyAlign.left" margin="16px 0px 16px 0px">Fechas
+                        por
+                        agregar:</app-typography>
+                    <div formArrayName="vacunas">
+                        <div *ngFor="let vacuna of listFechaVacuna.controls; let i=index">
+                            <div [formGroupName]="i">
+                                Fecha de vacuna -
+                                {{ getNameVacune(vacuna.value.idVacuna) }}
+                                <input type="text" formControlName="fecha" placeholder="dd/mm/yyyy">
+                            </div>
                         </div>
-                      </div> -->
+                    </div>
                 </div>
                 <input type="submit" class="fadeIn" value="Registrar">
             </form>

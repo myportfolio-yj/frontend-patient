@@ -9,4 +9,5 @@ export interface PetRequest {
     alergias: string[];
     vacunas: string[];
     foto: string;
+    clientes: string[];
 }

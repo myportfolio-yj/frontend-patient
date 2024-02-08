@@ -69,10 +69,10 @@ export class PetService {
     }
   }
 
-  async postAddPetById(pet: PetRequest, idUser: string): Promise<RegisterResponse> {
+  async postAddPetById(pet: PetRequest): Promise<RegisterResponse> {
     try {
       const response: any = await firstValueFrom(
-        this.httpClient.post<any>(`${environment.API_URL_USUARIO}${Endpoints.POST_PET}/${idUser}`, pet)
+        this.httpClient.post<any>(`${environment.API_URL_MASCOTA}${Endpoints.POST_PET}`, pet)
       );
       return response;
     } catch (error) {
