@@ -13,11 +13,13 @@
             <div class="info">
                 <div class="info-title">
                     <h1>{{ dataPet.nombre | capitalizeFirstLetter }}</h1>
-                    <app-typography fontSize="1.4em" color="var(--color-tertiary)" padding="0px 0px 0px 8px">{{ dataPet.apellido | capitalizeFirstLetter }}</app-typography>
+                    <app-typography fontSize="1.4em" color="var(--color-tertiary)" padding="0px 0px 0px 8px">{{
+                        dataPet.apellido | capitalizeFirstLetter }}</app-typography>
                 </div>
                 <div class="row">
                     <mat-icon class="list-icon">calendar_today</mat-icon>
-                    <app-typography fontSize="1.1em" color="var(--color-tertiary)" padding="0px 0px 0px 8px">{{ dataPet.fechaNacimiento }}</app-typography>
+                    <app-typography fontSize="1.1em" color="var(--color-tertiary)" padding="0px 0px 0px 8px">{{
+                        dataPet.fechaNacimiento }}</app-typography>
                 </div>
                 <div class="info-profile">
                     <div class="info-profile-data">
@@ -25,7 +27,8 @@
                             <app-typography fontSize="1.1em" color="var(--color-border-gray)">Sexo</app-typography>
                         </div>
                         <div class="row">
-                            <app-typography fontSize="1.1em" color="var(--color-tertiary)">{{ dataPet.sexo.sexo | capitalizeFirstLetter }}</app-typography>
+                            <app-typography fontSize="1.1em" color="var(--color-tertiary)">{{ dataPet.sexo.sexo |
+                                capitalizeFirstLetter }}</app-typography>
                         </div>
                     </div>
 
@@ -34,7 +37,8 @@
                             <app-typography fontSize="1.1em" color="var(--color-border-gray)">Especie</app-typography>
                         </div>
                         <div class="row">
-                            <app-typography fontSize="1.1em" color="var(--color-tertiary)">{{ dataPet.especie.especie | capitalizeFirstLetter }}</app-typography>
+                            <app-typography fontSize="1.1em" color="var(--color-tertiary)">{{ dataPet.especie.especie |
+                                capitalizeFirstLetter }}</app-typography>
                         </div>
                     </div>
 
@@ -43,33 +47,38 @@
                             <app-typography fontSize="1.1em" color="var(--color-border-gray)">Raza</app-typography>
                         </div>
                         <div class="row">
-                            <app-typography fontSize="1.1em" color="var(--color-tertiary)">{{ dataPet.raza.raza | capitalizeFirstLetter }}</app-typography>
+                            <app-typography fontSize="1.1em" color="var(--color-tertiary)">{{ dataPet.raza.raza |
+                                capitalizeFirstLetter }}</app-typography>
                         </div>
                     </div>
 
                     <div class="info-profile-data">
                         <div class="row">
-                            <app-typography fontSize="1.1em" color="var(--color-border-gray)">Esterilizado</app-typography>
+                            <app-typography fontSize="1.1em"
+                                color="var(--color-border-gray)">Esterilizado</app-typography>
                         </div>
                         <div class="row">
-                            <app-typography fontSize="1.1em" color="var(--color-tertiary)">Si</app-typography>
+                            <app-typography fontSize="1.1em" color="var(--color-tertiary)">{{ dataPet.esterilizado ? 'Sí' : 'No' }}</app-typography>
                         </div>
                     </div>
                 </div>
-                <div class="info-alergic">
-                    <app-typography
-                        fontSize="2em"
-                        color="var(--color-tertiary)"
+                <div class="info-alergic" *ngIf="isListAllergies()">
+                    <app-typography fontSize="2em" color="var(--color-tertiary)"
                         [align]="TypographyAlign.left">Alergias</app-typography>
-                    <app-typography fontSize="1.4em" color="var(--color-tertiary-light)" padding="0px 0px 0px 8px">Alergia canina a la picadura de pulgas</app-typography>
+                    <div *ngFor="let allergie of dataPet.alergias">
+                        <app-typography fontSize="1.4em" color="var(--color-tertiary-light)"
+                            padding="0px 0px 0px 8px">{{ allergie.alergia }}</app-typography>
+                    </div>
                 </div>
 
-                <div class="info-alergic">
-                    <app-typography
-                        fontSize="2em"
-                        color="var(--color-tertiary)"
+                <div class="info-alergic" *ngIf="isListVacunes()">
+                    <app-typography fontSize="2em" color="var(--color-tertiary)"
                         [align]="TypographyAlign.left">Vacunas</app-typography>
-                    <app-typography fontSize="1.4em" color="var(--color-tertiary-light)" padding="0px 0px 0px 8px">Coronavirus canino</app-typography>
+
+                    <div *ngFor="let vacunas of dataPet.vacunas">
+                        <app-typography fontSize="1.4em" color="var(--color-tertiary-light)"
+                            padding="0px 0px 0px 8px">{{ vacunas.vacuna }}</app-typography>
+                    </div>
                 </div>
 
                 <input type="reset" class="fadeIn" value="Actualizar">
