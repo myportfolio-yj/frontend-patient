@@ -7,6 +7,7 @@ import { AtencionesPeluqueria, FormAppointmentResponse, Mascota, ReservasPeluque
 import { LOCAL_STORAGE } from 'src/app/utils/constants';
 import { AddAppointmentRequest } from 'src/app/interfaces/add-appointment-request.interface';
 import { DataService } from 'src/app/services/data.service';
+import { NavigationExtras, Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-appointment',
@@ -45,7 +46,8 @@ export class AddAppointmentComponent implements OnInit {
     private location: Location,
     private formBuilder: FormBuilder,
     private appointmentService: AppointmentService,
-    private dataService: DataService
+    private dataService: DataService,
+    private router: Router,
   ) {
     this.myForm = this.formBuilder.group({
       idCliente: ['', Validators.required],
@@ -171,6 +173,13 @@ export class AddAppointmentComponent implements OnInit {
         this.dataService.setAlert({showAlert: true, message: 'Se agregó la cita'});
         this.clearForm();
         this.cleanNewAppointment();
+        const params = {
+          view: 'appointment'
+        }
+        const navigationExtras: NavigationExtras = {
+          state: params
+        }
+        this.router.navigate(["session/home"],navigationExtras);
       }).catch(err => {
         console.log(err);
         this.dataService.setLoading(false);

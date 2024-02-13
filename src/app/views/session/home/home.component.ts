@@ -37,7 +37,17 @@ export class HomeComponent implements OnInit {
     private homeService: HomeService,
     private dataService: DataService
   ) {
-    this.showContent(1);
+    const state = this.router.getCurrentNavigation()?.extras.state
+    if(state){
+      const view = state['view'];
+      if(view === 'appointment'){
+        this.showContent(2);
+      } else {
+        this.showContent(1);
+      }
+    } else {
+      this.showContent(1);
+    }
   }
 
   ngOnInit(): void {
