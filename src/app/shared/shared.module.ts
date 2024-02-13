@@ -14,6 +14,7 @@ import { CapitalizeFirstLetterPipe } from './utils/capitalize-first-letter.pipe'
 import { DayPipe } from './utils/day.pipe';
 import { NotificationComponent } from './components/notification/notification.component';
 import { MonthPipe } from './utils/month.pipe';
+import { DayTranslatePipe } from './utils/day-translate.pipe';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { MonthPipe } from './utils/month.pipe';
     CapitalizeFirstLetterPipe,
     DayPipe,
     MonthPipe,
+    DayTranslatePipe,
     NotificationComponent
   ],
   imports: [
@@ -46,6 +48,7 @@ import { MonthPipe } from './utils/month.pipe';
     CapitalizeFirstLetterPipe,
     DayPipe,
     MonthPipe,
+    DayTranslatePipe,
     NotificationComponent
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
