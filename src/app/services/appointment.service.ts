@@ -7,10 +7,9 @@ import { RegisterResponse } from '../interfaces/register-response.interface';
 import { Raza, SpeciesResponse } from '../interfaces/species-response.interface';
 import { AllergiesResponse } from '../interfaces/allergies-response.interface';
 import { VaccinesResponse } from '../interfaces/vaccines-response.interface';
-import { PetRequest } from '../interfaces/pet-request.interface';
-import { PetDetailResponse } from '../interfaces/pet-detail-response.interface';
 import { FormAppointmentResponse } from '../interfaces/form-appointment-response.interface';
 import { AddAppointmentRequest } from '../interfaces/add-appointment-request.interface';
+import { AppointmentDetailResponse } from '../interfaces/appointment-detail-response.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -81,10 +80,10 @@ export class AppointmentService {
     }
   }
 
-  async getDetailAppointment(idAppointment: string): Promise<PetDetailResponse> {
+  async getDetailAppointment(idAppointment: string): Promise<AppointmentDetailResponse> {
     try {
       const response = await firstValueFrom(
-        this.httpClient.get<PetDetailResponse>(`${environment.API_URL_CLINICA}${Endpoints.APPOINTMENT}/${idAppointment}`)
+        this.httpClient.get<AppointmentDetailResponse>(`${environment.API_URL_CLINICA}${Endpoints.APPOINTMENT}/${idAppointment}`)
       );
       return response;
     } catch (error) {

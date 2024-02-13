@@ -1,9 +1,9 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { PetDetailResponse } from 'src/app/interfaces/pet-detail-response.interface';
 import { TypographyAlign } from 'src/app/shared/components/typography/typography.enum';
 import { Router } from '@angular/router';
 import { AppointmentService } from 'src/app/services/appointment.service';
+import { AppointmentDetailResponse } from 'src/app/interfaces/appointment-detail-response.interface';
 
 @Component({
   selector: 'app-detail-appointment',
@@ -16,28 +16,55 @@ export class DetailAppointmentComponent implements OnInit  {
 
   headerColor: string = 'transparent'; // Inicialmente transparente
 
-  dataPet: PetDetailResponse = {
+  dataAppointment: AppointmentDetailResponse = {
     id: '',
-    codIdentificacion: '',
-    nombre: '',
-    apellido: '',
-    fechaNacimiento: '',
-    sexo: {
+    cliente: {
       id: '',
-      sexo: ''
+      nombres: '',
+      apellidos: '',
+      celular: '',
+      fijo: '',
+      email: '',
+      tipoDocumento: {
+        id: '',
+        tipoDocumento: ''
+      },
+      documento: ''
     },
-    especie: {
+    nombreMascota: '',
+    idMascota: '',
+    mascota: {
+      nombre: '',
+      apellido: '',
+      fechaNacimiento: '',
+      sexo: {
+        id: '',
+        sexo: ''
+      },
+      especie: {
+        id: '',
+        especie: ''
+      },
+      raza: {
+        id: '',
+        raza: ''
+      },
+      esterilizado: false,
+      alergias: [],
+      vacunas: [],
+      foto: '',
       id: '',
-      especie: ''
+      codIdentificacion: ''
     },
-    raza: {
-      id: '',
-      raza: ''
-    },
-    esterilizado: false,
-    alergias: [],
-    vacunas: [],
-    foto: ''
+    tipoCita: '',
+    idTipoCita: '',
+    atencionesPeluqueria: [],
+    fecha: '',
+    turno: '',
+    observaciones: '',
+    checkIn: false,
+    idAtencion: '',
+    recetas: []
   };
   idAppointment = '';
 
@@ -85,10 +112,14 @@ export class DetailAppointmentComponent implements OnInit  {
       .getDetailAppointment(this.idAppointment)
       .then((data) => {
         console.log(data);
-        this.dataPet = data;
+        this.dataAppointment = data;
       }).catch(err => {
         console.log(err);
       });
+  }
+
+  isObs(): boolean {
+    return this.dataAppointment.observaciones?.length > 0 || false;
   }
 
 }
