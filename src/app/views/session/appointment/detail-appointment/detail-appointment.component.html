@@ -58,7 +58,7 @@
                         </div>
                     </div>
 
-                    <div class="info-profile-data">
+                    <div class="info-profile-data" *ngIf="typeBano">
                         <div class="row">
                             <app-typography fontSize="1.1em" color="var(--color-border-gray)">Baño</app-typography>
                         </div>
@@ -67,7 +67,7 @@
                         </div>
                     </div>
 
-                    <div class="info-profile-data">
+                    <div class="info-profile-data" *ngIf="typeCorte">
                         <div class="row">
                             <app-typography fontSize="1.1em" color="var(--color-border-gray)">Corte</app-typography>
                         </div>
@@ -83,7 +83,7 @@
                         [align]="TypographyAlign.left">{{ dataAppointment.observaciones }}</app-typography>
                 </div>
 
-                <input type="reset" class="fadeIn" value="Actualizar">
+                <!-- <input type="reset" class="fadeIn" value="Actualizar"> -->
             </div>
         </div>
     </div>

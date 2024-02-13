@@ -67,6 +67,8 @@ export class DetailAppointmentComponent implements OnInit  {
     recetas: []
   };
   idAppointment = '';
+  typeBano = false;
+  typeCorte = false;
 
   @HostListener('window:scroll', [])
   onWindowScroll() {
@@ -113,6 +115,7 @@ export class DetailAppointmentComponent implements OnInit  {
       .then((data) => {
         console.log(data);
         this.dataAppointment = data;
+        this.obtenerTipoAtencion();
       }).catch(err => {
         console.log(err);
       });
@@ -122,4 +125,12 @@ export class DetailAppointmentComponent implements OnInit  {
     return this.dataAppointment.observaciones?.length > 0 || false;
   }
 
+  obtenerTipoAtencion(): void {
+    if (this.dataAppointment.atencionesPeluqueria?.includes("Baño")) {
+      this.typeBano = true;
+    }
+    if (this.dataAppointment.atencionesPeluqueria?.includes("Corte uñas")) {
+      this.typeCorte = true;
+    }
+  }
 }
