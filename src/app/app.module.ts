@@ -19,7 +19,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AppRoutingModule,
     RouterModule.forRoot([
       { path: '', redirectTo: 'auth/login', pathMatch: 'full' },
-      {​​​​​​​​ path: 'login', redirectTo: 'auth/login', pathMatch: 'full' }​​​​​​​​,
+      { path: 'login', redirectTo: 'auth/login', pathMatch: 'full' },
       {
         path: 'auth',
         loadChildren: () =>
