@@ -33,8 +33,8 @@
       </div>
       <div class="card" *ngFor="let pet of listPets">
         <div class="img">
-          <app-image [borderRadius]="'1em'" [image]="''"
-            [url]="'{{ pet.lable }}'" [hasExternalUrl]="false" [width]="'100%'"
+          <app-image [borderRadius]="'1em'" [image]="'Perro-sin-pelo-del-peru.JPG'"
+            [url]="'https://upload.wikimedia.org/wikipedia/commons/f/fc/'" [hasExternalUrl]="false" [width]="'100%'"
             [height]="'auto'"></app-image>
         </div>
         <div class="info" (click)="goToDetailPet(pet)">
