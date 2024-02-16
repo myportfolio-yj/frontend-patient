@@ -16,15 +16,6 @@ export class DetailPetComponent implements OnInit {
 
   headerColor: string = 'transparent'; // Inicialmente transparente
 
-  // dataPet = {
-  //   nombre: 'Cloe',
-  //   apellidos: 'Jimenez',
-  //   fechaNacimiento: '12/12/2023',
-  //   sexo: 'Hembra',
-  //   especie: 'Perro',
-  //   raza: 'Chusco',
-  //   esterilizado: 'Si'
-  // }
   dataPet: PetDetailResponse = {
     id: '',
     codIdentificacion: '',
@@ -98,6 +89,14 @@ export class DetailPetComponent implements OnInit {
       }).catch(err => {
         console.log(err);
       });
+  }
+
+  isListVacunes(): boolean {
+    return this.dataPet.vacunas?.length > 0 || false;
+  }
+
+  isListAllergies(): boolean {
+    return this.dataPet.alergias?.length > 0 || false;
   }
 
 }

@@ -12,14 +12,21 @@
         <div class="card">
             <div class="info">
                 <div class="info-title">
-                    <h1>{{ 'Loky' | capitalizeFirstLetter }}</h1>
+                    <h1>{{ dataAppointment.mascota.nombre | capitalizeFirstLetter }}</h1>
                     <app-typography fontSize="1.4em" color="var(--color-tertiary)" padding="0px 0px 0px 8px">{{
-                        dataPet.apellido | capitalizeFirstLetter }}</app-typography>
+                        dataAppointment.mascota.apellido | capitalizeFirstLetter }}</app-typography>
                 </div>
                 <div class="row">
                     <mat-icon class="list-icon">calendar_today</mat-icon>
-                    <app-typography fontSize="1.1em" color="var(--color-tertiary)" padding="0px 0px 0px 8px">Cita
-                        veterinaria</app-typography>
+                    <app-typography fontSize="1.1em" color="var(--color-tertiary)" padding="0px 0px 0px 8px">
+                        {{ dataAppointment.tipoCita | capitalizeFirstLetter }}
+                    </app-typography>
+                </div>
+                <div class="row">
+                    <mat-icon class="list-icon">calendar_today</mat-icon>
+                    <app-typography fontSize="1.1em" color="var(--color-tertiary)" padding="0px 0px 0px 8px">
+                        {{ dataAppointment.fecha }}
+                    </app-typography>
                 </div>
                 <div class="info-profile">
                     <div class="info-profile-data">
@@ -27,7 +34,7 @@
                             <app-typography fontSize="1.1em" color="var(--color-border-gray)">Día</app-typography>
                         </div>
                         <div class="row">
-                            <app-typography fontSize="1.1em" color="var(--color-tertiary)">Lunes</app-typography>
+                            <app-typography fontSize="1.1em" color="var(--color-tertiary)">{{ dataAppointment.fecha | day }}</app-typography>
                         </div>
                     </div>
 
@@ -36,7 +43,7 @@
                             <app-typography fontSize="1.1em" color="var(--color-border-gray)">Mes</app-typography>
                         </div>
                         <div class="row">
-                            <app-typography fontSize="1.1em" color="var(--color-tertiary)">Enero</app-typography>
+                            <app-typography fontSize="1.1em" color="var(--color-tertiary)">{{ dataAppointment.fecha | month }}</app-typography>
                         </div>
                     </div>
 
@@ -45,11 +52,13 @@
                             <app-typography fontSize="1.1em" color="var(--color-border-gray)">Hora</app-typography>
                         </div>
                         <div class="row">
-                            <app-typography fontSize="1.1em" color="var(--color-tertiary)">13:50</app-typography>
+                            <app-typography fontSize="1.1em" color="var(--color-tertiary)">
+                                {{ dataAppointment.turno }}
+                            </app-typography>
                         </div>
                     </div>
 
-                    <div class="info-profile-data">
+                    <div class="info-profile-data" *ngIf="typeBano">
                         <div class="row">
                             <app-typography fontSize="1.1em" color="var(--color-border-gray)">Baño</app-typography>
                         </div>
@@ -58,7 +67,7 @@
                         </div>
                     </div>
 
-                    <div class="info-profile-data">
+                    <div class="info-profile-data" *ngIf="typeCorte">
                         <div class="row">
                             <app-typography fontSize="1.1em" color="var(--color-border-gray)">Corte</app-typography>
                         </div>
@@ -67,15 +76,14 @@
                         </div>
                     </div>
                 </div>
-                <div class="info-obs">
+                <div class="info-obs" *ngIf="isObs()">
                     <app-typography fontSize="1.5em" color="var(--color-tertiary)"
                         [align]="TypographyAlign.left">Observaciones</app-typography>
                     <app-typography fontSize="1em" color="var(--color-tertiary-light)" padding="16px 0px 0px 0px"
-                        [align]="TypographyAlign.left">El baño de mi perro tiene que ser con shampo de calidad Alta y el
-                        corto no tan pegado</app-typography>
+                        [align]="TypographyAlign.left">{{ dataAppointment.observaciones }}</app-typography>
                 </div>
 
-                <input type="reset" class="fadeIn" value="Actualizar">
+                <!-- <input type="reset" class="fadeIn" value="Actualizar"> -->
             </div>
         </div>
     </div>

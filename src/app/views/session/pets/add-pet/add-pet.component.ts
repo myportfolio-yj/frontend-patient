@@ -9,6 +9,7 @@ import { PetRequest } from 'src/app/interfaces/pet-request.interface';
 import { VaccinesForm } from 'src/app/interfaces/vaccines-form.interface';
 import { LOCAL_STORAGE } from 'src/app/utils/constants';
 import { DataService } from 'src/app/services/data.service';
+import { NavigationExtras, Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-pet',
@@ -34,7 +35,8 @@ export class AddPetComponent implements OnInit {
     private location: Location,
     private formBuilder: FormBuilder,
     private petService: PetService,
-    private dataService: DataService
+    private dataService: DataService,
+    private router: Router,
   ) {
     this.allergiesSelected = [];
     //this.vaccinesSelected = [];
@@ -91,7 +93,6 @@ export class AddPetComponent implements OnInit {
     if (this.myForm.valid) {
       // Realizar el registro si el formulario es válido
       const formData = this.myForm.value;
-      console.log(JSON.stringify(formData));
       this.postAddPetById(formData);
     } else {
       this.dataService.setAlert({ showAlert: true, message: 'Complete todos los campos' })
@@ -183,8 +184,14 @@ export class AddPetComponent implements OnInit {
       .then((data) => {
         this.dataService.setLoading(false);
         this.dataService.setAlert({ showAlert: true, message: 'Se agregó la mascota' })
-        console.log(data);
         this.clearForm();
+        const params = {
+          view: 'pet'
+        }
+        const navigationExtras: NavigationExtras = {
+          state: params
+        }
+        this.router.navigate(["session/home"],navigationExtras); 
       }).catch(err => {
         console.log(err);
         this.dataService.setLoading(false);
