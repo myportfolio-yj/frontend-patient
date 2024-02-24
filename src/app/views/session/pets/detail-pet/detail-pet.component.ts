@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 })
 export class DetailPetComponent implements OnInit {
 
-  image = 'Perro-sin-pelo-del-peru.JPG';
+  image = 'default_mabynn.jpg';
 
   headerColor: string = 'transparent'; // Inicialmente transparente
 

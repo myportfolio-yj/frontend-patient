@@ -16,7 +16,7 @@ export class HomeComponent implements OnInit {
 
   isContentVisible = false;
   selectedContent: number | null = null;
-  image: string = 'Perro-sin-pelo-del-peru.JPG'
+  image: string = 'default_mabynn.jpg'
   listPets: Mascota[] = [];
 
   listAppointment: Cita[] = [];
@@ -53,7 +53,7 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     const clientId = localStorage.getItem(LOCAL_STORAGE.USER);
     if(clientId){
-      this.getClientId(clientId); 
+      this.getClientId(clientId);
     }
   }
 
@@ -66,7 +66,7 @@ export class HomeComponent implements OnInit {
   }
 
   addAppointment(): void {
-    this.router.navigate(["session/add-appointment"]); 
+    this.router.navigate(["session/add-appointment"]);
   }
 
   addPet(): void {
@@ -80,7 +80,7 @@ export class HomeComponent implements OnInit {
     const navigationExtras: NavigationExtras = {
       state: params
     }
-    this.router.navigate(["session/detail-pet"], navigationExtras); 
+    this.router.navigate(["session/detail-pet"], navigationExtras);
   }
 
   goToDetailAppointment(appointment: any): void {
@@ -90,7 +90,7 @@ export class HomeComponent implements OnInit {
     const navigationExtras: NavigationExtras = {
       state: params
     }
-    this.router.navigate(["session/detail-appointment"],navigationExtras); 
+    this.router.navigate(["session/detail-appointment"],navigationExtras);
   }
 
   getClientId(clientId: string): void {

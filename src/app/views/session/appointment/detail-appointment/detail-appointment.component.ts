@@ -12,7 +12,7 @@ import { AppointmentDetailResponse } from 'src/app/interfaces/appointment-detail
 })
 export class DetailAppointmentComponent implements OnInit  {
 
-  image = 'Perro-sin-pelo-del-peru.JPG';
+  image = 'default_mabynn.jpg';
 
   headerColor: string = 'transparent'; // Inicialmente transparente
 
