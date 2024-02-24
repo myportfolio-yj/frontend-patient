@@ -61,7 +61,7 @@
                   }"
                 ></div>
               </div>
-   
+
               <!-- SUBITEMS -->
               <div
                 [style.display]="item.subItems && i === hoveredItem - 1 ? 'flex' : 'none'"
@@ -118,16 +118,16 @@
       </div>
     </nav>
   </app-header>
-   
+
   <!-- Lateral menu-->
-   
+
   <div *ngIf="showLateralMenu" class="lateral-menu">
     <div class="lateral-menu-header">
       <div (click)="showMenu()" class="close-icon">
         <mat-icon>close</mat-icon>
       </div>
     </div>
-   
+
     <div class="lateral-menu-content">
       <app-typography
         [align]="TypographyAlign.left"
@@ -135,7 +135,7 @@
         lineHeight="1.333"
         [size]="TypographySize.xl"
         color="var(--color-brand-mako)"
-        >AQUI VA NO QUE DESEES
+        >APPOMSV
       </app-typography>
       <div class="lateral-content">
         <div class="lateral-item" *ngFor="let item of navItems; let i = index">
@@ -185,7 +185,7 @@
                     ></div>
                   </div>
                 </ng-template>
-   
+
                 <div *ngIf="item.subItems" routerLinkActive="link-mobile-active" [routerLink]="item.path">
                   <div
                     class="lateral-select-icon"
@@ -195,7 +195,7 @@
                   </div>
                 </div>
               </div>
-   
+
               <div *ngIf="clickedItem === 1 && item.subItems">
                 <div class="sub-item-content">
                   <div class="sub-item-select" *ngFor="let subItem of item.subItems">
@@ -217,7 +217,7 @@
               </div>
             </div>
           </div>
-   
+
           <!-- MORE SUBITEMS -->
           <div
             *ngIf="item.subItems && item.typeOfSubMenu === SubMenuType.splited"
@@ -236,7 +236,7 @@
               routerLinkActive="link-mobile-active" -->
               <div class="other-items-nav">
                 <mat-icon>{{subItem.icon}}</mat-icon>
-   
+
                 <div
                   class="typography-mobile text-variable-mobile"
                   [innerHTML]="subItem.label"
@@ -253,4 +253,3 @@
       </div>
     </div>
   </div>
-  

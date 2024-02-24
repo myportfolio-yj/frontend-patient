@@ -11,6 +11,8 @@ export interface PetDetailResponse {
     alergias: Alergia[];
     vacunas: Vacuna[];
     foto: string;
+    imagen: string;
+    path: string;
 }
 
 export interface Alergia {

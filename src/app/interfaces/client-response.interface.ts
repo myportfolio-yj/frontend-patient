@@ -42,6 +42,8 @@ export interface Mascota {
     vacunas: Vacuna[];
     foto: string;
     alergias?: Alergia[];
+    imagen: string;
+    path: string;
 }
 
 export interface Alergia {

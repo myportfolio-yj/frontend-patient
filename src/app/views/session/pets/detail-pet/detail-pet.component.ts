@@ -37,7 +37,9 @@ export class DetailPetComponent implements OnInit {
     esterilizado: false,
     alergias: [],
     vacunas: [],
-    foto: ''
+    foto: '',
+    imagen: '',
+    path: ''
   };
 
   @HostListener('window:scroll', [])
